@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.input {
+  @apply bg-gray-100 shadow-inner focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-90 py-3 px-5 rounded-lg text-black
+}
+
+.btn {
+  @apply mt-3 py-4 text-white text-lg font-semibold px-3 bg-purple-500 hover:bg-purple-700 transition-colors focus:outline-none rounded-lg
+}
+
+.link {
+  @apply text-purple-500 hover:underline
+}
+
+
+
+
+
+
+
 
 
 

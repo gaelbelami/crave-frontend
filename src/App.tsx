@@ -1,14 +1,9 @@
 
 import './App.css';
+import { LoggedOutRouter } from './routes/logged-out-route';
 
 function App() {
-  return (
-    <div className=" bg-black">
-      <h1 className="text-xl text-white">
-        Hello world!
-      </h1>
-    </div>
-  );
+  return <LoggedOutRouter />
 }
 
 export default App;
