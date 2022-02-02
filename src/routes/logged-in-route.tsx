@@ -1,36 +1,28 @@
-import { gql, useQuery } from "@apollo/client";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
 } from "react-router-dom";
+import { Header } from "../components/header";
+import { useMe } from "../hooks/useMe";
+import { NotFound } from "../pages/404";
 import Restauraunts from "../pages/client/restaurants";
+import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
-import { meQuery } from "../__generated__/meQuery";
 
 const ClientRoutes = [
     {
         path: "/",
         component: <Restauraunts />,
+    },
+    {
+        path: "/verify-email",
+        component: <ConfirmEmail />,
     }
 ]
 
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      firstName
-      lastName
-      username
-      email
-      role
-      verified
-    }
-  }
-`;
-
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<meQuery>(ME_QUERY);
+  const { data, loading, error } = useMe();
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -41,10 +33,12 @@ export const LoggedInRouter = () => {
   console.log(data);
   return (
     <Router>
+      <Header />
       <Routes>
        {data?.me.role === UserRole.client &&  ClientRoutes.map((clientRoute) => (           
               <Route key={clientRoute.path} path={clientRoute.path} element={clientRoute.component} />           
        ))}
+      <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
