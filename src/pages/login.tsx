@@ -1,16 +1,16 @@
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import React from "react";
-import { useForm, useFormState } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { authTokenVar, isLoggedInVar } from "../apollo";
 import { ButtonForm } from "../components/form-button";
 import { FormError } from "../components/form-error";
-import {
-  LoginMutation,
-  LoginMutationVariables,
-} from "../__generated__/LoginMutation";
+import { LOCALSTORAGE_TOKEN } from "../constants/constants";
+import { loginMutation, loginMutationVariables } from "../__generated__/loginMutation";
 // import logo from "../images/logo.svg";
 const LOGIN_MUTATION = gql`
-  mutation LoginMutation($loginUserInput: LoginUserInput!) {
+  mutation loginMutation($loginUserInput: LoginUserInput!) {
     loginUser(loginUserInput: $loginUserInput) {
       ok
       message
@@ -25,6 +25,9 @@ interface ILoginForm {
 }
 
 export default function Login() {
+
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const {
     register,
     handleSubmit,
@@ -34,21 +37,23 @@ export default function Login() {
     mode: "onChange"
   });
 
-  const onCompleted = (data: LoginMutation) => {
+  const onCompleted = (data: loginMutation) => {
     const {
       loginUser: { ok, message, token },
     } = data;
-    if (ok) {
-      console.log(token);
+    if (ok && token) {
+      localStorage.setItem(LOCALSTORAGE_TOKEN, token)
+      authTokenVar(token);
+      isLoggedInVar(true);
     }
   };
   //   const onError = (error: ApolloError) => {}
   const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
-    LoginMutation,
-    LoginMutationVariables
+    loginMutation,
+    loginMutationVariables
   >(LOGIN_MUTATION, {
     onCompleted,
-    //   onError,
+    //   onError, 
   });
 
   const onSubmit = () => {
@@ -67,6 +72,11 @@ export default function Login() {
 
   return (
     <div className=" h-screen flex items-center text-orange-500 flex-col mt-10 lg:mt-32">
+      <Helmet>
+        <title>
+          Login | Crave ~ Food
+        </title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex px-5 flex-col items-center">
      {/* <img src={logo} alt="" className=" w-52 mb-10"/> */}
      <h2 className="  font-extrabold mb-10 text-7xl text-purple-500 font-sans">crave</h2>
@@ -77,7 +87,7 @@ export default function Login() {
           className="grid gap-3 mt-5 w-full mb-3"
         >
           <input
-            {...register("email", { required: "Email is required" })}
+            {...register("email", { required: "Email is required", pattern: emailRegex})}
             name="email"
             type="email"
             placeholder="Email"
@@ -86,6 +96,9 @@ export default function Login() {
             />
           {errors.email?.message && (
             <FormError errorMessage={errors.email?.message} />
+          )}
+          {errors.email?.type === "pattern" && (
+            <FormError errorMessage="Please enter a valid email" />
           )}
           <input
             {...register("password", {
