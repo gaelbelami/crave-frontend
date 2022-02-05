@@ -10,6 +10,9 @@ const ME_QUERY = gql`
       lastName
       username
       email
+      address
+      birthdate
+      phoneNumber
       role
       verified
     }

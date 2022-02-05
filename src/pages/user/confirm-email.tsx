@@ -19,13 +19,14 @@ const VERIFY_EMAIL_MUTATION = gql`
 export const ConfirmEmail = () => {
   const client = useApolloClient();
   const {data: userData} = useMe();
-  const history =useNavigate();
+  const history = useNavigate();
 
   const onCompleted = (data: verifyEmailUser) => {
     const {
       verifyEmailUser: { ok },
     } = data;
     if (ok && userData?.me.id) {
+      // writing on the cache directly
         client.writeFragment({
             id: `User:${userData?.me.id}`,
             fragment: gql`

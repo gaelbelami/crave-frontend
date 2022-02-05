@@ -16,6 +16,9 @@ export interface meQuery_me {
   lastName: string;
   username: string;
   email: string;
+  address: string | null;
+  birthdate: any | null;
+  phoneNumber: string | null;
   role: UserRole;
   verified: boolean;
 }

@@ -7,14 +7,12 @@
 }
 
 .btn {
-  @apply mt-3 py-4 text-white text-lg font-semibold px-3 bg-purple-500 hover:bg-purple-700 transition-colors focus:outline-none rounded-lg
+  @apply mt-3 py-3 text-white text-lg font-semibold px-3 bg-purple-500 hover:bg-purple-700 transition-colors focus:outline-none rounded-lg
 }
 
 .link {
   @apply text-purple-500 hover:underline
 }
-
-
 
 
 

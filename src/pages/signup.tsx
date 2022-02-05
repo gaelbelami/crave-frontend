@@ -3,6 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { ButtonForm } from "../components/form-button";
 import { FormError } from "../components/form-error";
 import { createAccountMutation, createAccountMutationVariables } from "../__generated__/createAccountMutation";
@@ -46,7 +47,13 @@ export default function Signup() {
   const onCompleted = (data: createAccountMutation) => {
     const {createUserAccount: {ok}} = data;
     if(ok){
-        alert("Account Created! Log in now");
+        // alert("Account Created! Log in now");
+        Swal.fire({
+          title: <h1 className=" font-semibold">Login now</h1>,
+          html: "<h1 className={font-sans}>Account Created Successfully</h1>",
+          icon: "success",
+          
+        })
         history("/")
     }
   }
@@ -97,7 +104,7 @@ export default function Signup() {
          })}
             name="firstName"
             type="text"
-            placeholder="Last Name"
+            placeholder="First Name"
             className="input"
             required
             />
