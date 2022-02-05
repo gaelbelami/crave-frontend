@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { useMe } from "../../hooks/useMe";
 import {
@@ -60,6 +61,9 @@ export const ConfirmEmail = () => {
   });
   return (
     <div className=" mt-52 flex flex-col items-center justify-center">
+      <Helmet>
+            <title>Verify Email | Crave ~ Food</title>
+        </Helmet>
       <h2 className="text-lg mb-1 font-medium">Confirming email...</h2>
       <h4 className=" text-gray-700 text-sm">
         Please wait, don't close this page...

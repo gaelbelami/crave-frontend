@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { Fragment, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import {
   toast,
@@ -204,6 +205,9 @@ const contextClass: { [key: string]: any } = {
 
   return (
     <div className=" mt-20 flex flex-col justify-center items-center">
+     <Helmet>
+            <title>Edit Profile | Crave ~ Food</title>
+        </Helmet>
       <h4 className="font-semibold text-2xl mb-3">Edit Profile</h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
