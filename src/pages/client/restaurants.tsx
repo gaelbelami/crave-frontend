@@ -8,6 +8,8 @@ import {
 import { IoRestaurantSharp } from "react-icons/io5";
 import { Restaurant } from "../../components/restaurant";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
+import { HiSearch } from "react-icons/hi";
+import { Footer } from "../../components/footer";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
     allCategories {
@@ -58,16 +60,13 @@ const Restaurants = () => {
   const onPreviousPageClick = () => setPage((current) => current - 1);
 
   return (
-    <div>
-      <form className="page-container  bg-gray-800 mt-10 p-40 flex items-center justify-center ">
-        <input
-          className="search-input"
-          type="search"
-          placeholder="Search restaurant..."
-        />
-      </form>
+    <div className="page-container ">
+      <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] mt-10 rounded-lg">
+        <div className=" flex-grow p-72 rounded-lg bg-cover mb-2 bg-center" style={{ backgroundImage: `url(https://smt.gt/wp-content/uploads/2018/01/Banner1-V2-1.jpg)` }} />
+  
+      </div>
       {!loading && (
-        <div className="container mt-8 pb-52">
+        <div className="container mt-8 pb-32">
           <div className="flex gap-5 mt-5 w-full mx-auto">
             {data?.allCategories.categories?.map((category) => (
               <Category {...category} />
@@ -80,7 +79,7 @@ const Restaurants = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-x-5 gap-y-12 mt-10">
+          <div className="grid md:grid-cols-3 gap-x-5 gap-y-12 mt-10">
             {data?.getAllRestaurnants.results?.map((restaurant) => (
               <Restaurant id={restaurant.id} coverImage={restaurant.coverImage } restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
             ))}
@@ -93,6 +92,7 @@ const Restaurants = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

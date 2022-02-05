@@ -30,11 +30,11 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
         <h3 className="font-sans font-bold ml-2">{restaurantName}</h3>
       </div>
       <div className="border-t border-gray-300">
-        <span className=" inline-flex items-center  p-1 mt-2 opacity-50 text-xs font-semibold italic">
+        <span className=" text-purple-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold italic">
           {" "}
           <BiCategory /> {categoryName}
         </span>
-        <span className=" inline-flex items-center  p-1 mt-2 opacity-50 text-xs font-semibold italic">
+        <span className=" text-purple-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold italic">
           <ImLocation /> {address}
         </span>
       </div>

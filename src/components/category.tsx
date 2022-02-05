@@ -11,7 +11,7 @@ export const Category = (category: ICategory) => {
     <div className="flex flex-col items-center group cursor-pointer">
       {/* // <div key={category.id} className=" w-16 h-16 bg-red-800 rounded-full" style={{ backgroundImage: `url(${category.coverImage})`}}></div> */}
       <img
-        className="w-16 h-16 bg-cover group-hover:bg-purple-100  group-hover:scale-125 rounded-full transition-all duration-200 ease-linear hover:rotate-6"
+        className=" w-16 h-16 bg-cover group-hover:bg-purple-100  group-hover:scale-125 rounded-full transition-all duration-200 ease-linear hover:rotate-6"
         key={category.id}
         src={`${category.coverImage}`}
         alt="category"
