@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FaHamburger } from "react-icons/fa";
 import { HiSearch, HiUserCircle } from "react-icons/hi";
-import { createSearchParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 // import logo from "../images/logo.svg";
 
@@ -14,8 +14,8 @@ export const Header: React.FC = () => {
   const { data } = useMe();
   const { register, handleSubmit, getValues } = useForm<ISearchFormProps>();
   const history = useNavigate();
+  const { searchTerm } = getValues();
   const onSearchSubmit = () => {
-    const { searchTerm } = getValues();
     history({
       pathname: "/search",
       search: `?term=${searchTerm}`
@@ -28,35 +28,48 @@ export const Header: React.FC = () => {
           <span>Please verify your email.</span>
         </div>
       )}
-      <header className=" mt-3 mx-4 py-5 bg-slate-800 rounded-lg text-center">
-        <div className="container flex w-full container items-center justify-between px-5 xl:px-0">
-          <Link className=" inline-flex items-center gap-2 justify-center" to="/">
+      <header className=" sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3 md:px-10 rounded-lg">
+        
+          
+          {/* left */}
+          <div className="relative flex items-center h-10 cursor-pointer my-auto">
+            <Link className=" inline-flex items-center gap-2 justify-center" to="/">
             {/* <img src={logo} alt="crave" className=" w-28" /> */}
             <FaHamburger className=" text-3xl text-orange-500" />
             <h2 className=" italic  font-extrabold my-auto text-4xl text-orange-500 font-sans">
               crave.
             </h2>
           </Link>
+          </div>
 
-          <form onSubmit={handleSubmit(onSearchSubmit)} className=" bg-gray-700 w-3/4 md:w-3/12 md:shadow-sm rounded-full flex items-center md:border-1  py-2 ">
+          {/* Middle */}
+
+          <form  onSubmit={handleSubmit(onSearchSubmit)} className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2">
             <input
             {...register("searchTerm", {
               required: "Min 3 characters for the search term",
               minLength: 3,
             })}
-              className=" text-white font-sans placeholder-gray-400  font-medium flex-grow pl-5 bg-transparent outline-none"
-              type="search"
+            autoComplete="off"
+              className=" text-gray-600 font-sans placeholder-gray-400 flex-grow pl-5 bg-transparent outline-none"
+              type="text"
               placeholder="Search restaurant..."
             />           
-            <HiSearch onClick={handleSubmit(onSearchSubmit)} className=" md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-black rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
+            <HiSearch onClick={handleSubmit(onSearchSubmit)} className=" md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
           </form>
 
-          <span className="">
+          {/* Right */}
+          <div className="flex items-center justify-end"> 
             <Link to="/tabs">
-              <HiUserCircle className="text-3xl  text-orange-500" />
+              <HiUserCircle className=" md:h-10 md:w-10 h-8 w-8 text-orange-500" />
             </Link>
-          </span>
-        </div>
+            
+          </div>
+
+          {searchTerm && <div className="flex flex-col col-span-3 mx-auto">
+            <div className=""></div>
+            </div>}
+        
       </header>
     </>
   );

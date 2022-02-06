@@ -1,6 +1,8 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Restaurant } from "../../components/restaurant";
+import {RestaurantRow} from "../../components/restaurant_row";
 import {
   searchRestaurantMutation,
   searchRestaurantMutationVariables,
@@ -37,9 +39,9 @@ export const Search = () => {
     searchRestaurantMutation,
     searchRestaurantMutationVariables
   >(SEARCH_RESTAURANT);
+  const [_, query] = location.search.split("?term=");
 
   useEffect(() => {
-    const [_, query] = location.search.split("?term=");
     if (!query) {
       return history("/");
     }
@@ -53,5 +55,19 @@ export const Search = () => {
     });
   }, [history, location]);
   console.log(loading, data, called);
-  return <h1>hello</h1>;
+  return (
+    <div className="flex">
+      <section className="flex-grow pt-6 px-6">
+        <h1 className="text-3xl font-semibold mt-3 "> Search: {query} </h1>
+        <p className="text-md font-semibold py-10">{data?.searchRestaurant.totalResults} Results found </p>
+      
+      <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+        {data?.searchRestaurant.restaurants?.map( restaurant => (
+        <Restaurant key={restaurant.id} coverImage={restaurant.coverImage} restaurantName={restaurant.name} id={restaurant.id} address={restaurant.address} categoryName={restaurant.category?.name} />
+      ))}
+      </div>
+      
+      </section>
+    </div>
+  )
 };

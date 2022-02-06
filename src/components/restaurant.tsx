@@ -2,14 +2,9 @@ import React from "react";
 import { BiCategory } from "react-icons/bi";
 import { GiShoppingBag } from "react-icons/gi";
 import { ImLocation } from "react-icons/im";
+import { IRestaurantProps } from "../interfaces/restaurant.interface";
 
-interface IRestaurantProps {
-  id: number;
-  coverImage: string;
-  categoryName?: string;
-  restaurantName: string;
-  address?: string;
-}
+
 export const Restaurant: React.FC<IRestaurantProps> = ({
   id,
   coverImage,
@@ -17,7 +12,7 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
   categoryName,
   address,
 }) => ( 
-  <div className="group flex flex-col">
+  <div className="group flex flex-col cursor-pointer">
     <div className=" group-hover:scale-105 transition-all duration-200 ease-linear ">
       <div
         className="py-28 bg-cover mb-2 bg-center rounded-lg "
@@ -29,12 +24,11 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
         <GiShoppingBag />
         <h3 className="font-sans font-bold ml-2">{restaurantName}</h3>
       </div>
-      <div className="border-t border-gray-300">
-        <span className=" text-purple-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold italic">
-          {" "}
+      <div className="border-t border-gray-300 flex justify-between">
+        <span className=" text-gray-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold">
           <BiCategory /> {categoryName}
         </span>
-        <span className=" text-purple-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold italic">
+        <span className=" text-gray-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold">
           <ImLocation /> {address}
         </span>
       </div>

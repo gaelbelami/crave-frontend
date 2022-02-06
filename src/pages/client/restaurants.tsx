@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { Category } from "../../components/category";
+import { CategoryItem } from "../../components/category";
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
@@ -9,6 +9,7 @@ import { IoRestaurantSharp } from "react-icons/io5";
 import { Restaurant } from "../../components/restaurant";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import { Footer } from "../../components/footer";
+import Banner from "../../components/banner";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
     allCategories {
@@ -59,37 +60,34 @@ const Restaurants = () => {
   const onPreviousPageClick = () => setPage((current) => current - 1);
   
   return (
-    <div className="page-container ">
-      <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] mt-10 rounded-lg">
-        <div className=" flex-grow p-72 rounded-lg bg-cover mb-2 bg-center" style={{ backgroundImage: `url(https://smt.gt/wp-content/uploads/2018/01/Banner1-V2-1.jpg)` }} />
-  
-      </div>
+    <div className="page-container">
+      <Banner />
       {!loading && (
-        <div className="container mt-8 pb-32">
-          <div className="flex gap-5 mt-5 w-full mx-auto">
+        <main className=" md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
+          <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
             {data?.allCategories.categories?.map((category) => (
-              <Category  key={category.id} {...category} />
+              <CategoryItem  key={category.id} {...category} />
             ))}
           </div>
-          <div className="text-3xl inline-flex items-center  font-sans font-bold mt-8">
+          <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
             <IoRestaurantSharp />
             <span className="ml-3">
               Restaurants
             </span>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-x-5 gap-y-12 mt-10">
+          <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
             {data?.getAllRestaurnants.results?.map((restaurant) => (
               <Restaurant key={restaurant.id} id={restaurant.id} coverImage={restaurant.coverImage } restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
             ))}
           </div>
  
-          <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10">
+          <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10 pb-5">
             {page > 1 ? <button onClick={onPreviousPageClick} className=" basis-1/3 focus:outline-none font-medium text-2xl"><BsArrowLeftSquareFill /></button> : <div></div>}
             <span className="basis-1/3">Page {page} of {data?.getAllRestaurnants.totalPages}</span>
             {page !==  data?.getAllRestaurnants.totalPages ? (<button onClick={onNextPageClick} className=" basis-1/3 focus:outline-none font-medium text-2xl"><BsArrowRightSquareFill /></button>) : <div></div>}
           </div>
-        </div>
+        </main>
       )}
       <Footer />
     </div>

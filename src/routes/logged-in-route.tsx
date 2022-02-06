@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import { Category } from "../pages/client/category";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
 import { NotFound } from "../pages/404";
@@ -34,6 +35,10 @@ const ClientRoutes = [
     {
         path: "/search",
         component: <Search />,
+    },
+    {
+        path: "/category/:categorySlug",
+        component: <Category />,
     },
     {
       path: "/test",

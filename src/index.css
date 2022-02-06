@@ -17,11 +17,6 @@
   @apply text-purple-500 hover:underline
 }
 
-
-.container {
-  @apply max-w-screen-2xl  mx-10
-}
-
 .page-container {
   @apply mx-4 rounded-lg
 }
