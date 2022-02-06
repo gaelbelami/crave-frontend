@@ -8,7 +8,6 @@ import {
 import { IoRestaurantSharp } from "react-icons/io5";
 import { Restaurant } from "../../components/restaurant";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
-import { HiSearch } from "react-icons/hi";
 import { Footer } from "../../components/footer";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
@@ -58,7 +57,7 @@ const Restaurants = () => {
   });
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPreviousPageClick = () => setPage((current) => current - 1);
-
+  
   return (
     <div className="page-container ">
       <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] mt-10 rounded-lg">
@@ -69,7 +68,7 @@ const Restaurants = () => {
         <div className="container mt-8 pb-32">
           <div className="flex gap-5 mt-5 w-full mx-auto">
             {data?.allCategories.categories?.map((category) => (
-              <Category {...category} />
+              <Category  key={category.id} {...category} />
             ))}
           </div>
           <div className="text-3xl inline-flex items-center  font-sans font-bold mt-8">
@@ -81,7 +80,7 @@ const Restaurants = () => {
 
           <div className="grid md:grid-cols-3 gap-x-5 gap-y-12 mt-10">
             {data?.getAllRestaurnants.results?.map((restaurant) => (
-              <Restaurant id={restaurant.id} coverImage={restaurant.coverImage } restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
+              <Restaurant key={restaurant.id} id={restaurant.id} coverImage={restaurant.coverImage } restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
             ))}
           </div>
  

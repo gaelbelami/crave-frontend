@@ -10,7 +10,6 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import { ButtonForm } from "../../components/form-button";
-import { FormError } from "../../components/form-error";
 import { useMe } from "../../hooks/useMe";
 import { IEditProfileForm } from "../../interfaces/user.interface";
 import {

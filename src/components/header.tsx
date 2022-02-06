@@ -1,14 +1,26 @@
-import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { FaHamburger } from "react-icons/fa";
 import { HiSearch, HiUserCircle } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
-import logo from "../images/logo.svg";
+// import logo from "../images/logo.svg";
+
+interface ISearchFormProps {
+  searchTerm: string;
+}
 
 export const Header: React.FC = () => {
   const { data } = useMe();
+  const { register, handleSubmit, getValues } = useForm<ISearchFormProps>();
+  const history = useNavigate();
+  const onSearchSubmit = () => {
+    const { searchTerm } = getValues();
+    history({
+      pathname: "/search",
+      search: `?term=${searchTerm}`
+    })
+  }
   return (
     <>
       {!data?.me.verified && (
@@ -26,13 +38,17 @@ export const Header: React.FC = () => {
             </h2>
           </Link>
 
-          <form className=" bg-gray-700 w-3/4 md:w-3/12 md:shadow-sm rounded-full flex items-center md:border-1  py-2 ">
+          <form onSubmit={handleSubmit(onSearchSubmit)} className=" bg-gray-700 w-3/4 md:w-3/12 md:shadow-sm rounded-full flex items-center md:border-1  py-2 ">
             <input
+            {...register("searchTerm", {
+              required: "Min 3 characters for the search term",
+              minLength: 3,
+            })}
               className=" text-white font-sans placeholder-gray-400  font-medium flex-grow pl-5 bg-transparent outline-none"
               type="search"
               placeholder="Search restaurant..."
-            />
-            <HiSearch className=" md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-black rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
+            />           
+            <HiSearch onClick={handleSubmit(onSearchSubmit)} className=" md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-black rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
           </form>
 
           <span className="">

@@ -21,7 +21,7 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
     <div className=" group-hover:scale-105 transition-all duration-200 ease-linear ">
       <div
         className="py-28 bg-cover mb-2 bg-center rounded-lg "
-        key={id}
+       
         style={{ backgroundImage: `url(${coverImage})` }}
       ></div>
 

@@ -1,4 +1,3 @@
-import { restaurantsPageQuery_allCategories_categories } from "../__generated__/restaurantsPageQuery";
 
 interface ICategory {
     id: number,

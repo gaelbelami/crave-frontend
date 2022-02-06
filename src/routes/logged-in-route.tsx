@@ -9,6 +9,7 @@ import { NotFound } from "../pages/404";
 import { Tabs } from "../pages/client/account-settings/tabs";
 import { EditProfile } from "../pages/client/edit-profile";
 import Restauraunts from "../pages/client/restaurants";
+import { Search } from "../pages/client/search";
 import { Test } from "../pages/client/test";
 import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
@@ -29,6 +30,10 @@ const ClientRoutes = [
     {
         path: "/tabs",
         component: <Tabs />,
+    },
+    {
+        path: "/search",
+        component: <Search />,
     },
     {
       path: "/test",

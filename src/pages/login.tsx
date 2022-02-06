@@ -1,4 +1,4 @@
-import { ApolloError, gql, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -39,7 +39,7 @@ export default function Login() {
 
   const onCompleted = (data: loginMutation) => {
     const {
-      loginUser: { ok, message, token },
+      loginUser: { ok, token },
     } = data;
     if (ok && token) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token)
