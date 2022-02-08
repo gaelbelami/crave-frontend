@@ -2,16 +2,18 @@ import React from "react";
 import { BiCategory } from "react-icons/bi";
 import { GiShoppingBag } from "react-icons/gi";
 import { ImLocation } from "react-icons/im";
-import { IRestaurantProps } from "../interfaces/restaurant.interface";
+import { Link } from "react-router-dom";
+import { IRestaurant } from "../interfaces/restaurant.interface";
 
 
-export const Restaurant: React.FC<IRestaurantProps> = ({
-  id,
+export const RestaurantItem: React.FC<IRestaurant> = ({
+  id: restaurantId,
   coverImage,
   restaurantName,
   categoryName,
   address,
 }) => ( 
+  <Link to={`/restaurant/${restaurantId}`} state={restaurantId}>
   <div className="group flex flex-col cursor-pointer">
     <div className=" pb-1 group-hover:scale-105 transition-all duration-200 ease-linear ">
       <div
@@ -34,4 +36,5 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
       </div>
     </div>
   </div>
+  </Link>
 );

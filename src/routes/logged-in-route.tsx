@@ -15,6 +15,7 @@ import { Test } from "../pages/client/test";
 import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
 import Spinner from "../components/spinner";
+import { Restaurant } from "../pages/client/restaurant";
 
 const ClientRoutes = [
     {
@@ -40,6 +41,10 @@ const ClientRoutes = [
     {
         path: "/category/:categorySlug",
         component: <Category />,
+    },
+    {
+        path: "/restaurant/:restaurantId",
+        component: <Restaurant />,
     },
     {
       path: "/test",

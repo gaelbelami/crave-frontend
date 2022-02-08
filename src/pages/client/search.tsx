@@ -1,15 +1,14 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Restaurant } from "../../components/restaurant";
-import {RestaurantRow} from "../../components/restaurant_row";
+import { RestaurantItem } from "../../components/restaurantItem";
 import {
-  searchRestaurantMutation,
-  searchRestaurantMutationVariables,
-} from "../../__generated__/searchRestaurantMutation";
+  searchRestaurantQuery,
+  searchRestaurantQueryVariables,
+} from "../../__generated__/searchRestaurantQuery";
 
 const SEARCH_RESTAURANT = gql`
-  query searchRestaurantMutation(
+  query searchRestaurantQuery(
     $searchRestaurantInput: SearchRestaurantInput!
   ) {
     searchRestaurant(searchRestaurantInput: $searchRestaurantInput) {
@@ -36,8 +35,8 @@ export const Search = () => {
   const history = useNavigate();
   const location = useLocation();
   const [callQuery, { loading, data, called }] = useLazyQuery<
-    searchRestaurantMutation,
-    searchRestaurantMutationVariables
+    searchRestaurantQuery,
+  searchRestaurantQueryVariables
   >(SEARCH_RESTAURANT);
   const [_, query] = location.search.split("?term=");
 
@@ -54,6 +53,7 @@ export const Search = () => {
       },
     });
   }, [history, location]);
+  
   console.log(loading, data, called);
   return (
     <div className="flex">
@@ -63,7 +63,7 @@ export const Search = () => {
       
       <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
         {data?.searchRestaurant.restaurants?.map( restaurant => (
-        <Restaurant key={restaurant.id} coverImage={restaurant.coverImage} restaurantName={restaurant.name} id={restaurant.id} address={restaurant.address} categoryName={restaurant.category?.name} />
+        <RestaurantItem key={restaurant.id} coverImage={restaurant.coverImage} restaurantName={restaurant.name} id={restaurant.id} address={restaurant.address} categoryName={restaurant.category?.name} />
       ))}
       </div>
       

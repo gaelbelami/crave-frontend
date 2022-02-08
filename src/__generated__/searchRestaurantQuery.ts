@@ -6,37 +6,37 @@
 import { SearchRestaurantInput } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: searchRestaurantMutation
+// GraphQL query operation: searchRestaurantQuery
 // ====================================================
 
-export interface searchRestaurantMutation_searchRestaurant_restaurants_category {
+export interface searchRestaurantQuery_searchRestaurant_restaurants_category {
   __typename: "Category";
   name: string;
 }
 
-export interface searchRestaurantMutation_searchRestaurant_restaurants {
+export interface searchRestaurantQuery_searchRestaurant_restaurants {
   __typename: "Restaurant";
   id: number;
   name: string;
   coverImage: string;
-  category: searchRestaurantMutation_searchRestaurant_restaurants_category | null;
+  category: searchRestaurantQuery_searchRestaurant_restaurants_category | null;
   address: string;
   isPromoted: boolean;
 }
 
-export interface searchRestaurantMutation_searchRestaurant {
+export interface searchRestaurantQuery_searchRestaurant {
   __typename: "SearchRestaurantOutput";
   ok: boolean;
   message: string | null;
   totalPages: number | null;
   totalResults: number | null;
-  restaurants: searchRestaurantMutation_searchRestaurant_restaurants[] | null;
+  restaurants: searchRestaurantQuery_searchRestaurant_restaurants[] | null;
 }
 
-export interface searchRestaurantMutation {
-  searchRestaurant: searchRestaurantMutation_searchRestaurant;
+export interface searchRestaurantQuery {
+  searchRestaurant: searchRestaurantQuery_searchRestaurant;
 }
 
-export interface searchRestaurantMutationVariables {
+export interface searchRestaurantQueryVariables {
   searchRestaurantInput: SearchRestaurantInput;
 }

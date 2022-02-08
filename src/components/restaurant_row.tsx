@@ -2,9 +2,9 @@ import React from "react";
 import { BiHeartCircle } from "react-icons/bi";
 import { GiShoppingBag } from "react-icons/gi";
 import { HiHeart } from "react-icons/hi";
-import { IRestaurantProps } from "../interfaces/restaurant.interface";
+import { IRestaurant } from "../interfaces/restaurant.interface";
 
-export const RestaurantRow: React.FC<IRestaurantProps> = ({
+export const RestaurantRow: React.FC<IRestaurant> = ({
   coverImage,
   restaurantName,
   address,

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ICategory } from "../interfaces/category";
+import { ICategory } from "../interfaces/category.interface";
 
 export const CategoryItem: React.FC<ICategory> = (category) => {
   return (

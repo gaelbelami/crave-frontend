@@ -1,12 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { CategoryItem } from "../../components/category";
+import { CategoryItem } from "../../components/categoryItem";
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
 } from "../../__generated__/restaurantsPageQuery";
 import { IoRestaurantSharp } from "react-icons/io5";
-import { Restaurant } from "../../components/restaurant";
+import { RestaurantItem } from "../../components/restaurantItem";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import { Footer } from "../../components/footer";
 import Banner from "../../components/banner";
@@ -78,7 +78,7 @@ const Restaurants = () => {
           <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
             <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
               {data?.allCategories.categories?.map((category) => (
-                <CategoryItem {...category}/>
+                <CategoryItem key={category.id} {...category}/>
               ))}
             </div>
             <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
@@ -88,7 +88,7 @@ const Restaurants = () => {
 
             <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
               {data?.getAllRestaurnants.results?.map((restaurant) => (
-                <Restaurant
+                <RestaurantItem
                   key={restaurant.id}
                   id={restaurant.id}
                   coverImage={restaurant.coverImage}
