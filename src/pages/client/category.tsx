@@ -48,8 +48,8 @@ export const Category = () => {
     
   return (
     <div className="page-container">
-      <section className="md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg pb-5">
-          <h1 className="text-3xl font-semibold mt-3 "> Category: {category.name} </h1>
+      <section className="md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg mt-5 pb-5">
+          <h1 className="text-2xl font-semibold mt-3 "> category: {category.name} </h1>
         <p className="text-md font-semibold py-10">{category.totalResults} Results found </p>
       
         <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">

@@ -14,6 +14,7 @@ import { Search } from "../pages/client/search";
 import { Test } from "../pages/client/test";
 import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
+import Spinner from "../components/spinner";
 
 const ClientRoutes = [
     {
@@ -48,10 +49,11 @@ const ClientRoutes = [
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
+  
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
-        <span className="font-medium text-xl tracking-wide">Loading...</span>
+        <span className="font-medium text-xl tracking-wide"><Spinner /></span>
       </div>
     );
   }

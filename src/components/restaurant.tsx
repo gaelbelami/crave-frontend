@@ -13,7 +13,7 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
   address,
 }) => ( 
   <div className="group flex flex-col cursor-pointer">
-    <div className=" group-hover:scale-105 transition-all duration-200 ease-linear ">
+    <div className=" pb-1 group-hover:scale-105 transition-all duration-200 ease-linear ">
       <div
         className="py-28 bg-cover mb-2 bg-center rounded-lg "
        
@@ -26,10 +26,10 @@ export const Restaurant: React.FC<IRestaurantProps> = ({
       </div>
       <div className="border-t border-gray-300 flex justify-between">
         <span className=" text-gray-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold">
-          <BiCategory /> {categoryName}
+          <BiCategory />&nbsp; {categoryName}
         </span>
         <span className=" text-gray-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold">
-          <ImLocation /> {address}
+          <ImLocation />&nbsp; {address}
         </span>
       </div>
     </div>

@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
           <span>Please verify your email.</span>
         </div>
       )}
-      <header className=" sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3 md:px-10 rounded-lg">
+      <header className=" page-container sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3 md:px-10 rounded-lg">
         
           
           {/* left */}
@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
               type="text"
               placeholder="Search restaurant..."
             />           
-            <HiSearch onClick={handleSubmit(onSearchSubmit)} className=" md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
+            <HiSearch onClick={handleSubmit(onSearchSubmit)} className=" animate-pulse md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150" />
           </form>
 
           {/* Right */}

@@ -10,6 +10,9 @@ import { Restaurant } from "../../components/restaurant";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import { Footer } from "../../components/footer";
 import Banner from "../../components/banner";
+import { RestaurantSkeleton } from "../../components/skeletons/restaurant-skeleton";
+import { CategorySkeleton } from "../../components/skeletons/category-skeleton";
+import { BannerSkeleton } from "../../components/skeletons/banner-skeleton";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
     allCategories {
@@ -45,7 +48,7 @@ const RESTAURANTS_QUERY = gql`
 `;
 
 const Restaurants = () => {
-  const [page,setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const { data, loading } = useQuery<
     restaurantsPageQuery,
     restaurantsPageQueryVariables
@@ -58,38 +61,73 @@ const Restaurants = () => {
   });
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPreviousPageClick = () => setPage((current) => current - 1);
-  
+
   return (
     <div className="page-container">
-      <Banner />
-      {!loading && (
-        <main className=" md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
-          <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
-            {data?.allCategories.categories?.map((category) => (
-              <CategoryItem  key={category.id} {...category} />
-            ))}
-          </div>
-          <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
-            <IoRestaurantSharp />
-            <span className="ml-3">
-              Restaurants
-            </span>
-          </div>
+      {loading  ? <div>
+        <BannerSkeleton />
+        <CategorySkeleton />
+        <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
+              <IoRestaurantSharp />
+              <span className="ml-3">Restaurants</span>
+            </div>
+        <RestaurantSkeleton /> 
+      </div> : (
+        <div>
+          <Banner />
+          <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
+            <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
+              {data?.allCategories.categories?.map((category) => (
+                <CategoryItem {...category}/>
+              ))}
+            </div>
+            <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
+              <IoRestaurantSharp />
+              <span className="ml-3">Restaurants</span>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
-            {data?.getAllRestaurnants.results?.map((restaurant) => (
-              <Restaurant key={restaurant.id} id={restaurant.id} coverImage={restaurant.coverImage } restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
-            ))}
-          </div>
- 
-          <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10 pb-5">
-            {page > 1 ? <button onClick={onPreviousPageClick} className=" basis-1/3 focus:outline-none font-medium text-2xl"><BsArrowLeftSquareFill /></button> : <div></div>}
-            <span className="basis-1/3">Page {page} of {data?.getAllRestaurnants.totalPages}</span>
-            {page !==  data?.getAllRestaurnants.totalPages ? (<button onClick={onNextPageClick} className=" basis-1/3 focus:outline-none font-medium text-2xl"><BsArrowRightSquareFill /></button>) : <div></div>}
-          </div>
-        </main>
+            <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+              {data?.getAllRestaurnants.results?.map((restaurant) => (
+                <Restaurant
+                  key={restaurant.id}
+                  id={restaurant.id}
+                  coverImage={restaurant.coverImage}
+                  restaurantName={restaurant.name}
+                  categoryName={restaurant.category?.name}
+                  address={restaurant.address}
+                />
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10 pb-5">
+              {page > 1 ? (
+                <button
+                  onClick={onPreviousPageClick}
+                  className=" basis-1/3 focus:outline-none font-medium text-2xl"
+                >
+                  <BsArrowLeftSquareFill />
+                </button>
+              ) : (
+                <div></div>
+              )}
+              <span className="basis-1/3">
+                Page {page} of {data?.getAllRestaurnants.totalPages}
+              </span>
+              {page !== data?.getAllRestaurnants.totalPages ? (
+                <button
+                  onClick={onNextPageClick}
+                  className=" basis-1/3 focus:outline-none font-medium text-2xl"
+                >
+                  <BsArrowRightSquareFill />
+                </button>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </main>
+          <Footer />
+        </div>
       )}
-      <Footer />
     </div>
   );
 };
