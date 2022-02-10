@@ -16,19 +16,13 @@ import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
 import Spinner from "../components/spinner";
 import { Restaurant } from "../pages/client/restaurant";
+import { MyRestaurant } from "../pages/owner/home-owner";
+import { Addrestaurant } from "../pages/owner/add-restaurant";
 
 const ClientRoutes = [
     {
         path: "/",
         component: <Restauraunts />,
-    },
-    {
-        path: "/verify-email",
-        component: <ConfirmEmail />,
-    },
-    {
-        path: "/edit-profile",
-        component: <EditProfile />,
     },
     {
         path: "/tabs",
@@ -52,6 +46,30 @@ const ClientRoutes = [
     }
 ]
 
+const OwnerRoutes = [
+    {
+        path: "/",
+        component: <MyRestaurant />,
+    },    
+    {
+      path: "/add-restaurant",
+      component: <Addrestaurant />
+    }
+]
+
+const CommonRoutes = [
+    
+    {
+        path: "/verify-email",
+        component: <ConfirmEmail />,
+    },
+    {
+        path: "/edit-profile",
+        component: <EditProfile />,
+    },    
+    
+]
+
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
   
@@ -69,6 +87,12 @@ export const LoggedInRouter = () => {
       <Routes>
        {data?.me.role === UserRole.client &&  ClientRoutes.map((clientRoute) => (           
               <Route key={clientRoute.path} path={clientRoute.path} element={clientRoute.component} />           
+       ))}
+       {data?.me.role === UserRole.owner &&  OwnerRoutes.map((ownerRoute) => (           
+              <Route key={ownerRoute.path} path={ownerRoute.path} element={ownerRoute.component} />           
+       ))}
+       { CommonRoutes.map((ownerRoute) => (           
+              <Route key={ownerRoute.path} path={ownerRoute.path} element={ownerRoute.component} />           
        ))}
       <Route path="*" element={<NotFound />} />
       </Routes>

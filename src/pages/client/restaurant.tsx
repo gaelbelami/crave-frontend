@@ -1,10 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { IRestaurantParams } from '../../interfaces/restaurant.interface';
 import {
-  restaurantQuery,
-  restaurantQueryVariables,
+  restaurantQuery, restaurantQueryVariables
 } from "../../__generated__/restaurantQuery";
 
 const RESTAURANTS_QUERY = gql`

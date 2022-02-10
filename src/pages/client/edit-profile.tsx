@@ -227,7 +227,6 @@ const contextClass: { [key: string]: any } = {
           type="text"
           placeholder="First Name"
           className="input"
-          required
         />
         {/* {errors['firstName'] && errors['firstName']?.message && (<FormError errorMessage={errors.firstName?.message} />)}
             {errors['firstName'] && errors['firstName']?.type ===  'minLength' && (<FormError errorMessage='Min length 3' />)}
@@ -246,7 +245,6 @@ const contextClass: { [key: string]: any } = {
           type="text"
           placeholder="Last Name"
           className="input"
-          required
         />
         <input
           {...register("username", {
