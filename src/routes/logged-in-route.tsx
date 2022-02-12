@@ -7,7 +7,7 @@ import { Category } from "../pages/client/category";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
 import { NotFound } from "../pages/404";
-import { Tabs } from "../pages/client/account-settings/tabs";
+import { AccountSettings } from "../pages/client/account-settings";
 import { EditProfile } from "../pages/client/edit-profile";
 import Restauraunts from "../pages/client/restaurants";
 import { Search } from "../pages/client/search";
@@ -26,7 +26,7 @@ const ClientRoutes = [
     },
     {
         path: "/tabs",
-        component: <Tabs />,
+        component: <AccountSettings />,
     },
     {
         path: "/search",
@@ -66,7 +66,11 @@ const CommonRoutes = [
     {
         path: "/edit-profile",
         component: <EditProfile />,
-    },    
+    },
+    {
+      path: "/account-settings",
+      component: <AccountSettings />
+    }    
     
 ]
 

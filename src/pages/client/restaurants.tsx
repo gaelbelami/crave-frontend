@@ -13,6 +13,8 @@ import Banner from "../../components/banner";
 import { RestaurantSkeleton } from "../../components/skeletons/restaurant-skeleton";
 import { CategorySkeleton } from "../../components/skeletons/category-skeleton";
 import { BannerSkeleton } from "../../components/skeletons/banner-skeleton";
+import { Pagination, usePagination } from "../../components/pagination";
+import { MdRestaurantMenu } from "react-icons/md";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
     allCategories {
@@ -48,7 +50,7 @@ const RESTAURANTS_QUERY = gql`
 `;
 
 const Restaurants = () => {
-  const [page, setPage] = useState(1);
+  const { page, ...restaurantPager } = usePagination(1);
   const { data, loading } = useQuery<
     restaurantsPageQuery,
     restaurantsPageQueryVariables
@@ -59,8 +61,6 @@ const Restaurants = () => {
       },
     },
   });
-  const onNextPageClick = () => setPage((current) => current + 1);
-  const onPreviousPageClick = () => setPage((current) => current - 1);
 
   return (
     <div className="page-container">
@@ -68,7 +68,7 @@ const Restaurants = () => {
         <BannerSkeleton />
         <CategorySkeleton />
         <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
-              <IoRestaurantSharp />
+              <MdRestaurantMenu />
               <span className="ml-3">Restaurants</span>
             </div>
         <RestaurantSkeleton /> 
@@ -81,8 +81,8 @@ const Restaurants = () => {
                 <CategoryItem key={category.id} {...category}/>
               ))}
             </div>
-            <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
-              <IoRestaurantSharp />
+            <div className="text-2xl font-bold font-sans inline-flex items-center my-8 text-gray-700">
+              <MdRestaurantMenu />
               <span className="ml-3">Restaurants</span>
             </div>
 
@@ -99,31 +99,12 @@ const Restaurants = () => {
               ))}
             </div>
 
-            <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10 pb-5">
-              {page > 1 ? (
-                <button
-                  onClick={onPreviousPageClick}
-                  className=" basis-1/3 focus:outline-none font-medium text-2xl"
-                >
-                  <BsArrowLeftSquareFill />
-                </button>
-              ) : (
-                <div></div>
-              )}
-              <span className="basis-1/3">
-                Page {page} of {data?.getAllRestaurnants.totalPages}
-              </span>
-              {page !== data?.getAllRestaurnants.totalPages ? (
-                <button
-                  onClick={onNextPageClick}
-                  className=" basis-1/3 focus:outline-none font-medium text-2xl"
-                >
-                  <BsArrowRightSquareFill />
-                </button>
-              ) : (
-                <div></div>
-              )}
-            </div>
+            <Pagination
+            page={page}
+            totalPages={data?.getAllRestaurnants.totalPages ?? 1}
+            onNextPageClick={restaurantPager.onNextPage}
+            onPreviousPageClick={restaurantPager.onPrevPage}
+          />
           </main>
           <Footer />
         </div>

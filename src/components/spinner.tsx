@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-import { FaHamburger } from 'react-icons/fa';
 import BarLoader  from "react-spinners/BarLoader";
 
 function Spinner({loading } :any) {

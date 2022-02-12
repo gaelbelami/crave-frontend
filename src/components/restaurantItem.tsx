@@ -22,9 +22,9 @@ export const RestaurantItem: React.FC<IRestaurant> = ({
         style={{ backgroundImage: `url(${coverImage})` }}
       ></div>
 
-      <div className="inline-flex text-lg items-center mb-2">
+      <div className="inline-flex text-lg items-center mb-2 text-gray-700">
         <GiShoppingBag />
-        <h3 className="font-sans font-bold ml-2">{restaurantName}</h3>
+        <h3 className="font-sans font-bold ml-2 ">{restaurantName}</h3>
       </div>
       <div className="border-t border-gray-300 flex justify-between">
         <span className=" text-gray-500 inline-flex items-center  p-1 mt-2 text-xs font-semibold">

@@ -1,8 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BiCategory } from 'react-icons/bi';
+import { MdRestaurantMenu } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { Pagination, usePagination } from '../../components/pagination';
 import { RestaurantItem } from '../../components/restaurantItem';
 import { myRestaurantsQuery } from '../../__generated__/myRestaurantsQuery';
 
@@ -25,6 +26,8 @@ query myRestaurantsQuery {
 }
 `
 export const MyRestaurant = () => {
+  
+  const { page, ...restaurantPager } = usePagination(1);
   const {data} = useQuery<myRestaurantsQuery>(MY_RESTAURANTS_QUERY)
   console.log(data);
   return <div className='page-container'>
@@ -32,7 +35,7 @@ export const MyRestaurant = () => {
       <title>My restaurants | Crave ~ Food</title>
     </Helmet>
 
-    <h1 className="text-2xl font-bold font-sans mt-3 inline-flex items-center opacity-80 py-5  "><BiCategory />&nbsp; My restaurants </h1>
+    <h1 className="text-xl font-bold font-sans mt-3 inline-flex items-center opacity-80 py-5  "><MdRestaurantMenu className=' text-2xl mr-2' />My restaurants </h1>
 
     {data?.myRestaurants.ok && data.myRestaurants.restaurants.length === 0 ?
    <div>
@@ -46,6 +49,7 @@ export const MyRestaurant = () => {
             <RestaurantItem key={restaurant.id} id={restaurant.id} coverImage={restaurant.coverImage} restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
           ))
         }
+        {/* Need to pagination here */}
    </div>
    }
   </div>;
