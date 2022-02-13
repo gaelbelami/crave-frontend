@@ -18,6 +18,15 @@ export interface CategoryInput {
   categorySlug: string;
 }
 
+export interface CreateDishInput {
+  name: string;
+  price: number;
+  photo: string;
+  description: string;
+  options?: DishOptionInputType[] | null;
+  restaurantId: number;
+}
+
 export interface CreateRestaurantInput {
   name: string;
   address: string;
@@ -31,6 +40,17 @@ export interface CreateUserAccountInput {
   email: string;
   password: string;
   role: UserRole;
+}
+
+export interface DishChoiceInputType {
+  name: string;
+  extra?: number | null;
+}
+
+export interface DishOptionInputType {
+  name: string;
+  choices?: DishChoiceInputType[] | null;
+  extra?: number | null;
 }
 
 export interface EditUserProfileInput {
@@ -47,6 +67,14 @@ export interface EditUserProfileInput {
 export interface LoginUserInput {
   email: string;
   password: string;
+}
+
+export interface MyRestaurantInput {
+  id: number;
+}
+
+export interface MyRestaurantsInput {
+  page?: number | null;
 }
 
 export interface RestaurantInput {

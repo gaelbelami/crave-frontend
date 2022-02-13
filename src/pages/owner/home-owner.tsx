@@ -5,14 +5,16 @@ import { MdRestaurantMenu } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Pagination, usePagination } from '../../components/pagination';
 import { RestaurantItem } from '../../components/restaurantItem';
-import { myRestaurantsQuery } from '../../__generated__/myRestaurantsQuery';
+import { myRestaurantsQuery, myRestaurantsQueryVariables } from '../../__generated__/myRestaurantsQuery';
 
 export const MY_RESTAURANTS_QUERY = gql`
-query myRestaurantsQuery {
-      myRestaurants {
+query myRestaurantsQuery($myRestaurantsInput: MyRestaurantsInput!) {
+      myRestaurants(myRestaurantsInput: $myRestaurantsInput) {
         ok
         message
-        restaurants {
+        totalPages
+        totalResults
+        results {
           id
           name
           coverImage
@@ -25,10 +27,16 @@ query myRestaurantsQuery {
       }
 }
 `
-export const MyRestaurant = () => {
+export const HomeOwner = () => {
   
   const { page, ...restaurantPager } = usePagination(1);
-  const {data} = useQuery<myRestaurantsQuery>(MY_RESTAURANTS_QUERY)
+  const {data} = useQuery<myRestaurantsQuery, myRestaurantsQueryVariables>(MY_RESTAURANTS_QUERY, {
+    variables: {
+      myRestaurantsInput: {
+        page
+      }
+    }
+  })
   console.log(data);
   return <div className='page-container'>
     <Helmet>
@@ -37,7 +45,7 @@ export const MyRestaurant = () => {
 
     <h1 className="text-xl font-bold font-sans mt-3 inline-flex items-center opacity-80 py-5  "><MdRestaurantMenu className=' text-2xl mr-2' />My restaurants </h1>
 
-    {data?.myRestaurants.ok && data.myRestaurants.restaurants.length === 0 ?
+    {data?.myRestaurants.ok && data.myRestaurants.results.length === 0 ?
    <div>
      <h4 className=" text-xl mb-5"> You Have no restaurant.</h4>
      <Link className=" text-lime-600 hover:underline" to="add-restaurant">
@@ -45,11 +53,16 @@ export const MyRestaurant = () => {
      </Link>
    </div> : <div className='grid md:grid-cols-3 gap-x-5 gap-y-12'>
         {
-          data?.myRestaurants.restaurants.map(restaurant => (
+          data?.myRestaurants.results.map(restaurant => (
             <RestaurantItem key={restaurant.id} id={restaurant.id} coverImage={restaurant.coverImage} restaurantName={restaurant.name} categoryName={restaurant.category?.name} address={restaurant.address} />
           ))
         }
-        {/* Need to pagination here */}
+       <Pagination
+            page={page}
+            totalPages={data?.myRestaurants.totalPages ?? 1}
+            onNextPageClick={restaurantPager.onNextPage}
+            onPreviousPageClick={restaurantPager.onPrevPage}
+          />
    </div>
    }
   </div>;

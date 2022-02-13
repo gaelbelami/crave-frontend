@@ -16,8 +16,10 @@ import { ConfirmEmail } from "../pages/user/confirm-email";
 import { UserRole } from "../__generated__/globalTypes";
 import Spinner from "../components/spinner";
 import { Restaurant } from "../pages/client/restaurant";
-import { MyRestaurant } from "../pages/owner/home-owner";
+import { HomeOwner } from "../pages/owner/home-owner";
 import { Addrestaurant } from "../pages/owner/add-restaurant";
+import { MyRestaurant } from "../pages/owner/my-restaurant";
+import { AddDish } from "../pages/owner/add-dish";
 
 const ClientRoutes = [
     {
@@ -49,14 +51,22 @@ const ClientRoutes = [
 const OwnerRoutes = [
     {
         path: "/",
-        component: <MyRestaurant />,
+        component: <HomeOwner />,
     },    
     {
       path: "/add-restaurant",
       component: <Addrestaurant />
+    },
+    {
+      path: "/restaurant/:restaurantId",
+      component: <MyRestaurant />
+    },
+    {
+      path: "/restaurant/:restaurantId/add-dish",
+      component: <AddDish />
     }
 ]
-
+ 
 const CommonRoutes = [
     
     {
