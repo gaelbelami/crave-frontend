@@ -1,12 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FaHamburger } from "react-icons/fa";
-import { HiSearch, HiUserCircle } from "react-icons/hi";
-import { FaBell, FaShoppingCart, FaMoon } from "react-icons/fa";
+import { HiSearch } from "react-icons/hi";
+import { FaBell, FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
-import { MdSettings } from "react-icons/md";
 import Dropdown from "./dropdown";
+import { UserRole } from "../__generated__/globalTypes";
 // import logo from "../images/logo.svg";
 
 interface ISearchFormProps {
@@ -14,8 +14,6 @@ interface ISearchFormProps {
 }
 
 export const Header: React.FC = () => {
-
-
   const { data } = useMe();
   const { register, handleSubmit, getValues } = useForm<ISearchFormProps>();
   const history = useNavigate();
@@ -33,7 +31,12 @@ export const Header: React.FC = () => {
           <span>Please verify your email.</span>
         </div>
       )}
-      <header className=" page-container sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3 md:px-10 rounded-lg">
+      <header
+        className={
+          " page-container sticky top-0 z-50 grid  bg-white shadow-md p-3 md:px-10 rounded-lg " +
+          (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
+        }
+      >
         {/* left */}
         <div className="relative flex items-center h-10 cursor-pointer my-auto">
           <Link
@@ -50,42 +53,34 @@ export const Header: React.FC = () => {
 
         {/* Middle */}
 
-        <form
-          onSubmit={handleSubmit(onSearchSubmit)}
-          className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2"
-        >
-          <input
-            {...register("searchTerm", {
-              required: "Min 3 characters for the search term",
-              minLength: 3,
-            })}
-            autoComplete="off"
-            className=" text-gray-600 font-sans placeholder-gray-400 flex-grow pl-5 bg-transparent outline-none"
-            type="text"
-            placeholder="Search restaurant..."
-          />
-          <HiSearch
-            onClick={handleSubmit(onSearchSubmit)}
-            className=" animate-pulse md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
-          />
-        </form>
+        {data?.me.role === UserRole.client && (
+          <form
+            onSubmit={handleSubmit(onSearchSubmit)}
+            className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2"
+          >
+            <input
+              {...register("searchTerm", {
+                required: "Min 3 characters for the search term",
+                minLength: 3,
+              })}
+              autoComplete="off"
+              className=" text-gray-600 font-sans placeholder-gray-400 flex-grow pl-5 bg-transparent outline-none"
+              type="text"
+              placeholder="Search restaurant..."
+            />
+            <HiSearch
+              onClick={handleSubmit(onSearchSubmit)}
+              className=" animate-pulse md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
+            />
+          </form>
+        )}
 
         {/* Right */}
         <div className=" flex  items-center justify-end">
           <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
           <FaBell className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer" />
-          <div
-            className=" inline-flex gap-2 items-center justify-center px-2"
-          >
-            {/* <h2 className=" text-sm font-bold opacity-75">
-              {data?.me.firstName}
-            </h2> */}
+          <div className=" inline-flex gap-2 items-center justify-center px-2">
             <Dropdown />
-            {/* <div className="bg-white rounded-lg shadow-lg py-2 mt-2">
-              <a href="profile" className="flex px-4 py-2 text-gray-800 hover:bg-orange-200 hover:text-orange-600  items-center  "><MdSettings className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />Profile</a>
-              <a href="settings" className="flex px-4 py-2 text-gray-800 hover:bg-orange-200 hover:text-orange-600  items-center  "><MdSettings className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />Settings</a>
-              <a href="/logout" className="flex px-4 py-2 text-gray-800 hover:bg-orange-200 hover:text-orange-600  items-center  "><MdSettings className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />Logout</a>
-            </div> */}
           </div>
         </div>
 

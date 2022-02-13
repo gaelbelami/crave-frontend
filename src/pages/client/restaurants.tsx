@@ -15,6 +15,7 @@ import { CategorySkeleton } from "../../components/skeletons/category-skeleton";
 import { BannerSkeleton } from "../../components/skeletons/banner-skeleton";
 import { Pagination, usePagination } from "../../components/pagination";
 import { MdRestaurantMenu } from "react-icons/md";
+import { Helmet } from "react-helmet-async";
 const RESTAURANTS_QUERY = gql`
   query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
     allCategories {
@@ -64,21 +65,26 @@ const Restaurants = () => {
 
   return (
     <div className="page-container">
-      {loading  ? <div>
-        <BannerSkeleton />
-        <CategorySkeleton />
-        <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
-              <MdRestaurantMenu />
-              <span className="ml-3">Restaurants</span>
-            </div>
-        <RestaurantSkeleton /> 
-      </div> : (
+      <Helmet>
+        <title>Home | Crave ~ Food</title>
+      </Helmet>
+      {loading ? (
+        <div>
+          <BannerSkeleton />
+          <CategorySkeleton />
+          <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
+            <MdRestaurantMenu />
+            <span className="ml-3">Restaurants</span>
+          </div>
+          <RestaurantSkeleton />
+        </div>
+      ) : (
         <div>
           <Banner />
           <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
             <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
               {data?.allCategories.categories?.map((category) => (
-                <CategoryItem key={category.id} {...category}/>
+                <CategoryItem key={category.id} {...category} />
               ))}
             </div>
             <div className="text-2xl font-bold font-sans inline-flex items-center my-8 text-gray-700">
@@ -100,13 +106,15 @@ const Restaurants = () => {
             </div>
 
             <Pagination
-            page={page}
-            totalPages={data?.getAllRestaurnants.totalPages ?? 1}
-            onNextPageClick={restaurantPager.onNextPage}
-            onPreviousPageClick={restaurantPager.onPrevPage}
-          />
+              page={page}
+              totalPages={data?.getAllRestaurnants.totalPages ?? 1}
+              onNextPageClick={restaurantPager.onNextPage}
+              onPreviousPageClick={restaurantPager.onPrevPage}
+            />
           </main>
-          <Footer />
+          <div className="inset-x-4 bottom-0 ">
+            <Footer />
+          </div>
         </div>
       )}
     </div>
