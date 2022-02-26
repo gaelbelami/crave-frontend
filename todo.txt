@@ -1,0 +1,19 @@
+
+# Header
+- account: hide on outside click | Image profile upload
+- pages: cart , notifications
+- search: fix
+
+# Banner
+- slider
+
+# Category
+- results number
+
+# Restaurant 
+- Display something if no dishes
+
+# Pagination 
+- Fix the loading page
+
+

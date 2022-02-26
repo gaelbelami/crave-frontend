@@ -6,7 +6,15 @@ import {
   myRestaurantQuery,
   myRestaurantQueryVariables,
 } from "../../__generated__/myRestaurantQuery";
-import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryVoronoiContainer,
+  VictoryLine,
+  VictoryTheme,
+  VictoryLabel,
+} from "victory";
 import { Footer } from "../../components/footer";
 
 export const MY_RESTAURANT_QUERY = gql`
@@ -38,6 +46,11 @@ export const MY_RESTAURANT_QUERY = gql`
             }
           }
         }
+        orders {
+          id
+          createdAt
+          total
+        }
       }
     }
   }
@@ -55,7 +68,7 @@ export const MyRestaurant = () => {
       },
     }
   );
-
+  console.log(data);
   const chartData = [
     { x: 1, y: 3000 },
     { x: 2, y: 1500 },
@@ -93,8 +106,8 @@ export const MyRestaurant = () => {
       </div>
       <div className=" mt-5">
         {data?.myRestaurant.restaurant?.menu.length === 0 ? (
-          <h4 className=" text-2xl mb-5 font-bold text-gray-700 rounded-lg px-5 py-3 flex-wrap text-center">
-            Please upload a dish
+          <h4 className=" text-2xl mb-5 font-bold text-teal-700 rounded-lg px-5 py-3 flex-wrap text-center">
+            Get started by adding a new dish to your restaurant.
           </h4>
         ) : (
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 mt-10">
@@ -114,18 +127,42 @@ export const MyRestaurant = () => {
       </div>
       <div className=" mt-20 mb-20">
         <h4 className=" text-center text-2xl font-medium">Sales</h4>
-        <div className="max-w-xl w-full mx-auto">
-          <VictoryChart>
-            <VictoryAxis
-              tickFormat={(step) => `$${step / 1000}k`}
-              dependentAxis
+        <div className="mt-10 shadow-md bg-gray-100 rounded-lg items-center justify-center">
+          <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
+            <VictoryLine
+              labels={({ datum }) => `$${datum.y}`}
+              labelComponent={
+                <VictoryLabel
+                  style={{ fontSize: 10 }}
+                  renderInPortal
+                  dy={-20}
+                />
+              }
+              height={500}
+              width={window.innerWidth}
+              domainPadding={50}
+              theme={VictoryTheme.material}
+              data={data?.myRestaurant.restaurant?.orders.map((order) => ({
+                x: order.createdAt,
+                y: order.total,
+              }))}
+              interpolation="natural"
+              style={{
+                data: {
+                  stroke: "orange",
+                  strokeWidth: "5",
+                },
+              }}
             />
-            <VictoryAxis tickFormat={(step) => `Day ${step}`} />
-            <VictoryBar data={chartData} />
+
+            <VictoryAxis
+              style={{ tickLabels: { fontSize: 10 } }}
+              tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
+            />
           </VictoryChart>
         </div>
       </div>
-      <div className="inset-x-4 bottom-0 ">
+      <div className="fixed inset-x-4 bottom-0 ">
         <Footer />
       </div>
     </div>

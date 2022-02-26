@@ -5,8 +5,9 @@ import { HiSearch } from "react-icons/hi";
 import { FaBell, FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
-import Dropdown from "./dropdown";
+import AccountDropdown from "./accountDropdown";
 import { UserRole } from "../__generated__/globalTypes";
+import NotificationDropdown from "./notificationDropdown";
 // import logo from "../images/logo.svg";
 
 interface ISearchFormProps {
@@ -33,7 +34,7 @@ export const Header: React.FC = () => {
       )}
       <header
         className={
-          " page-container sticky top-0 z-50 grid  bg-white shadow-md p-3 md:px-10 rounded-lg " +
+          " page-container sticky top-0 z-50 grid  bg-white shadow-md p-3 md:pl-10 md:pr-5 rounded-lg " +
           (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
         }
       >
@@ -77,10 +78,13 @@ export const Header: React.FC = () => {
 
         {/* Right */}
         <div className=" flex  items-center justify-end">
-          <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
-          <FaBell className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer" />
-          <div className=" inline-flex gap-2 items-center justify-center px-2">
-            <Dropdown />
+          <div className="flex">
+            <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
+
+            <NotificationDropdown />
+          </div>
+          <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
+            <AccountDropdown />
           </div>
         </div>
 

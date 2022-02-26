@@ -1,8 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Category } from "../pages/client/category";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
@@ -20,77 +16,78 @@ import { HomeOwner } from "../pages/owner/home-owner";
 import { Addrestaurant } from "../pages/owner/add-restaurant";
 import { MyRestaurant } from "../pages/owner/my-restaurant";
 import { AddDish } from "../pages/owner/add-dish";
+import { Notification } from "../pages/client/notification";
 
 const ClientRoutes = [
-    {
-        path: "/",
-        component: <Restauraunts />,
-    },
-    {
-        path: "/tabs",
-        component: <AccountSettings />,
-    },
-    {
-        path: "/search",
-        component: <Search />,
-    },
-    {
-        path: "/category/:categorySlug",
-        component: <Category />,
-    },
-    {
-        path: "/restaurant/:restaurantId",
-        component: <Restaurant />,
-    },
-    {
-      path: "/test",
-      component: <Test />
-    }
-]
+  {
+    path: "/",
+    component: <Restauraunts />,
+  },
+  {
+    path: "/search",
+    component: <Search />,
+  },
+  {
+    path: "/category/:categorySlug",
+    component: <Category />,
+  },
+  {
+    path: "/restaurant/:restaurantId",
+    component: <Restaurant />,
+  },
+  {
+    path: "/notification",
+    component: <Notification />,
+  },
+  {
+    path: "/test",
+    component: <Test />,
+  },
+];
 
 const OwnerRoutes = [
-    {
-        path: "/",
-        component: <HomeOwner />,
-    },    
-    {
-      path: "/add-restaurant",
-      component: <Addrestaurant />
-    },
-    {
-      path: "/restaurant/:restaurantId",
-      component: <MyRestaurant />
-    },
-    {
-      path: "/restaurant/:restaurantId/add-dish",
-      component: <AddDish />
-    }
-]
- 
+  {
+    path: "/",
+    component: <HomeOwner />,
+  },
+  {
+    path: "/add-restaurant",
+    component: <Addrestaurant />,
+  },
+  {
+    path: "/restaurant/:restaurantId",
+    component: <MyRestaurant />,
+  },
+  {
+    path: "/restaurant/:restaurantId/add-dish",
+    component: <AddDish />,
+  },
+];
+
 const CommonRoutes = [
-    
-    {
-        path: "/verify-email",
-        component: <ConfirmEmail />,
-    },
-    {
-        path: "/edit-profile",
-        component: <EditProfile />,
-    },
-    {
-      path: "/account-settings",
-      component: <AccountSettings />
-    }    
-    
-]
+  {
+    path: "/verify-email",
+    component: <ConfirmEmail />,
+  },
+  {
+    path: "/edit-profile",
+    component: <EditProfile />,
+  },
+  {
+    path: "/account-settings",
+    component: <AccountSettings />,
+  },
+];
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
-  
+
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
-        <span className="font-medium text-xl tracking-wide"><Spinner /></span>
+        <span className="font-medium text-xl tracking-wide">
+          <Spinner />
+        </span>
       </div>
     );
   }
@@ -99,16 +96,30 @@ export const LoggedInRouter = () => {
     <Router>
       <Header />
       <Routes>
-       {data?.me.role === UserRole.client &&  ClientRoutes.map((clientRoute) => (           
-              <Route key={clientRoute.path} path={clientRoute.path} element={clientRoute.component} />           
-       ))}
-       {data?.me.role === UserRole.owner &&  OwnerRoutes.map((ownerRoute) => (           
-              <Route key={ownerRoute.path} path={ownerRoute.path} element={ownerRoute.component} />           
-       ))}
-       { CommonRoutes.map((ownerRoute) => (           
-              <Route key={ownerRoute.path} path={ownerRoute.path} element={ownerRoute.component} />           
-       ))}
-      <Route path="*" element={<NotFound />} />
+        {data?.me.role === UserRole.client &&
+          ClientRoutes.map((clientRoute) => (
+            <Route
+              key={clientRoute.path}
+              path={clientRoute.path}
+              element={clientRoute.component}
+            />
+          ))}
+        {data?.me.role === UserRole.owner &&
+          OwnerRoutes.map((ownerRoute) => (
+            <Route
+              key={ownerRoute.path}
+              path={ownerRoute.path}
+              element={ownerRoute.component}
+            />
+          ))}
+        {CommonRoutes.map((ownerRoute) => (
+          <Route
+            key={ownerRoute.path}
+            path={ownerRoute.path}
+            element={ownerRoute.component}
+          />
+        ))}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

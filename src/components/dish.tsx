@@ -14,7 +14,7 @@ export const Dish: React.FC<IDishProp> = ({
   photo,
 }) => {
   return (
-    <figure className=" shadow-md rounded-md bg-gray-100 flex cursor-pointer">
+    <figure className=" shadow-md rounded-md flex cursor-pointer">
       <div className=" p-3 basis-2/3 relative">
         <div className="relative  overflow-ellipsis  break-words">
           <h2 className=" relative font-bold text-gray-700 md:text-xl">
@@ -23,7 +23,7 @@ export const Dish: React.FC<IDishProp> = ({
           <div className="relative  mt-2">{description}</div>
         </div>
 
-        <div className="absolute bottom-2 font-bold text-gray-700 justify-end text-xl">
+        <div className="absolute bottom-2 font-bold text-orange-500 justify-end text-xl">
           $ {price}
         </div>
       </div>

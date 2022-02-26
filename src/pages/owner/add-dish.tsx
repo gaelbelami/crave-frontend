@@ -12,6 +12,7 @@ import {
 import { MY_RESTAURANT_QUERY } from "./my-restaurant";
 import { MdAddCircle } from "react-icons/md";
 import { FormError } from "../../components/form-error";
+import { Footer } from "../../components/footer";
 
 const CREATE_DISH_MUTATION = gql`
   mutation createDishMutation($createDishInput: CreateDishInput!) {
@@ -129,8 +130,10 @@ export const AddDish = () => {
       <Helmet>
         <title>Create Dish | Crave ~ Food</title>
       </Helmet>
-      <h2 className="font-semibold text-2xl mb-2">Add Restaurant</h2>
-
+      <h2 className=" font-extrabold text-slate-700 text-2xl mb-2">Add Dish</h2>
+      <h2 className=" justify-start items-start text-left">
+        Add a dish to your restaurant
+      </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         action=""
@@ -224,6 +227,9 @@ export const AddDish = () => {
           <FormError errorMessage={data.createDish.message} />
         )}
       </form>
+      <div className="fixed bottom-0 inset-x-4">
+        <Footer />
+      </div>
     </div>
   );
 };

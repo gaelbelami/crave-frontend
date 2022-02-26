@@ -68,7 +68,7 @@ export const AccountSettings = () => {
               </a>
             </li>
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
+          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 ring-1 ring-gray-300 shadow-md p-5 rounded-lg">
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
