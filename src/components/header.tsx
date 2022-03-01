@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
       )}
       <header
         className={
-          " page-container sticky top-0 z-50 grid  bg-white shadow-md p-3 md:pl-10 md:pr-5 rounded-lg " +
+          " sticky top-0 z-50 grid  bg-white shadow-md p-3 md:pl-10 md:pr-5 rounded-lg " +
           (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
         }
       >
@@ -42,10 +42,10 @@ export const Header: React.FC = () => {
         <div className="relative h-10 cursor-pointer my-auto">
           <Link className="inline-flex text-center items-center gap-1 " to="/">
             {/* <img src={logo} alt="crave" className=" w-28" /> */}
-            <SiSnapcraft className=" text-3xl text-orange-500 mt-1" />
-            <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
+            {/* <SiSnapcraft className=" text-3xl text-orange-500 mt-1" /> */}
+            {/* <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
               crave.
-            </h2>
+            </h2> */}
           </Link>
         </div>
 

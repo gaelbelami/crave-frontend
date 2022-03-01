@@ -17,6 +17,7 @@ import { Addrestaurant } from "../pages/owner/add-restaurant";
 import { MyRestaurant } from "../pages/owner/my-restaurant";
 import { AddDish } from "../pages/owner/add-dish";
 import { Notification } from "../pages/client/notification";
+import Sidebar from "../components/sidebar";
 
 const ClientRoutes = [
   {
@@ -94,7 +95,6 @@ export const LoggedInRouter = () => {
   console.log(data);
   return (
     <Router>
-      <Header />
       <Routes>
         {data?.me.role === UserRole.client &&
           ClientRoutes.map((clientRoute) => (

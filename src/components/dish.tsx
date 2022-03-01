@@ -15,20 +15,16 @@ export const Dish: React.FC<IDishProp> = ({
 }) => {
   return (
     <figure className=" shadow-md rounded-md flex cursor-pointer">
-      <div className=" p-3 basis-2/3 relative">
-        <div className="relative  overflow-ellipsis  break-words">
-          <h2 className=" relative font-bold text-gray-700 md:text-xl">
-            {name}
-          </h2>
-          <div className="relative  mt-2">{description}</div>
-        </div>
-
-        <div className="absolute bottom-2 font-bold text-orange-500 justify-end text-xl">
+      <div className=" flex flex-col flex-auto overflow-y-auto rounded-l-lg p-3 space-y-2">
+        <div className=" font-bold text-xl">{name}</div>
+        <div className="truncate flex-grow">{description}</div>
+        <div className="justify-end text-xl font-bold text-orange-500">
           $ {price}
         </div>
       </div>
+
       <img
-        className="w-24 h-24 md:h-48 md:w-auto md:rounded-none rounded-full mx-auto"
+        className="w-24 h-24 md:h-48 px-4 md:w-auto md:rounded-none rounded-full mx-auto"
         src={photo}
         alt=""
         width="384"
