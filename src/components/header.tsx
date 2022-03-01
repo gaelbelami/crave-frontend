@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FaHamburger } from "react-icons/fa";
+import { SiSnapcraft } from "react-icons/si";
 import { HiSearch } from "react-icons/hi";
-import { FaBell, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import AccountDropdown from "./accountDropdown";
@@ -39,14 +39,11 @@ export const Header: React.FC = () => {
         }
       >
         {/* left */}
-        <div className="relative flex items-center h-10 cursor-pointer my-auto">
-          <Link
-            className=" inline-flex items-center gap-2 justify-center"
-            to="/"
-          >
+        <div className="relative h-10 cursor-pointer my-auto">
+          <Link className="inline-flex text-center items-center gap-1 " to="/">
             {/* <img src={logo} alt="crave" className=" w-28" /> */}
-            <FaHamburger className=" text-3xl text-orange-500" />
-            <h2 className=" italic  font-extrabold my-auto text-4xl text-orange-500 font-sans">
+            <SiSnapcraft className=" text-3xl text-orange-500 mt-1" />
+            <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
               crave.
             </h2>
           </Link>

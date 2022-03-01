@@ -1,82 +1,112 @@
-import React, { useState } from "react";
-import { IconType } from "react-icons";
+import React, { Fragment, useState } from "react";
 import { HiUser, HiUserCircle } from "react-icons/hi";
 import { IoLogOut } from "react-icons/io5";
 import { MdSettings } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import profile from "../images/profile.jpg";
+import { Menu, Transition } from "@headlessui/react";
 
 const AccountDropdown = () => {
-  const [showOptions, setShowOptions] = useState(false);
   const { data } = useMe();
-  const handleClick = () => {
-    setShowOptions(!showOptions);
-  };
   return (
     <div>
-      <div className="relative inline-block text-left">
-        <div>
-          <button
-            onClick={handleClick}
-            type="button"
-            className="inline-flex justify-self-end w-full"
-          >
-            {/* <HiUserCircle className=" md:h-9 md:w-9 h-8 w-8 text-gray-500" /> */}
-            <span>
-              <img
-                className="w-10 h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
-                src={profile}
-                alt="profile"
-                width="384"
-                height="512"
-              />
-            </span>
-          </button>
-        </div>
-        {showOptions && (
-          <div
-            className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-          >
-            <div className="py-1 flex flex-col" role="none">
-              <div
-                className="text-gray-700 flex flex-col border-b border-1 px-4 py-2 text-sm "
-                role="menuitem"
+      <Menu as="div" className="relative inline-block text-left">
+        {({ open }) => (
+          <Fragment>
+            <Menu.Button
+              type="button"
+              className="inline-flex justify-self-end w-full outline-none"
+            >
+              {/* <HiUserCircle className=" md:h-9 md:w-9 h-8 w-8 text-gray-500" /> */}
+              <span>
+                <img
+                  className="w-10 h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                  src={profile}
+                  alt="profile"
+                  width="384"
+                  height="512"
+                />
+              </span>
+            </Menu.Button>
+
+            <Transition
+              show={open}
+              enter="transform transition duration-200 easy-in"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="transform transition duration-75 ease-out"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Menu.Items
+                className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
               >
-                Signed in as
-                <span className=" font-bold">{data?.me.firstName}</span>
-              </div>
-              <Link
-                to="/edit-profile"
-                className="text-gray-700 inline-flex px-4 py-2 mt-1 text-sm hover:bg-orange-200 hover:text-orange-600"
-                role="menuitem"
-              >
-                <HiUser className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
-                Profile
-              </Link>
-              <Link
-                to="/account-settings"
-                className="text-gray-700 inline-flex px-4 py-2 text-sm hover:bg-orange-200 hover:text-orange-600 "
-                role="menuitem"
-              >
-                <MdSettings className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
-                Settings
-              </Link>
-              <Link
-                to="/signout"
-                className="text-gray-700 inline-flex px-4 py-2 mb-1 text-sm hover:bg-orange-200 hover:text-orange-600"
-                role="menuitem"
-              >
-                <IoLogOut className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
-                Sign out
-              </Link>
-            </div>
-          </div>
+                <div className="py-1 flex flex-col" role="none">
+                  <div
+                    className="text-gray-700 flex flex-col border-b border-1 px-4 py-2 text-sm "
+                    role="menuitem"
+                  >
+                    Signed in as
+                    <span className=" font-bold">{data?.me.firstName}</span>
+                  </div>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/edit-profile"
+                        className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
+                  
+                  ${active && "bg-gray-200"}
+                  
+                  `}
+                        role="menuitem"
+                      >
+                        <HiUser className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
+                        Profile
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/account-settings"
+                        className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
+                  
+                  ${active && "bg-gray-200"}
+                  
+                  `}
+                        role="menuitem"
+                      >
+                        <MdSettings className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
+                        Settings
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/signout"
+                        className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
+                  
+                  ${active && "bg-gray-200"}
+                  
+                  `}
+                        role="menuitem"
+                      >
+                        <IoLogOut className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
+                        Sign out
+                      </Link>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Fragment>
         )}
-      </div>
+      </Menu>
     </div>
   );
 };

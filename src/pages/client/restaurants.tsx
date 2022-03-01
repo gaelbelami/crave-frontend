@@ -1,13 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React from "react";
 import { CategoryItem } from "../../components/categoryItem";
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
 } from "../../__generated__/restaurantsPageQuery";
-import { IoRestaurantSharp } from "react-icons/io5";
 import { RestaurantItem } from "../../components/restaurantItem";
-import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import { Footer } from "../../components/footer";
 import Banner from "../../components/banner";
 import { RestaurantSkeleton } from "../../components/skeletons/restaurant-skeleton";
