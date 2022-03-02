@@ -12,7 +12,6 @@ import {
 import { MY_RESTAURANT_QUERY } from "./my-restaurant";
 import { MdAddCircle } from "react-icons/md";
 import { FormError } from "../../components/form-error";
-import { Footer } from "../../components/footer";
 
 const CREATE_DISH_MUTATION = gql`
   mutation createDishMutation($createDishInput: CreateDishInput!) {

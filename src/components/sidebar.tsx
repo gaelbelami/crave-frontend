@@ -25,7 +25,7 @@ const Sidebar = () => {
           <Fragment key={label}>
             <div className="group hover:bg-gray-100 relative rounded-l-xl">
               <Link
-                to="/edit-profile"
+                to={to}
                 className={`inline-flex   justify-center items-center ml-1  px-5 mt-1 font-semibold text-gray-600`}
                 role="menuitem"
               >
@@ -54,7 +54,7 @@ const linksArray = [
         <MdDeliveryDining className="md:h-9 md:w-9 h-9 w-9 justify-start items-start" />
       </div>
     ),
-    to: "/",
+    to: "/order",
     notification: 0,
   },
   {
@@ -64,7 +64,7 @@ const linksArray = [
         <MdOutlineFavorite className="md:h-8 md:w-8 h-8 w-8 justify-start items-start" />
       </div>
     ),
-    to: "/statistics",
+    to: "/favorites",
     notification: 3,
   },
   {
@@ -74,7 +74,7 @@ const linksArray = [
         <IoMdListBox className="md:h-8 md:w-8 h-8 w-8 justify-start items-start" />
       </div>
     ),
-    to: "/customers",
+    to: "/history",
     notification: 0,
   },
 ];

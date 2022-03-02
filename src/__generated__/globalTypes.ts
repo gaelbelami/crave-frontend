@@ -57,6 +57,7 @@ export interface EditUserProfileInput {
   firstName?: string | null;
   lastName?: string | null;
   username?: string | null;
+  avatar?: string | null;
   phoneNumber?: string | null;
   address?: string | null;
   birthdate?: any | null;

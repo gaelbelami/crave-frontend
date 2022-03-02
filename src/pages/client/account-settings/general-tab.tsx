@@ -1,7 +1,7 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useMe } from "../../../hooks/useMe";
+import { ME_QUERY, useMe } from "../../../hooks/useMe";
 
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,7 @@ import profile from "../../../images/profile.jpg";
 import { IoMdCloudUpload } from "react-icons/io";
 import { BiReset } from "react-icons/bi";
 import { FormError } from "../../../components/form-error";
+import { BsImageFill } from "react-icons/bs";
 
 export const EDIT_PROFILE_MUTATION = gql`
   mutation editProfileMutation($editUserProfileInput: EditUserProfileInput!) {
@@ -28,13 +29,10 @@ export const EDIT_PROFILE_MUTATION = gql`
 `;
 
 export const GeneralTab = () => {
+  const [uploading, setUploading] = useState(false);
   const nameRegex = /^([^0-9]*)$/;
 
   const usernameRegex = /^[a-z0-9_-]{3,15}$/;
-
-  const strongRegex = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-  );
 
   const ToastContent = () => (
     <Fragment>
@@ -71,6 +69,7 @@ export const GeneralTab = () => {
     } = data;
 
     if (ok && userData) {
+      setUploading(false);
       const {
         me: { id },
       } = userData;
@@ -83,6 +82,7 @@ export const GeneralTab = () => {
           phoneNumber,
           address,
           birthdate,
+          file: avatar,
           // email: newEmail,
         } = getValues();
 
@@ -114,6 +114,7 @@ export const GeneralTab = () => {
               phoneNumber
               address
               birthdate
+              avatar
             }
           `,
           data: {
@@ -123,6 +124,7 @@ export const GeneralTab = () => {
             phoneNumber,
             address,
             birthdate,
+            avatar,
           },
         });
         Swal.fire("Success?", "Profile updated successfully", "success");
@@ -141,6 +143,11 @@ export const GeneralTab = () => {
     editProfileMutationVariables
   >(EDIT_PROFILE_MUTATION, {
     onCompleted,
+    refetchQueries: [
+      {
+        query: ME_QUERY,
+      },
+    ],
   });
 
   const {
@@ -157,6 +164,7 @@ export const GeneralTab = () => {
       username: userData?.me.username,
       phoneNumber: userData?.me.phoneNumber,
       address: userData?.me.address,
+      // avatar: userData?.me.avatar,
       // email: userData?.me.email,
       birthdate: new Date(userData?.me.birthdate).toLocaleDateString(),
     },
@@ -166,32 +174,48 @@ export const GeneralTab = () => {
   const password = useRef<IEditProfileForm["password"]>();
   password.current = watch("password");
 
-  const onSubmit = () => {
-    const {
-      firstName,
-      lastName,
-      username,
-      phoneNumber,
-      address,
-      // email,
-      birthdate,
-      // password,
-    } = getValues();
+  const onSubmit = async () => {
+    try {
+      setUploading(true);
+      const {
+        firstName,
+        lastName,
+        username,
+        phoneNumber,
+        address,
+        // email,
+        birthdate,
+        file,
+        // password,
+      } = getValues();
 
-    editProfileMutation({
-      variables: {
-        editUserProfileInput: {
-          firstName,
-          lastName,
-          username,
-          phoneNumber,
-          address,
-          // email,
-          birthdate,
-          // ...(password !== "" && { password }),
+      const actualFile = file![0];
+      const formBody = new FormData();
+      formBody.append("file", actualFile);
+      const request = await (
+        await fetch("http://localhost:4000/uploads/", {
+          method: "POST",
+          body: formBody,
+        })
+      ).json();
+      const avatar = request.secure_url;
+      console.log(avatar);
+      editProfileMutation({
+        variables: {
+          editUserProfileInput: {
+            firstName,
+            lastName,
+            username,
+            phoneNumber,
+            address,
+            avatar,
+            // email,
+            birthdate,
+            // ...(password !== "" && { password }),
+          },
         },
-      },
-    });
+      });
+    } catch (error) {}
   };
 
   return (
@@ -208,18 +232,30 @@ export const GeneralTab = () => {
           className="grid gap-3 mt-5 w-full mb-5"
         >
           <div className=" inline-flex items-center mb-4">
-            <img
-              className="w-28 h-28 rounded-lg shadow-md bg-gray-500 bg-center object-cover mr-2"
-              src={profile}
-              alt="profile"
-              width="384"
-              height="512"
-            />
+            {!userData?.me.avatar || loading ? (
+              <div className="w-28 h-28 rounded-lg shadow-md bg-gray-200 bg-center object-cover mr-2">
+                <BsImageFill className=" h-16 w-auto mx-auto my-auto mt-5  object-cover object-center text-gray-500 animate-pulse" />
+              </div>
+            ) : (
+              <img
+                className="w-28 h-28 rounded-lg shadow-md bg-center object-cover mr-2"
+                src={userData?.me.avatar}
+                alt="profile"
+                width="384"
+                height="512"
+              />
+            )}
             <div className="items-center text-gray-500 cursor-pointer text-sm font-semibold mx-2">
-              <div className=" inline-flex items-center border border-gray-400 rounded-lg shadow-sm px-2 py-1">
+              <label className="cursor-pointer inline-flex items-center border border-gray-400 rounded-lg shadow-sm px-2 py-1">
                 <IoMdCloudUpload className="mr-2" />
                 Upload
-              </div>
+                <input
+                  className="hidden "
+                  type="file"
+                  accept="image/*"
+                  {...register("file")}
+                />
+              </label>
             </div>
             <div className="items-center text-gray-500 cursor-pointer text-sm font-semibold">
               <div className=" inline-flex items-center border border-gray-400 rounded-lg shadow-sm px-2 py-1">
@@ -318,7 +354,7 @@ export const GeneralTab = () => {
           />
 
           <ButtonForm
-            loading={loading}
+            loading={uploading}
             canClick={isValid}
             actionText="Save changes"
           />
