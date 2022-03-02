@@ -8,7 +8,7 @@ function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   return (
-    <div className="bg-gray-100 h-screen">
+    <div className="bg-gray-100 h-max">
       {isLoggedIn ? <LoggedInRouter /> : <LoggedOutRouter />}
     </div>
   );

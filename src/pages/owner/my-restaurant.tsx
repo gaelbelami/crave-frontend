@@ -80,7 +80,7 @@ export const MyRestaurant = () => {
   ];
 
   return (
-    <div className="page-container">
+    <div className="">
       <div
         className=" bg-gray-700 py-28 bg-center bg-cover rounded-lg mt-5"
         style={{
@@ -161,9 +161,6 @@ export const MyRestaurant = () => {
             />
           </VictoryChart>
         </div>
-      </div>
-      <div className="fixed inset-x-4 bottom-0 ">
-        <Footer />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export const EditProfile: React.FC = () => {
 
   return (
     <div className="page-container">
-      <div className=" mt-20 flex flex-col justify-center items-center">
+      <div className="flex flex-col mt-10 items-center">
         <Helmet>
           <title>Profile Details | Crave ~ Food</title>
         </Helmet>
@@ -21,7 +21,7 @@ export const EditProfile: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid max-w-screen-sm  mt-5 w-full mb-5 ring-1 ring-gray-300 shadow-md p-5 rounded-lg ">
+        <div className="grid max-w-screen-sm  mt-5 w-full ring-1 ring-gray-300 shadow-md p-5 rounded-lg ">
           <Link to="/account-settings">
             <div className="grid justify-items-end items-center text-orange-500 text-sm font-semibold">
               <div className=" inline-flex items-center border-2 border-orange-400 rounded-lg px-2 py-1">
@@ -93,9 +93,6 @@ export const EditProfile: React.FC = () => {
             {new Date(userData?.me.birthdate).toLocaleDateString()}
           </div>
         </div>
-      </div>
-      <div className="fixed bottom-0 inset-x-4">
-        <Footer />
       </div>
     </div>
   );

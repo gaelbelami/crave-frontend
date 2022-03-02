@@ -44,7 +44,7 @@ export const HomeOwner = () => {
     }
   );
   return (
-    <div className="page-container h-screen relative">
+    <div className="h-screen relative mt-5">
       <Helmet>
         <title>My restaurants | Crave ~ Food</title>
       </Helmet>
@@ -88,9 +88,6 @@ export const HomeOwner = () => {
             </div>
           )}
         </main>
-        <div className="fixed inset-x-4 bottom-0 ">
-          <Footer />
-        </div>
       </div>
     </div>
   );

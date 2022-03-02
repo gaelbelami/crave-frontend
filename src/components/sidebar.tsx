@@ -6,7 +6,7 @@ import { IoMdListBox } from "react-icons/io";
 
 const Sidebar = () => {
   return (
-    <div className="h-screen sticky group top-0 items-center  flex-col bg-white rounded-lg  mb-3 mx-1 pl-1">
+    <div className="h-screen  z-50 shadow-lg sticky group top-0 items-center  flex-col bg-white rounded-lg  mb-1 mx-1 pl-1">
       <div className="group-hover transform transition duration-200 ease-in-out">
         <div>
           <Link
@@ -22,8 +22,8 @@ const Sidebar = () => {
           </Link>
         </div>
         {linksArray.map(({ label, icon, to, notification }) => (
-          <Fragment>
-            <div className="group hover:bg-gray-100 relative rounded-l-lg">
+          <Fragment key={label}>
+            <div className="group hover:bg-gray-100 relative rounded-l-xl">
               <Link
                 to="/edit-profile"
                 className={`inline-flex   justify-center items-center ml-1  px-5 mt-1 font-semibold text-gray-600`}

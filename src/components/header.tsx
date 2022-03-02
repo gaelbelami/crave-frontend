@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SiSnapcraft } from "react-icons/si";
 import { HiSearch } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,14 +15,18 @@ interface ISearchFormProps {
 
 export const Header: React.FC = () => {
   const { data } = useMe();
-  const { register, handleSubmit, getValues } = useForm<ISearchFormProps>();
+  const { register, handleSubmit, getValues, watch } =
+    useForm<ISearchFormProps>();
   const history = useNavigate();
-  const { searchTerm } = getValues();
+  const { searchTerm } = watch();
   const onSearchSubmit = () => {
-    history({
-      pathname: "/search",
-      search: `?term=${searchTerm}`,
-    });
+    history(
+      {
+        pathname: "/search",
+        search: `?term=${searchTerm}`,
+      },
+      { replace: true }
+    );
   };
   return (
     <>
@@ -40,7 +43,7 @@ export const Header: React.FC = () => {
       >
         {/* left */}
         <div className="relative h-10 cursor-pointer my-auto">
-          <Link className="inline-flex text-center items-center gap-1 " to="/">
+          <Link className="inline-flex text-center items-center gap-1" to="/">
             {/* <img src={logo} alt="crave" className=" w-28" /> */}
             {/* <SiSnapcraft className=" text-3xl text-orange-500 mt-1" /> */}
             {/* <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
@@ -63,7 +66,7 @@ export const Header: React.FC = () => {
               })}
               autoComplete="off"
               className=" text-gray-600 font-sans placeholder-gray-400 flex-grow pl-5 bg-transparent outline-none"
-              type="text"
+              type="search"
               placeholder="Search restaurant..."
             />
             <HiSearch
@@ -77,7 +80,6 @@ export const Header: React.FC = () => {
         <div className=" flex  items-center justify-end">
           <div className="flex">
             <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
-
             <NotificationDropdown />
           </div>
           <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">

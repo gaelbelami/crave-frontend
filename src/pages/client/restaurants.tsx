@@ -64,7 +64,7 @@ const Restaurants = () => {
   });
 
   return (
-    <div className="page-container">
+    <div className="mb-24">
       <Helmet>
         <title>Home | Crave ~ Food</title>
       </Helmet>
@@ -80,9 +80,7 @@ const Restaurants = () => {
         </div>
       ) : (
         <div className="flex flex-row ">
-          <Sidebar />
-          <div className="flex-auto  page-container ">
-            <Header />
+          <div className="flex-auto ">
             <Banner />
             <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
               <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
@@ -115,9 +113,6 @@ const Restaurants = () => {
                 onPreviousPageClick={restaurantPager.onPrevPage}
               />
             </main>
-            <div className="inset-x-4 bottom-0 ">
-              <Footer />
-            </div>
           </div>
         </div>
       )}

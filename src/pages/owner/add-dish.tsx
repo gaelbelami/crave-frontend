@@ -227,9 +227,6 @@ export const AddDish = () => {
           <FormError errorMessage={data.createDish.message} />
         )}
       </form>
-      <div className="fixed bottom-0 inset-x-4">
-        <Footer />
-      </div>
     </div>
   );
 };

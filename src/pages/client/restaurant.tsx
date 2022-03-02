@@ -2,7 +2,6 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Dish } from "../../components/dish";
-import { Footer } from "../../components/footer";
 // import { IRestaurantParams } from '../../interfaces/restaurant.interface';
 import {
   restaurantQuery,
@@ -58,6 +57,7 @@ export const Restaurant = () => {
       },
     }
   );
+  console.log(data?.restaurant.restaurant?.menu.map((name) => name));
 
   return (
     <div>
@@ -92,7 +92,7 @@ export const Restaurant = () => {
             </h4>
             <Link
               to={`/category/${data?.restaurant.restaurant?.category?.slug}`}
-              state={data?.restaurant.restaurant?.category?.slug}
+              state={data?.restaurant.restaurant?.category}
             >
               <div className="flex  mb-5">
                 <h4 className="flex-none text-xs font-bold shadow-md bg-gray-200 py-1 px-2 rounded-2xl ml-4 ">
@@ -105,27 +105,29 @@ export const Restaurant = () => {
               {data?.restaurant.restaurant?.address}
             </h6>
           </div>
-
-          <div className="fixed inset-x-4 bottom-0 ">
-            <Footer />
-          </div>
         </div>
       )}
-      <div className="page-container">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 mt-10">
-          {data?.restaurant.restaurant?.menu.map(
-            ({ id, name, price, description, photo }) => (
-              <Dish
-                key={id}
-                name={name}
-                description={description}
-                price={price}
-                photo={photo}
-              />
-            )
-          )}
+      {data?.restaurant.restaurant?.menu.length !== 0 ? (
+        <div className="page-container">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 mt-10">
+            {data?.restaurant.restaurant?.menu.map(
+              ({ id, name, price, description, photo }) => (
+                <Dish
+                  key={id}
+                  name={name}
+                  description={description}
+                  price={price}
+                  photo={photo}
+                />
+              )
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mx-auto text-center mt-20 text-3xl font-sans font-bold items-center justify-items-center text-gray-700">
+          No dish for this restaurant yet 😥.
+        </div>
+      )}
     </div>
   );
 };
