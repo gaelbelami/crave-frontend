@@ -10,12 +10,17 @@ export const Emailtab = () => {
             Change Email Address
           </h2>
         </div>
-        <p className="my-2  text-sm text-gray-700">
+
+        <div
+          className="mt-2 p-4 mb-4 text-sm text-gray-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-gray-800"
+          role="alert"
+        >
           In order to change your email address, we will first send you a link
-          to your email box <b>ishimwegaelbelami@gmail.com</b> <br />
-          By clicking on the link, you will be redirected to another page where
-          you will enter your new email address.
-        </p>
+          to your email box
+          <span className="font-medium"> ishimwegaelbelami@gmail.com. </span> By
+          clicking on the link, you will be redirected to another page where you
+          will enter your new email address.
+        </div>
         <div className="grid gap-3 pt-3">
           <input type="password" className="input" placeholder="Email" />
         </div>

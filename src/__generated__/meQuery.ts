@@ -19,7 +19,7 @@ export interface meQuery_me {
   address: string | null;
   birthdate: any | null;
   phoneNumber: string | null;
-  avatar: string ;
+  avatar: string | null;
   role: UserRole;
   verified: boolean;
 }

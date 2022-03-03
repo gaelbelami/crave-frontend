@@ -19,6 +19,7 @@ import { AddDish } from "../pages/owner/add-dish";
 import { Notification } from "../pages/client/notification";
 import Sidebar from "../components/sidebar";
 import { Footer } from "../components/footer";
+import { Cart } from "../pages/client/cart";
 
 export const ClientRoutes = [
   {
@@ -40,6 +41,10 @@ export const ClientRoutes = [
   {
     path: "/notification",
     component: <Notification />,
+  },
+  {
+    path: "/cart",
+    component: <Cart />,
   },
   {
     path: "/test",
@@ -126,7 +131,7 @@ export const LoggedInRouter = () => {
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className="fixed bottom-0 inset-x-28 right-4">
+          <div className="fixed z-50 bottom-0 inset-x-28 right-4">
             <Footer />
           </div>
         </div>

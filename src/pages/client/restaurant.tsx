@@ -1,7 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { GrFormAdd } from "react-icons/gr";
+import { GrFormDown } from "react-icons/gr";
+import { ImLocation } from "react-icons/im";
+import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { Dish } from "../../components/dish";
+import { Modal } from "../../components/modal";
 // import { IRestaurantParams } from '../../interfaces/restaurant.interface';
 import {
   restaurantQuery,
@@ -57,7 +63,11 @@ export const Restaurant = () => {
       },
     }
   );
-  console.log(data?.restaurant.restaurant?.menu.map((name) => name));
+  console.log(
+    data?.restaurant.restaurant?.menu.map((dish) =>
+      dish.options?.map((name) => name)
+    )[0]
+  );
 
   return (
     <div>
@@ -81,7 +91,7 @@ export const Restaurant = () => {
         </div>
       ) : (
         <div
-          className=" page-container mt-5 bg-center bg-cover py-48 shadow-md"
+          className=" page-container mt-5 bg-center bg-cover py-32 shadow-md"
           style={{
             backgroundImage: `url(${data?.restaurant.restaurant?.coverImage})`,
           }}
@@ -101,23 +111,26 @@ export const Restaurant = () => {
                 <div className="flex-grow"></div>
               </div>
             </Link>
-            <h6 className=" ml-4 text-sm">
-              {data?.restaurant.restaurant?.address}
-            </h6>
+            <span className="lowercase  text-gray-500 inline-flex items-center text-xs font-semibold ml-4">
+              <ImLocation />
+              &nbsp; {data?.restaurant.restaurant?.address}
+            </span>
           </div>
         </div>
       )}
       {data?.restaurant.restaurant?.menu.length !== 0 ? (
         <div className="page-container">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 mt-10">
+          <div className="md:grid md:grid-cols-2 gap-x-6 gap-y-10 mt-10">
             {data?.restaurant.restaurant?.menu.map(
-              ({ id, name, price, description, photo }) => (
+              ({ id, name, price, description, photo, options }) => (
                 <Dish
                   key={id}
                   name={name}
                   description={description}
                   price={price}
                   photo={photo}
+                  isCustomer={true}
+                  options={options}
                 />
               )
             )}

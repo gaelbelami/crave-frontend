@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import profile from "../images/profile.jpg";
 import { Menu, Transition } from "@headlessui/react";
+import { FaUser } from "react-icons/fa";
 
 const AccountDropdown = () => {
   const { data } = useMe();
@@ -20,13 +21,19 @@ const AccountDropdown = () => {
             >
               {/* <HiUserCircle className=" md:h-9 md:w-9 h-8 w-8 text-gray-500" /> */}
               <span>
-                <img
-                  className="w-10 h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
-                  src={profile}
-                  alt="profile"
-                  width="384"
-                  height="512"
-                />
+                {data?.me.avatar ? (
+                  <img
+                    className="w-10 h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                    src={`${data?.me.avatar}`}
+                    alt="profile"
+                    width="384"
+                    height="512"
+                  />
+                ) : (
+                  <div className="  flex items-center w-10 h-10 rounded-full shadow-md bg-gray-300 bg-center object-cover">
+                    <FaUser className=" mx-auto text-gray-500" />
+                  </div>
+                )}
               </span>
             </Menu.Button>
 

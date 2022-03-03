@@ -15,4 +15,5 @@ export interface EditedUser {
   phoneNumber: string | null;
   address: string | null;
   birthdate: any | null;
+  avatar: string | null;
 }

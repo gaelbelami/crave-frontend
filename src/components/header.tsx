@@ -79,7 +79,9 @@ export const Header: React.FC = () => {
         {/* Right */}
         <div className=" flex  items-center justify-end">
           <div className="flex">
-            <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
+            <Link to="/cart">
+              <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
+            </Link>
             <NotificationDropdown />
           </div>
           <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
