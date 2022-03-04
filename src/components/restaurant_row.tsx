@@ -1,5 +1,4 @@
 import React from "react";
-import { BiHeartCircle } from "react-icons/bi";
 import { GiShoppingBag } from "react-icons/gi";
 import { HiHeart } from "react-icons/hi";
 import { IRestaurant } from "../interfaces/restaurant.interface";
@@ -27,11 +26,10 @@ export const RestaurantRow: React.FC<IRestaurant> = ({
           </div>
 
           <HiHeart className="h-7 w-7 cursor-pointer" />
-        </div>       
+        </div>
 
         <div className=" border-b w-10 pt-2" />
         <h4 className="text-xl">{categoryName}</h4>
-
       </div>
     </div>
   );

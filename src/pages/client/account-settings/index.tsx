@@ -2,6 +2,7 @@ import React from "react";
 import { HiUser } from "react-icons/hi";
 import { IoLockClosed } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
 import { Emailtab } from "./email-tab";
 import { GeneralTab } from "./general-tab";
 import { SecurityTab } from "./security-tab";
@@ -83,6 +84,11 @@ export const AccountSettings = () => {
               </div>
             </div>
           </div>
+          <ToastContainer
+            toastClassName={() =>
+              "shadow-md text-gray-200 rounded-lg px-2 py-2 flex bg-slate-700"
+            }
+          />
         </div>
       </div>
     </>

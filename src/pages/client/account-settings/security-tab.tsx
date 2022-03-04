@@ -1,58 +1,48 @@
-import { useApolloClient, useMutation } from "@apollo/client";
-import React, { Fragment, useRef } from "react";
+import { useMutation } from "@apollo/client";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Bounce, toast, ToastContainer } from "react-toastify";
-import Swal from "sweetalert2";
 import { ButtonForm } from "../../../components/form-button";
 import { FormError } from "../../../components/form-error";
-import { useMe } from "../../../hooks/useMe";
+import ToastAutoClose from "../../../components/toast";
+import { CHANGE_PASSWORD_USER } from "../../../graphql/query-mutation";
 import { IChangePasswordForm } from "../../../interfaces/user.interface";
 import {
-  editProfileMutation,
-  editProfileMutationVariables,
-} from "../../../__generated__/editProfileMutation";
-import { EDIT_PROFILE_MUTATION } from "./general-tab";
+  changePasswordUserMutationVariables,
+  changePasswordUserMutation,
+} from "../../../__generated__/changePasswordUserMutation";
 
 export const SecurityTab = () => {
   const strongRegex = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
   );
 
-  const contextClass: { [key: string]: any } = {
-    success: "bg-gray-700",
-    error: "bg-gray-700",
-    info: "bg-gray-700",
-    warning: "bg-gray-700",
-    default: "bg-gray-700",
-    dark: "bg-white-600 font-gray-300",
+  const onCompleted = (data: changePasswordUserMutation) => {
+    const {
+      changePasswordUser: { ok, message },
+    } = data;
+
+    if (ok === true && message) {
+      ToastAutoClose({
+        typeState: 0,
+        message,
+        title: "Success",
+      });
+    } else if (message) {
+      ToastAutoClose({
+        typeState: 1,
+        message,
+        title: "Error",
+      });
+    }
   };
 
-  const ToastContent = () => (
-    <Fragment>
-      <div className=" m-1">
-        <div className="toastify-body">
-          <span className=" text-xs font-sans">
-            Password updated successfully 😊
-          </span>
-        </div>
-      </div>
-    </Fragment>
-  );
-
-  const onCompleted = (data: editProfileMutation) => {
-    // Swal.fire("Success?", "Password updated successfully", "success");
-    toast.success(<ToastContent />, {
-      transition: Bounce,
-      hideProgressBar: true,
-      autoClose: 3000,
+  const [changePasswordUserMutation, { data: changePasswordResult, loading }] =
+    useMutation<
+      changePasswordUserMutation,
+      changePasswordUserMutationVariables
+    >(CHANGE_PASSWORD_USER, {
+      onCompleted,
     });
-  };
-  const [editProfileMutation, { loading }] = useMutation<
-    editProfileMutation,
-    editProfileMutationVariables
-  >(EDIT_PROFILE_MUTATION, {
-    onCompleted,
-  });
 
   const {
     register,
@@ -69,12 +59,14 @@ export const SecurityTab = () => {
   password.current = watch("password");
 
   const onSubmit = () => {
-    const { password } = getValues();
+    const { oldPassword, password, confirmPassword } = getValues();
 
-    editProfileMutation({
+    changePasswordUserMutation({
       variables: {
-        editUserProfileInput: {
-          ...(password !== "" && { password }),
+        changePasswordUserInput: {
+          oldPassword,
+          password,
+          confirmPassword,
         },
       },
     });
@@ -90,6 +82,25 @@ export const SecurityTab = () => {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3 pt-3">
+            <input
+              {...register("oldPassword", {
+                minLength: 8,
+                maxLength: 15,
+                required: "Old Password is required",
+                validate: (value) => value !== "",
+                pattern: {
+                  value: strongRegex,
+                  message:
+                    "Must contain at least one lowercase, uppercase or numeric character",
+                },
+              })}
+              type="password"
+              placeholder="Old Password"
+              className="input"
+            />
+            {errors["oldPassword"]?.message && (
+              <FormError errorMessage={errors.oldPassword?.message} />
+            )}
             <input
               {...register("password", {
                 minLength: 8,
@@ -139,14 +150,29 @@ export const SecurityTab = () => {
               canClick={isValid}
               actionText="Save changes"
             />
+            {changePasswordResult?.changePasswordUser.ok === false &&
+              changePasswordResult?.changePasswordUser.message && (
+                <FormError
+                  errorMessage={
+                    changePasswordResult?.changePasswordUser.message
+                  }
+                />
+              )}
           </div>
-          <ToastContainer
-            toastClassName={({ type }: any) =>
-              contextClass[type || "sucess"] +
-              " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-            }
-          />
         </form>
+        <div className="mt-2 text-gray-700">
+          <span className="text-sm font-semibold">Password requirements:</span>
+
+          <li className="text-sm font-semibold">
+            Minimum 8 characters long - the more, the better
+          </li>
+          <li className="text-sm font-semibold">
+            At least one lowercase character
+          </li>
+          <li className="text-sm font-semibold">
+            At least one number, symbol, or whitespace character
+          </li>
+        </div>
       </div>
     </div>
   );

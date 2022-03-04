@@ -11,7 +11,7 @@ interface IModal {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Modal: React.FC<IModal> = ({
+export const ModalDish: React.FC<IModal> = ({
   photo,
   name,
   description,

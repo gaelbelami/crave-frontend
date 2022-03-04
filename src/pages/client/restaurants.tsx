@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { CategoryItem } from "../../components/categoryItem";
 import {
@@ -6,7 +6,6 @@ import {
   restaurantsPageQueryVariables,
 } from "../../__generated__/restaurantsPageQuery";
 import { RestaurantItem } from "../../components/restaurantItem";
-import { Footer } from "../../components/footer";
 import Banner from "../../components/banner";
 import { RestaurantSkeleton } from "../../components/skeletons/restaurant-skeleton";
 import { CategorySkeleton } from "../../components/skeletons/category-skeleton";
@@ -14,41 +13,7 @@ import { BannerSkeleton } from "../../components/skeletons/banner-skeleton";
 import { Pagination, usePagination } from "../../components/pagination";
 import { MdRestaurantMenu } from "react-icons/md";
 import { Helmet } from "react-helmet-async";
-import { Header } from "../../components/header";
-import Sidebar from "../../components/sidebar";
-const RESTAURANTS_QUERY = gql`
-  query restaurantsPageQuery($restaurantsInput: RestaurantsInput!) {
-    allCategories {
-      ok
-      message
-      categories {
-        id
-        name
-        coverImage
-        slug
-        restaurantCount
-      }
-    }
-
-    getAllRestaurnants(restaurantsInput: $restaurantsInput) {
-      ok
-      message
-      totalPages
-      totalResults
-      results {
-        id
-        name
-        coverImage
-        category {
-          id
-          name
-        }
-        isPromoted
-        address
-      }
-    }
-  }
-`;
+import { RESTAURANTS_QUERY } from "../../graphql/query-mutation";
 
 const Restaurants = () => {
   const { page, ...restaurantPager } = usePagination(1);
@@ -68,15 +33,18 @@ const Restaurants = () => {
       <Helmet>
         <title>Home | Crave ~ Food</title>
       </Helmet>
-      {loading ? (
+      {!data || loading ? (
         <div>
           <BannerSkeleton />
-          <CategorySkeleton />
-          <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
-            <MdRestaurantMenu />
-            <span className="ml-3">Restaurants</span>
+          <div className="items-center text-center mx-auto">
+            <CategorySkeleton />
           </div>
-          <RestaurantSkeleton />
+          <div>
+            <div className="text-3xl inline-flex items-center  font-sans font-bold my-8">
+              <span className="ml-3 bg-gray-200 px-16 py-3"></span>
+            </div>
+            <RestaurantSkeleton />
+          </div>
         </div>
       ) : (
         <div className="flex flex-row ">
@@ -88,22 +56,25 @@ const Restaurants = () => {
                   <CategoryItem key={category.id} {...category} />
                 ))}
               </div>
-              <div className="text-2xl font-bold font-sans inline-flex items-center my-8 text-gray-700">
-                <MdRestaurantMenu />
-                <span className="ml-3">Restaurants</span>
-              </div>
 
-              <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
-                {data?.getAllRestaurnants.results?.map((restaurant) => (
-                  <RestaurantItem
-                    key={restaurant.id}
-                    id={restaurant.id}
-                    coverImage={restaurant.coverImage}
-                    restaurantName={restaurant.name}
-                    categoryName={restaurant.category?.name}
-                    address={restaurant.address}
-                  />
-                ))}
+              <div>
+                <div className="text-2xl font-bold font-sans inline-flex items-center my-8 text-gray-700">
+                  <MdRestaurantMenu />
+                  <span className="ml-3">Restaurants</span>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+                  {data?.getAllRestaurnants.results?.map((restaurant) => (
+                    <RestaurantItem
+                      key={restaurant.id}
+                      id={restaurant.id}
+                      coverImage={restaurant.coverImage}
+                      restaurantName={restaurant.name}
+                      categoryName={restaurant.category?.name}
+                      address={restaurant.address}
+                    />
+                  ))}
+                </div>
               </div>
 
               <Pagination

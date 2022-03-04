@@ -11,7 +11,7 @@ import {
   createAccountMutationVariables,
 } from "../__generated__/createAccountMutation";
 import { UserRole } from "../__generated__/globalTypes";
-// import logo from "../images/logo.svg";
+
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccountMutation(
     $createUserAccountInput: CreateUserAccountInput!
@@ -94,7 +94,7 @@ export default function Signup() {
   };
 
   return (
-    <div className=" h-screen flex items-center text-orange-500 flex-col mt-10 lg:mt-32">
+    <div className=" h-screen flex items-center bg-white flex-col pt-10 lg:pt-32">
       <Helmet>
         <title>Signup | Crave ~ Food</title>
       </Helmet>

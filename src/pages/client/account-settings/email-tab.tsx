@@ -1,37 +1,191 @@
-import React from "react";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { TiWarning } from "react-icons/ti";
 import { ButtonForm } from "../../../components/form-button";
+import { ModalConfirm } from "../../../components/modal-confirm";
+import ToastAutoClose from "../../../components/toast";
+import { EDIT_PROFILE_MUTATION } from "../../../graphql/query-mutation";
+import { ME_QUERY, useMe } from "../../../hooks/useMe";
+import { IEditProfileForm } from "../../../interfaces/user.interface";
+import {
+  editProfileMutation,
+  editProfileMutationVariables,
+} from "../../../__generated__/editProfileMutation";
+import "react-toastify/dist/ReactToastify.css";
+import { FormError } from "../../../components/form-error";
 
 export const Emailtab = () => {
+  const { data: userData } = useMe();
+  const emailRegex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const client = useApolloClient();
+
+  const onCompleted = (data: editProfileMutation) => {
+    const {
+      editUserProfile: { ok, message },
+    } = data;
+
+    if (ok === true && message) {
+      ToastAutoClose({
+        typeState: 0,
+        message,
+        title: "Success",
+      });
+    } else if (message) {
+      ToastAutoClose({
+        typeState: 1,
+        message,
+        title: "Error",
+      });
+    }
+
+    if (ok && userData) {
+      const {
+        me: { id, email: previousEmail },
+      } = userData;
+
+      try {
+        const { email: newEmail } = getValues();
+
+        if (previousEmail !== newEmail) {
+          client.writeFragment({
+            id: `User:${id}`,
+
+            fragment: gql`
+              fragment EditedUser on User {
+                email
+                verified
+              }
+            `,
+            data: {
+              email: newEmail,
+              verified: false,
+            },
+          });
+        }
+      } catch (error) {
+        throw new Error("Could not update cash");
+      }
+    }
+  };
+  const [editProfileMutation, { loading }] = useMutation<
+    editProfileMutation,
+    editProfileMutationVariables
+  >(EDIT_PROFILE_MUTATION, {
+    onCompleted,
+    refetchQueries: [
+      {
+        query: ME_QUERY,
+      },
+    ],
+  });
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isValid },
+  } = useForm<IEditProfileForm>({
+    mode: "onChange",
+  });
+
+  const onSubmit = async () => {
+    try {
+      const { email } = getValues();
+
+      if (userData?.me.verified === true) {
+        editProfileMutation({
+          variables: {
+            editUserProfileInput: {
+              email,
+            },
+          },
+        });
+      }
+    } catch (error) {}
+  };
+
+  const hideEmail = (email: string) => {
+    var hiddenEmail = "";
+    for (let i = 0; i < email.length; i++) {
+      if (i > 4 && i < email.indexOf("@")) {
+        hiddenEmail += "*";
+      } else {
+        hiddenEmail += email[i];
+      }
+    }
+    return hiddenEmail;
+  };
+
+  const slicedEmail = hideEmail(userData?.me.email!);
+
+  let [isOpen, setIsOpen] = useState(false);
+
+  const onClick = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div>
-      <div>
-        <div className="border-b border-gray-300">
-          <h2 className=" font-extrabold text-lg mb-5 text-gray-700">
-            Change Email Address
-          </h2>
-        </div>
+      <div className="border-b border-gray-300">
+        <h2 className=" font-extrabold text-lg mb-5 text-gray-700">
+          Change Email Address
+        </h2>
+      </div>
 
-        <div
-          className="mt-2 p-4 mb-4 text-sm text-gray-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-gray-800"
-          role="alert"
-        >
-          In order to change your email address, we will first send you a link
-          to your email box
-          <span className="font-medium"> ishimwegaelbelami@gmail.com. </span> By
-          clicking on the link, you will be redirected to another page where you
-          will enter your new email address.
-        </div>
+      <div className=" font-semibold text-sm flex items-center mt-1 bg-amber-200 rounded-lg p-1 opacity-75">
+        <TiWarning className="mr-2" />
+        This action is irreversible. Please be certain before continuing.
+      </div>
+
+      <form onSubmit={handleSubmit(onClick)}>
         <div className="grid gap-3 pt-3">
-          <input type="password" className="input" placeholder="Email" />
+          <input
+            {...register("email", {
+              required: "New Password is required",
+              validate: (value) => value !== "",
+              pattern: {
+                value: emailRegex,
+                message: "Please input a valid email!",
+              },
+            })}
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="input"
+          />
+          {errors["email"] && errors["email"]?.message && (
+            <FormError errorMessage={errors.email?.message} />
+          )}
         </div>
         <div className=" space-x-2">
           <ButtonForm
-            actionText="Request a link to change my email address"
-            canClick={true}
-            loading={false}
+            loading={loading}
+            canClick={isValid}
+            actionText="Save changes"
           />
         </div>
-      </div>
+
+        {!userData?.me.verified && (
+          <div className="mt-4 p-4 mb-2 text-sm font-semibold text-gray-600 bg-red-100 rounded-lg">
+            In order to verify your email {slicedEmail}, please check the link
+            sent to your email box. By clicking on the link, you will be
+            verified.
+          </div>
+        )}
+
+        {isOpen && (
+          <ModalConfirm
+            handleSubmit={() => onSubmit()}
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            title="Change Password"
+            body={`Are you sure you want to change your email ${slicedEmail}`}
+          />
+        )}
+      </form>
     </div>
   );
 };

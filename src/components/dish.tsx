@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { FaWindowClose } from "react-icons/fa";
 import { restaurantQuery_restaurant_restaurant_menu_options } from "../__generated__/restaurantQuery";
-import { Modal } from "./modal";
+import { ModalDish } from "./modal-dish";
 
 interface IDishProp {
   name: string;
@@ -22,11 +21,15 @@ export const Dish: React.FC<IDishProp> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const onClick = () => {
+    isCustomer && setIsOpen(true);
+  };
+
   return (
     <div>
       <figure
-        onClick={() => setIsOpen(true)}
-        className=" shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out hover:border-gray-800"
+        onClick={onClick}
+        className=" bg-white shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out hover:border-gray-800"
       >
         <div className=" flex flex-col flex-auto overflow-y-auto p-4 md:space-y-4 ">
           <div className="text-xl leading-6 font-medium text-gray-900">
@@ -39,7 +42,7 @@ export const Dish: React.FC<IDishProp> = ({
           {isCustomer && options?.length !== 0 && (
             <div className="md:flex space-x-1">
               {/* <h5 className="my-3 font-medium">Dish Options</h5> */}
-              {options?.map((option, index) => (
+              {options?.slice(0, 2).map((option, index) => (
                 <span
                   className="md:flex items-center px-2 md:bg-gray-200 shadow rounded-xl "
                   key={index}
@@ -66,7 +69,7 @@ export const Dish: React.FC<IDishProp> = ({
         />
       </figure>
       {isOpen && (
-        <Modal
+        <ModalDish
           photo={photo}
           name={name}
           description={description}

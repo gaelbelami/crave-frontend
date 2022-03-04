@@ -1,9 +1,7 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
-import React, { Fragment, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ME_QUERY, useMe } from "../../../hooks/useMe";
-
-import { toast, Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import {
@@ -13,20 +11,12 @@ import {
 import { IEditProfileForm } from "../../../interfaces/user.interface";
 import { useForm } from "react-hook-form";
 import { ButtonForm } from "../../../components/form-button";
-import profile from "../../../images/profile.jpg";
 import { IoMdCloudUpload } from "react-icons/io";
 import { BiReset } from "react-icons/bi";
 import { FormError } from "../../../components/form-error";
 import { BsImageFill } from "react-icons/bs";
-
-export const EDIT_PROFILE_MUTATION = gql`
-  mutation editProfileMutation($editUserProfileInput: EditUserProfileInput!) {
-    editUserProfile(editUserProfileInput: $editUserProfileInput) {
-      ok
-      message
-    }
-  }
-`;
+import { EDIT_PROFILE_MUTATION } from "../../../graphql/query-mutation";
+import ToastAutoClose from "../../../components/toast";
 
 export const GeneralTab = () => {
   const [uploading, setUploading] = useState(false);
@@ -34,39 +24,28 @@ export const GeneralTab = () => {
 
   const usernameRegex = /^[a-z0-9_-]{3,15}$/;
 
-  const ToastContent = () => (
-    <Fragment>
-      <div className=" m-1">
-        <div>
-          <div className="">
-            <h6 className=" font-semibold font-sans">Success</h6>
-          </div>
-        </div>
-        <div className="toastify-body">
-          <span className=" text-xs font-sans">
-            Your profile has been updated successfully😊
-          </span>
-        </div>
-      </div>
-    </Fragment>
-  );
-
-  const contextClass: { [key: string]: any } = {
-    success: "bg-gray-700",
-    error: "bg-gray-700",
-    info: "bg-gray-700",
-    warning: "bg-gray-700",
-    default: "bg-gray-700",
-    dark: "bg-white-600 font-gray-300",
-  };
   const { data: userData } = useMe();
 
   const client = useApolloClient();
 
   const onCompleted = (data: editProfileMutation) => {
     const {
-      editUserProfile: { ok },
+      editUserProfile: { ok, message },
     } = data;
+
+    if (ok === true && message) {
+      ToastAutoClose({
+        typeState: 0,
+        message,
+        title: "Success",
+      });
+    } else if (message) {
+      ToastAutoClose({
+        typeState: 1,
+        message,
+        title: "Error",
+      });
+    }
 
     if (ok && userData) {
       setUploading(false);
@@ -83,26 +62,7 @@ export const GeneralTab = () => {
           address,
           birthdate,
           file: avatar,
-          // email: newEmail,
         } = getValues();
-
-        // if (previousEmail !== newEmail) {
-        //   client.writeFragment({
-        //     id: `User:${id}`,
-
-        //     fragment: gql`
-        //       fragment EditedUser on User {
-        //         email
-        //         verified
-        //       }
-        //     `,
-        //     data: {
-        //       email: newEmail,
-        //       verified: false,
-        //     },
-        //   });
-        // }
-
         client.writeFragment({
           id: `User:${id}`,
 
@@ -128,11 +88,6 @@ export const GeneralTab = () => {
           },
         });
         Swal.fire("Success?", "Profile updated successfully", "success");
-        toast.success(<ToastContent />, {
-          transition: Bounce,
-          hideProgressBar: true,
-          autoClose: 3000,
-        });
       } catch (error) {
         throw new Error("Could not update cash");
       }
@@ -153,7 +108,6 @@ export const GeneralTab = () => {
   const {
     register,
     handleSubmit,
-    watch,
     getValues,
     formState: { errors, isValid },
   } = useForm<IEditProfileForm>({
@@ -164,15 +118,9 @@ export const GeneralTab = () => {
       username: userData?.me.username,
       phoneNumber: userData?.me.phoneNumber,
       address: userData?.me.address,
-      // avatar: userData?.me.avatar,
-      // email: userData?.me.email,
       birthdate: new Date(userData?.me.birthdate).toLocaleDateString(),
     },
   });
-
-  // Confirm password validation
-  const password = useRef<IEditProfileForm["password"]>();
-  password.current = watch("password");
 
   const onSubmit = async () => {
     try {
@@ -183,10 +131,8 @@ export const GeneralTab = () => {
         username,
         phoneNumber,
         address,
-        // email,
         birthdate,
         file,
-        // password,
       } = getValues();
 
       const actualFile = file![0];
@@ -209,9 +155,7 @@ export const GeneralTab = () => {
             phoneNumber,
             address,
             avatar,
-            // email,
             birthdate,
-            // ...(password !== "" && { password }),
           },
         },
       });
@@ -220,6 +164,9 @@ export const GeneralTab = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Profile Details</title>
+      </Helmet>
       <div className="border-b border-gray-300">
         <h2 className=" font-extrabold text-lg mb-5 text-gray-700 ">
           Profile Details
@@ -319,18 +266,7 @@ export const GeneralTab = () => {
             placeholder="Username"
             className="input"
           />
-          {/* <input
-            {...register("email", {
-              pattern: {
-                value: strongRegex,
-                message: "Please input a valid email!",
-              },
-            })}
-            name="email"
-            type="email"
-            placeholder="Email"
-            className="input"
-          /> */}
+
           <input
             {...register("phoneNumber")}
             name="phoneNumber"
@@ -357,12 +293,6 @@ export const GeneralTab = () => {
             loading={uploading}
             canClick={isValid}
             actionText="Save changes"
-          />
-          <ToastContainer
-            toastClassName={({ type }: any) =>
-              contextClass[type || "sucess"] +
-              " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-            }
           />
         </form>
       </div>

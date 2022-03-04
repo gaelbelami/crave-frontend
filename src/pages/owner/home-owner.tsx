@@ -3,7 +3,6 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { MdRestaurantMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { Footer } from "../../components/footer";
 import { Pagination, usePagination } from "../../components/pagination";
 import { RestaurantItem } from "../../components/restaurantItem";
 import {

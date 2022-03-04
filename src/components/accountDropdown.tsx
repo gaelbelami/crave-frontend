@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { HiUser, HiUserCircle } from "react-icons/hi";
+import { HiUser } from "react-icons/hi";
 import { IoLogOut } from "react-icons/io5";
 import { MdSettings } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
-import profile from "../images/profile.jpg";
 import { Menu, Transition } from "@headlessui/react";
 import { FaUser } from "react-icons/fa";
 
@@ -19,7 +18,6 @@ const AccountDropdown = () => {
               type="button"
               className="inline-flex justify-self-end w-full outline-none"
             >
-              {/* <HiUserCircle className=" md:h-9 md:w-9 h-8 w-8 text-gray-500" /> */}
               <span>
                 {data?.me.avatar ? (
                   <img

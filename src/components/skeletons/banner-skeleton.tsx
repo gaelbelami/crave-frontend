@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
+import { BsImageFill } from "react-icons/bs";
 
-
-export const BannerSkeleton =() => {
-  return <div>
+export const BannerSkeleton = () => {
+  return (
+    <div>
       <div className="relative mt-8 rounded-lg shadow-md  mb-5">
-        <div className=" p-32 md:p-44 lg:p-52 xl:p-72 rounded-lg bg-cover mb-2 bg-center bg-gray-200 animate-pulse"  />
-  
+        <div className=" p-12 md:p-24 lg:p-32 xl:p-52 rounded-lg bg-cover mb-2 bg-center bg-gray-200">
+          <BsImageFill className=" h-32 w-auto mx-auto my-auto mt-5  object-cover object-center text-gray-500 animate-pulse" />
+        </div>
       </div>
-  </div>;
-}
-
+    </div>
+  );
+};

@@ -2,32 +2,11 @@ import { gql, useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RestaurantItem } from "../../components/restaurantItem";
+import { SEARCH_RESTAURANT } from "../../graphql/query-mutation";
 import {
   searchRestaurantQuery,
   searchRestaurantQueryVariables,
 } from "../../__generated__/searchRestaurantQuery";
-
-const SEARCH_RESTAURANT = gql`
-  query searchRestaurantQuery($searchRestaurantInput: SearchRestaurantInput!) {
-    searchRestaurant(searchRestaurantInput: $searchRestaurantInput) {
-      ok
-      message
-      totalPages
-      totalPages
-      totalResults
-      restaurants {
-        id
-        name
-        coverImage
-        category {
-          name
-        }
-        address
-        isPromoted
-      }
-    }
-  }
-`;
 
 export const Search = () => {
   const history = useNavigate();

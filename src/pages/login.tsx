@@ -74,7 +74,7 @@ export default function Login() {
   };
 
   return (
-    <div className=" h-screen flex items-center text-orange-500 flex-col mt-10 lg:mt-32">
+    <div className=" h-screen flex items-center bg-white flex-col pt-10 lg:pt-32">
       <Helmet>
         <title>Login | Crave ~ Food</title>
       </Helmet>

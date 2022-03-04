@@ -15,8 +15,7 @@ interface ISearchFormProps {
 
 export const Header: React.FC = () => {
   const { data } = useMe();
-  const { register, handleSubmit, getValues, watch } =
-    useForm<ISearchFormProps>();
+  const { register, handleSubmit, watch } = useForm<ISearchFormProps>();
   const history = useNavigate();
   const { searchTerm } = watch();
   const onSearchSubmit = () => {

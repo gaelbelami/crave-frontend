@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { BsCheck2 } from "react-icons/bs";
 import { FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";

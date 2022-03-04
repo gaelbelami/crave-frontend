@@ -1,60 +1,21 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { GrFormAdd } from "react-icons/gr";
-import { GrFormDown } from "react-icons/gr";
 import { ImLocation } from "react-icons/im";
-import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { Dish } from "../../components/dish";
-import { Modal } from "../../components/modal";
+import { RESTAURANT_QUERY } from "../../graphql/query-mutation";
 // import { IRestaurantParams } from '../../interfaces/restaurant.interface';
 import {
   restaurantQuery,
   restaurantQueryVariables,
 } from "../../__generated__/restaurantQuery";
 
-const RESTAURANTS_QUERY = gql`
-  query restaurantQuery($restaurantInput: RestaurantInput!) {
-    restaurant(restaurantInput: $restaurantInput) {
-      ok
-      message
-      restaurant {
-        id
-        name
-        coverImage
-        category {
-          name
-          slug
-        }
-        address
-        isPromoted
-        menu {
-          id
-          name
-          price
-          photo
-          description
-          options {
-            name
-            extra
-            choices {
-              name
-              extra
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const Restaurant = () => {
   const location = useLocation();
   const restaurantId: any = location.state;
 
   const { data, loading } = useQuery<restaurantQuery, restaurantQueryVariables>(
-    RESTAURANTS_QUERY,
+    RESTAURANT_QUERY,
     {
       variables: {
         restaurantInput: {
@@ -71,7 +32,7 @@ export const Restaurant = () => {
 
   return (
     <div>
-      {loading ? (
+      {!data || loading ? (
         <div className=" page-container bg-gray-200 animate-pulse mt-5 bg-center bg-cover py-48">
           <div className=" ml-8 bg-white w-3/12 py-8 rounded-md shadow-md">
             <div className="flex">
@@ -91,13 +52,13 @@ export const Restaurant = () => {
         </div>
       ) : (
         <div
-          className=" page-container mt-5 bg-center bg-cover py-32 shadow-md"
+          className=" page-container mt-5 bg-center bg-cover py-28 shadow-md"
           style={{
             backgroundImage: `url(${data?.restaurant.restaurant?.coverImage})`,
           }}
         >
-          <div className=" ml-8 bg-white w-3/12 py-8 rounded-md shadow-md">
-            <h4 className="ml-4 text-4xl mb-3 font-mono font-semibold ">
+          <div className=" ml-8 bg-white w-3/12 py-6 rounded-md shadow-md">
+            <h4 className="uppercase ml-4 text-4xl mb-4 text-gray-700 font-extrabold">
               {data?.restaurant.restaurant?.name}
             </h4>
             <Link
@@ -105,7 +66,7 @@ export const Restaurant = () => {
               state={data?.restaurant.restaurant?.category}
             >
               <div className="flex  mb-5">
-                <h4 className="flex-none text-xs font-bold shadow-md bg-gray-200 py-1 px-2 rounded-2xl ml-4 ">
+                <h4 className="capitalize flex-none text-xs font-bold shadow-md bg-gray-200 py-1 px-2 rounded-2xl ml-4 ">
                   {data?.restaurant.restaurant?.category?.name}
                 </h4>
                 <div className="flex-grow"></div>

@@ -18,6 +18,12 @@ export interface CategoryInput {
   categorySlug: string;
 }
 
+export interface ChangePasswordUserInput {
+  password: string;
+  oldPassword: string;
+  confirmPassword: string;
+}
+
 export interface CreateDishInput {
   name: string;
   price: number;

@@ -1,33 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { BiCategory } from "react-icons/bi";
 import { useLocation, useParams } from "react-router-dom";
-import { Footer } from "../../components/footer";
 import { RestaurantItem } from "../../components/restaurantItem";
+import { CATEGORY_QUERY } from "../../graphql/query-mutation";
 import {
   categoryQuery,
   categoryQueryVariables,
 } from "../../__generated__/categoryQuery";
-
-const CATEGORY_QUERY = gql`
-  query categoryQuery($categoryInput: CategoryInput!) {
-    category(categoryInput: $categoryInput) {
-      ok
-      message
-      totalPages
-      totalResults
-      restaurants {
-        id
-        name
-        coverImage
-        category {
-          name
-        }
-        address
-        isPromoted
-      }
-    }
-  }
-`;
 
 export const Category = () => {
   const { categorySlug } = useParams() as { categorySlug: string };

@@ -2,7 +2,6 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { RiEdit2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Footer } from "../../components/footer";
 import { useMe } from "../../hooks/useMe";
 import profile from "../../images/profile.jpg";
 
@@ -46,9 +45,7 @@ export const EditProfile: React.FC = () => {
           <div className=" ring-1 ring-gray-200 py-3 px-5 rounded-lg text-black">
             {userData?.me.firstName}
           </div>
-          {/* {errors['firstName'] && errors['firstName']?.message && (<FormError errorMessage={errors.firstName?.message} />)}
-            {errors['firstName'] && errors['firstName']?.type ===  'minLength' && (<FormError errorMessage='Min length 3' />)}
-            {errors['firstName'] && errors['firstName']?.type ===  'maxLength' && (<FormError errorMessage='Max length exceeded' />)} */}
+
           <span className=" mt-5 mb-1 font-semibold text-sm text-gray-700">
             Last Name
           </span>
