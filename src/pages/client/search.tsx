@@ -32,8 +32,8 @@ export const Search = () => {
   }, [history, location, callQuery, query]);
 
   return (
-    <div className="flex">
-      <section className="flex-grow pt-6 px-6">
+    <div className="min-h-screen">
+      <section className="flex-grow pt-6 px-6 md:px-8 sm:px-16  shadow-md rounded-lg mt-5 pb-5 ">
         <h1 className="text-3xl font-semibold mt-3 "> Search: {query} </h1>
         <p className="text-md font-semibold py-10">
           {data?.searchRestaurant.totalResults} Results found

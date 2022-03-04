@@ -101,7 +101,7 @@ export const LoggedInRouter = () => {
   console.log(data);
   return (
     <Router>
-      <div className="flex flex-row">
+      <div className="flex flex-row ">
         <Sidebar />
         <div className="flex-auto  page-container ">
           <Header />
@@ -131,7 +131,7 @@ export const LoggedInRouter = () => {
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className="fixed z-50 bottom-0 inset-x-28 right-4">
+          <div className="relative bg-red-400">
             <Footer />
           </div>
         </div>

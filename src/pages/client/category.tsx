@@ -26,27 +26,29 @@ export const Category = () => {
   const location = useLocation();
   const category: any = location.state;
   return (
-    <section className="md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg mt-5 pb-5">
-      <h1 className="text-2xl font-bold font-sans mt-3 inline-flex items-center opacity-80  ">
-        <BiCategory />
-        &nbsp; {category.name}{" "}
-      </h1>
-      <p className="text-md font-semibold mt-8 mb-8">
-        {data?.category.restaurants?.length} Results found{" "}
-      </p>
+    <div className="min-h-screen">
+      <section className="md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg mt-5 pb-5 ">
+        <h1 className="text-2xl font-bold font-sans mt-3 inline-flex items-center opacity-80  ">
+          <BiCategory />
+          &nbsp; {category.name}{" "}
+        </h1>
+        <p className="text-md font-semibold mt-8 mb-8">
+          {data?.category.restaurants?.length} Results found{" "}
+        </p>
 
-      <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
-        {data?.category.restaurants?.map((restaurant) => (
-          <RestaurantItem
-            key={restaurant.id}
-            id={restaurant.id}
-            coverImage={restaurant.coverImage}
-            restaurantName={restaurant.name}
-            categoryName={restaurant.category?.name}
-            address={restaurant.address}
-          />
-        ))}
-      </div>
-    </section>
+        <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+          {data?.category.restaurants?.map((restaurant) => (
+            <RestaurantItem
+              key={restaurant.id}
+              id={restaurant.id}
+              coverImage={restaurant.coverImage}
+              restaurantName={restaurant.name}
+              categoryName={restaurant.category?.name}
+              address={restaurant.address}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 };

@@ -15,7 +15,13 @@ interface ISearchFormProps {
 
 export const Header: React.FC = () => {
   const { data } = useMe();
-  const { register, handleSubmit, watch } = useForm<ISearchFormProps>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm<ISearchFormProps>();
   const history = useNavigate();
   const { searchTerm } = watch();
   const onSearchSubmit = () => {
@@ -27,6 +33,11 @@ export const Header: React.FC = () => {
       { replace: true }
     );
   };
+  React.useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ searchTerm: "" });
+    }
+  }, [isSubmitSuccessful, reset]);
   return (
     <>
       {!data?.me.verified && (
@@ -34,65 +45,67 @@ export const Header: React.FC = () => {
           <span>Please verify your email.</span>
         </div>
       )}
-      <header
-        className={
-          " sticky top-0 z-50 grid  bg-white shadow-md p-3 md:pl-10 md:pr-5 rounded-lg " +
-          (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
-        }
-      >
-        {/* left */}
-        <div className="relative h-10 cursor-pointer my-auto">
-          <Link className="inline-flex text-center items-center gap-1" to="/">
-            {/* <img src={logo} alt="crave" className=" w-28" /> */}
-            {/* <SiSnapcraft className=" text-3xl text-orange-500 mt-1" /> */}
-            {/* <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
+      <header className=" sticky top-0 z-30 bg-gray-100 rounded-b-lg pt-3 ">
+        <div
+          className={
+            " grid  p-2 bg-white shadow-md  md:pl-10 md:pr-5 rounded-lg " +
+            (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
+          }
+        >
+          {/* left */}
+          <div className="relative h-10 cursor-pointer my-auto">
+            <Link className="inline-flex text-center items-center gap-1" to="/">
+              {/* <img src={logo} alt="crave" className=" w-28" /> */}
+              {/* <SiSnapcraft className=" text-3xl text-orange-500 mt-1" /> */}
+              {/* <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
               crave.
             </h2> */}
-          </Link>
-        </div>
-
-        {/* Middle */}
-
-        {data?.me.role === UserRole.client && (
-          <form
-            onSubmit={handleSubmit(onSearchSubmit)}
-            className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2"
-          >
-            <input
-              {...register("searchTerm", {
-                required: "Min 3 characters for the search term",
-                minLength: 3,
-              })}
-              autoComplete="off"
-              className=" text-gray-600 font-sans placeholder-gray-400 flex-grow pl-5 bg-transparent outline-none"
-              type="search"
-              placeholder="Search restaurant..."
-            />
-            <HiSearch
-              onClick={handleSubmit(onSearchSubmit)}
-              className=" animate-pulse md:mx-2 h-8 w-8 bg-orange-500 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
-            />
-          </form>
-        )}
-
-        {/* Right */}
-        <div className=" flex  items-center justify-end">
-          <div className="flex">
-            <Link to="/cart">
-              <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
             </Link>
-            <NotificationDropdown />
           </div>
-          <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
-            <AccountDropdown />
-          </div>
-        </div>
 
-        {searchTerm && (
-          <div className="flex flex-col col-span-3 mx-auto">
-            <div className=""></div>
+          {/* Middle */}
+
+          {data?.me.role === UserRole.client && (
+            <form
+              onSubmit={handleSubmit(onSearchSubmit)}
+              className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2"
+            >
+              <input
+                {...register("searchTerm", {
+                  required: "Min 3 characters for the search term",
+                  minLength: 3,
+                })}
+                autoComplete="off"
+                className=" text-gray-600 transform opacity-70 focus-visible:opacity-100 hover:opacity-100 focus:translate-x-2 transition-transform ease-in duration-200 placeholder:font-semilight placeholder-gray-400 flex-grow focus:placeholder:pl-1 pl-5 bg-transparent outline-none"
+                type="search"
+                placeholder="Search restaurant..."
+              />
+              <HiSearch
+                onClick={handleSubmit(onSearchSubmit)}
+                className=" animate-pulse md:mx-2 h-8 w-8 bg-gray-700 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
+              />
+            </form>
+          )}
+
+          {/* Right */}
+          <div className=" flex  items-center justify-end">
+            <div className="flex">
+              <Link to="/cart">
+                <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
+              </Link>
+              <NotificationDropdown />
+            </div>
+            <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
+              <AccountDropdown />
+            </div>
           </div>
-        )}
+
+          {searchTerm && (
+            <div className="flex flex-col col-span-3 mx-auto">
+              <div className=""></div>
+            </div>
+          )}
+        </div>
       </header>
     </>
   );

@@ -9,6 +9,9 @@ module.exports = {
         yellow: colors.yellow,
         orange: colors.orange,
       },
+      fontFamily: {
+        sans: ["Poppins", "sans"],
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

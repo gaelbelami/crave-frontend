@@ -31,7 +31,7 @@ export const Restaurant = () => {
   );
 
   return (
-    <div>
+    <div className="min-h-screen">
       {!data || loading ? (
         <div className=" page-container bg-gray-200 animate-pulse mt-5 bg-center bg-cover py-48">
           <div className=" ml-8 bg-white w-3/12 py-8 rounded-md shadow-md">

@@ -9,7 +9,7 @@ export const EditProfile: React.FC = () => {
   const { data: userData } = useMe();
 
   return (
-    <div className="page-container">
+    <div className="page-container min-h-screen">
       <div className="flex flex-col mt-10 items-center">
         <Helmet>
           <title>Profile Details | Crave ~ Food</title>
