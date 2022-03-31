@@ -5,31 +5,12 @@ import { MdRestaurantMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Pagination, usePagination } from "../../components/pagination";
 import { RestaurantItem } from "../../components/restaurantItem";
+import { MY_RESTAURANTS_QUERY } from "../../graphql/query-mutation";
 import {
   myRestaurantsQuery,
   myRestaurantsQueryVariables,
 } from "../../__generated__/myRestaurantsQuery";
 
-export const MY_RESTAURANTS_QUERY = gql`
-  query myRestaurantsQuery($myRestaurantsInput: MyRestaurantsInput!) {
-    myRestaurants(myRestaurantsInput: $myRestaurantsInput) {
-      ok
-      message
-      totalPages
-      totalResults
-      results {
-        id
-        name
-        coverImage
-        category {
-          name
-        }
-        address
-        isPromoted
-      }
-    }
-  }
-`;
 export const HomeOwner = () => {
   const { page, ...restaurantPager } = usePagination(1);
   const { data } = useQuery<myRestaurantsQuery, myRestaurantsQueryVariables>(

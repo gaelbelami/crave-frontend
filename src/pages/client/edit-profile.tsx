@@ -22,8 +22,8 @@ export const EditProfile: React.FC = () => {
 
         <div className="grid max-w-screen-sm  mt-5 w-full ring-1 ring-gray-300 shadow-md p-5 rounded-lg ">
           <Link to="/account-settings">
-            <div className="grid justify-items-end items-center text-orange-500 text-sm font-semibold">
-              <div className=" inline-flex items-center border-2 border-orange-400 rounded-lg px-2 py-1">
+            <div className="grid justify-items-end items-center text-teal-600 text-sm font-semibold">
+              <div className=" inline-flex items-center border-2 border-teal-500 rounded-lg px-2 py-1">
                 <RiEdit2Fill className="mr-2" />
                 Edit Profile
               </div>

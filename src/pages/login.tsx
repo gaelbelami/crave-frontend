@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -7,30 +7,15 @@ import { authTokenVar, isLoggedInVar } from "../apollo";
 import { ButtonForm } from "../components/form-button";
 import { FormError } from "../components/form-error";
 import { LOCALSTORAGE_TOKEN } from "../constants/constants";
+import { LOGIN_MUTATION } from "../graphql/query-mutation";
+import { ILoginForm } from "../interfaces/user.interface";
+import { emailRegex } from "../utils/regex";
 import {
   loginMutation,
   loginMutationVariables,
 } from "../__generated__/loginMutation";
-// import logo from "../images/logo.svg";
-const LOGIN_MUTATION = gql`
-  mutation loginMutation($loginUserInput: LoginUserInput!) {
-    loginUser(loginUserInput: $loginUserInput) {
-      ok
-      message
-      token
-    }
-  }
-`;
-
-interface ILoginForm {
-  email: string;
-  password: string;
-}
 
 export default function Login() {
-  const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   const {
     register,
     handleSubmit,

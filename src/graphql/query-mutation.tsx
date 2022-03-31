@@ -131,3 +131,111 @@ export const CATEGORY_QUERY = gql`
     }
   }
 `;
+
+export const CREATE_DISH_MUTATION = gql`
+  mutation createDishMutation($createDishInput: CreateDishInput!) {
+    createDish(createDishInput: $createDishInput) {
+      ok
+      message
+    }
+  }
+`;
+
+export const MY_RESTAURANTS_QUERY = gql`
+  query myRestaurantsQuery($myRestaurantsInput: MyRestaurantsInput!) {
+    myRestaurants(myRestaurantsInput: $myRestaurantsInput) {
+      ok
+      message
+      totalPages
+      totalResults
+      results {
+        id
+        name
+        coverImage
+        category {
+          name
+        }
+        address
+        isPromoted
+      }
+    }
+  }
+`;
+
+export const MY_RESTAURANT_QUERY = gql`
+  query myRestaurantQuery($myRestaurantInput: MyRestaurantInput!) {
+    myRestaurant(myRestaurantInput: $myRestaurantInput) {
+      ok
+      message
+      restaurant {
+        id
+        name
+        coverImage
+        category {
+          name
+        }
+        address
+        isPromoted
+        menu {
+          id
+          name
+          price
+          photo
+          description
+          options {
+            name
+            extra
+            choices {
+              name
+              extra
+            }
+          }
+        }
+        orders {
+          id
+          createdAt
+          total
+        }
+      }
+    }
+  }
+`;
+
+export const VERIFY_EMAIL_MUTATION = gql`
+  mutation verifyEmailUser($verifyEmailUserInput: VerifyEmailInput!) {
+    verifyEmailUser(verifyEmailUserInput: $verifyEmailUserInput) {
+      ok
+      message
+    }
+  }
+`;
+
+export const LOGIN_MUTATION = gql`
+  mutation loginMutation($loginUserInput: LoginUserInput!) {
+    loginUser(loginUserInput: $loginUserInput) {
+      ok
+      message
+      token
+    }
+  }
+`;
+
+export const CREATE_ACCOUNT_MUTATION = gql`
+  mutation createAccountMutation(
+    $createUserAccountInput: CreateUserAccountInput!
+  ) {
+    createUserAccount(createUserAccountInput: $createUserAccountInput) {
+      ok
+      message
+    }
+  }
+`;
+
+export const CREATE_ORDER_MUTATION = gql`
+  mutation createOrderMutation($createOrderInput: CreateOrderInput!) {
+    createOrder(createOrderInput: $createOrderInput) {
+      ok
+      message
+    }
+  }
+`;

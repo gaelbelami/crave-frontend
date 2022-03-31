@@ -9,33 +9,14 @@ import {
   createDishMutation,
   createDishMutationVariables,
 } from "../../__generated__/createDishMutation";
-import { MY_RESTAURANT_QUERY } from "./my-restaurant";
 import { MdAddCircle } from "react-icons/md";
 import { FormError } from "../../components/form-error";
+import { IAddDishForm } from "../../interfaces/add-dish.interface";
+import {
+  CREATE_DISH_MUTATION,
+  MY_RESTAURANT_QUERY,
+} from "../../graphql/query-mutation";
 
-const CREATE_DISH_MUTATION = gql`
-  mutation createDishMutation($createDishInput: CreateDishInput!) {
-    createDish(createDishInput: $createDishInput) {
-      ok
-      message
-    }
-  }
-`;
-
-interface IAddDishForm {
-  name: string;
-  price: string;
-  file: FileList;
-  description: string;
-  options: {
-    name: string;
-    choices?: {
-      name: string;
-      extra: string;
-    }[];
-    extra: string;
-  };
-}
 export const AddDish = () => {
   const { restaurantId } = useParams() as { restaurantId: string };
   const history = useNavigate();

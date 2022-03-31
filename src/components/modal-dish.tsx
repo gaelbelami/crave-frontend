@@ -1,26 +1,34 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
 import { restaurantQuery_restaurant_restaurant_menu_options } from "../__generated__/restaurantQuery";
 
 interface IModal {
+  dishId?: number;
   photo: string;
   name: string;
   description: string;
   options?: restaurantQuery_restaurant_restaurant_menu_options[] | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  addItemToOrder?: (dishId: number) => void;
+  removeFromOrder?: (dishId: number) => void;
+  isSelected: boolean;
 }
 
 export const ModalDish: React.FC<IModal> = ({
+  dishId = 0,
   photo,
   name,
   description,
-  options,
   setIsOpen,
+  isSelected,
+  addItemToOrder,
+  removeFromOrder,
+  children: dishOptions,
 }) => {
   const onClick = () => {
     setIsOpen(false);
   };
+
   return (
     <div className=" bg-slate-800 bg-opacity-50 absolute inset-0 justify-items-center items-center">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 transition-all ease-in-out duration-300">
@@ -70,88 +78,73 @@ export const ModalDish: React.FC<IModal> = ({
                     height="512"
                   />
                 </div>
+
                 <div>
                   <h3 className=" text-lg font-semibold text-gray-800 leading-6">
                     Choose Your options
                   </h3>
-                  <div className="mt-2">
-                    {options?.map((option) => (
-                      <h2
-                        key={option.name}
-                        className=" text-sm font-semibold text-gray-500"
-                      >
-                        <input
-                          type="checkbox"
-                          className=" checked:bg-blue-500 rounded border mr-2"
-                        />
-                        {option.name}
-                      </h2>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <h3 className=" text-lg font-semibold text-gray-800 leading-6">
-                    Choose Your Add Ons
-                  </h3>
-                  <div className="mt-2">
-                    <h2 className=" text-sm font-semibold text-gray-500 mt-2">
-                      <input
-                        type="checkbox"
-                        className=" checked:bg-blue-500 rounded border mr-2"
-                      />
-                      Avocado
-                    </h2>
-                    <h2 className=" text-sm font-semibold text-gray-500 mt-2">
-                      <input
-                        type="checkbox"
-                        className=" checked:bg-blue-500 rounded border mr-2"
-                      />
-                      BBQ Sauce
-                    </h2>
-                    <h2 className=" text-sm font-semibold text-gray-500 mt-2">
-                      <input
-                        type="checkbox"
-                        className=" checked:bg-blue-500 rounded border mr-2"
-                      />
-                      Ketchup
-                    </h2>
-                    <h2 className=" text-sm font-semibold text-gray-500 mt-2">
-                      <input
-                        type="checkbox"
-                        className=" checked:bg-blue-500 rounded border mr-2"
-                      />
-                      Lettuce
-                    </h2>
-                    <h2 className=" text-sm font-semibold text-gray-500 mt-2">
-                      <input
-                        type="checkbox"
-                        className=" checked:bg-blue-500 rounded border mr-2"
-                      />
-                      Tomato
-                    </h2>
-                  </div>
+                  {dishOptions}
                 </div>
               </div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button
-              type="button"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-            >
-              Add to cart
-            </button>
-            <div>
-              <div className=" cursor-pointer  mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                <IoRemoveOutline />
-              </div>
-              <div className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                1
-              </div>
-              <div className=" cursor-pointer  mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                <IoAddOutline />
-              </div>
-            </div>
+            {isSelected ? (
+              <>
+                <button
+                  onClick={() => removeFromOrder && removeFromOrder(dishId)}
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Remove
+                </button>
+                <button
+                  onClick={onClick}
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-600 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Confirm
+                </button>
+
+                {/* <button
+                  
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Cancel Order
+                </button> */}
+
+                {/* <div>
+                  <div
+                    
+                    className=" cursor-pointer  mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    <IoRemoveOutline />
+                  </div>
+                  <div className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    {itemQuantity}
+                  </div>
+                  <div
+                    
+                    className=" cursor-pointer  mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    <IoAddOutline />
+                  </div>
+                </div> */}
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  if (addItemToOrder) {
+                    addItemToOrder(dishId);
+                  }
+                }}
+                type="button"
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Add
+              </button>
+            )}
           </div>
         </div>
       </div>

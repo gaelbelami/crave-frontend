@@ -1,13 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  toast,
-  ToastContainer,
-  Zoom,
-  Bounce,
-  Slide,
-  TypeOptions,
-  ToastClassName,
-} from "react-toastify";
+import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
@@ -33,18 +25,18 @@ const contextClass: { [key: string]: any } = {
 const ToastContent = () => (
   <Fragment>
     <div className=" m-1">
-    <div>
-      <div className="">
-        <h6 className=" font-semibold font-sans">Bienvenue, gael</h6>
+      <div>
+        <div className="">
+          <h6 className=" font-semibold font-sans">Bienvenue, gael</h6>
+        </div>
+      </div>
+      <div className="toastify-body">
+        <span className=" text-xs font-sans">
+          Nous sommes heureux de vous revoir sur Koksie. Profitez bien de tous
+          nos services 😊
+        </span>
       </div>
     </div>
-    <div className="toastify-body">
-      <span className=" text-xs font-sans">
-        Nous sommes heureux de vous revoir sur Koksie. Profitez bien de tous nos
-        services 😊
-      </span>
-    </div>
-  </div>
   </Fragment>
 );
 

@@ -6,24 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ButtonForm } from "../components/form-button";
 import { FormError } from "../components/form-error";
+import { CREATE_ACCOUNT_MUTATION } from "../graphql/query-mutation";
+import { emailRegex, nameRegex } from "../utils/regex";
 import {
   createAccountMutation,
   createAccountMutationVariables,
 } from "../__generated__/createAccountMutation";
 import { UserRole } from "../__generated__/globalTypes";
 
-const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccountMutation(
-    $createUserAccountInput: CreateUserAccountInput!
-  ) {
-    createUserAccount(createUserAccountInput: $createUserAccountInput) {
-      ok
-      message
-    }
-  }
-`;
-
-interface ICreateAccountForm {
+export interface ICreateAccountForm {
   firstName: string;
   lastName: string;
   email: string;
@@ -32,11 +23,6 @@ interface ICreateAccountForm {
 }
 
 export default function Signup() {
-  const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const nameRegex = /^([^0-9]*)$/;
-
   const {
     register,
     handleSubmit,

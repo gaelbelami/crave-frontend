@@ -1,35 +1,56 @@
 import React, { useState } from "react";
-import { restaurantQuery_restaurant_restaurant_menu_options } from "../__generated__/restaurantQuery";
+import { IDishProp } from "../interfaces/dish.interface";
+import { CreateOrderItemInput } from "../__generated__/globalTypes";
+import { DishOption } from "./dish-options";
 import { ModalDish } from "./modal-dish";
 
-interface IDishProp {
-  name: string;
-  description: string;
-  price: number;
-  photo: string;
-  isCustomer?: boolean;
-  options?: restaurantQuery_restaurant_restaurant_menu_options[] | null;
-}
-
 export const Dish: React.FC<IDishProp> = ({
+  dishId,
   name,
   description,
   price,
   photo,
   isCustomer = false,
   options,
+  addItemToOrder,
+  removeFromOrder,
+  addOptionToItem,
+  removeOptionFromItem,
+  isSelected,
+  getItem,
+  orderStarted,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClick = () => {
-    isCustomer && setIsOpen(true);
+    if (isCustomer && orderStarted) {
+      setIsOpen(true);
+    }
+  };
+
+  const getOptionFromItem = (
+    item: CreateOrderItemInput,
+    optionName: string
+  ) => {
+    return item.options?.find((option) => option.name === optionName);
+  };
+
+  const isOptionSelected = (dishId: number, optionName: string) => {
+    const item = getItem;
+    if (item) {
+      return Boolean(getOptionFromItem(item, optionName));
+    }
+
+    return false;
   };
 
   return (
     <div>
       <figure
         onClick={onClick}
-        className=" bg-white shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out hover:border-gray-800"
+        className={` bg-white shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out ${
+          isSelected ? "border-gray-500" : ""
+        }`}
       >
         <div className=" flex flex-col flex-auto overflow-y-auto p-4 md:space-y-4 ">
           <div className="text-xl leading-6 font-medium text-gray-900">
@@ -70,12 +91,28 @@ export const Dish: React.FC<IDishProp> = ({
       </figure>
       {isOpen && (
         <ModalDish
+          dishId={dishId}
           photo={photo}
           name={name}
           description={description}
           options={options}
           setIsOpen={setIsOpen}
-        />
+          addItemToOrder={addItemToOrder}
+          removeFromOrder={removeFromOrder}
+          isSelected={isSelected!}
+        >
+          {options?.map((option, index) => (
+            <DishOption
+              key={index}
+              dishId={dishId}
+              isSelected={isOptionSelected(dishId!, option.name)}
+              name={option.name}
+              extra={option.extra}
+              addOptionToItem={addOptionToItem!}
+              removeOptionFromItem={removeOptionFromItem!}
+            />
+          ))}
+        </ModalDish>
       )}
     </div>
   );

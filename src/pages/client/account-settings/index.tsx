@@ -18,7 +18,7 @@ export const AccountSettings = () => {
               <a
                 className={
                   "text-md px-4 py-2 font-semibold rounded-lg inline-flex items-center justify-center" +
-                  (openTab === 1 ? " text-white bg-orange-500  shadow-md" : "")
+                  (openTab === 1 ? " text-white bg-teal-600  shadow-md" : "")
                 }
                 onClick={(e) => {
                   e.preventDefault();
@@ -36,7 +36,7 @@ export const AccountSettings = () => {
               <a
                 className={
                   "text-md px-4 py-2 font-semibold rounded-lg inline-flex items-center justify-center" +
-                  (openTab === 2 ? " text-white bg-orange-500  shadow-md" : "")
+                  (openTab === 2 ? " text-white bg-teal-600  shadow-md" : "")
                 }
                 onClick={(e) => {
                   e.preventDefault();
@@ -54,7 +54,7 @@ export const AccountSettings = () => {
               <a
                 className={
                   "text-md px-4 py-2 font-semibold rounded-lg inline-flex items-center justify-center" +
-                  (openTab === 3 ? " text-white bg-orange-500  shadow-md" : "")
+                  (openTab === 3 ? " text-white bg-teal-600  shadow-md" : "")
                 }
                 onClick={(e) => {
                   e.preventDefault();

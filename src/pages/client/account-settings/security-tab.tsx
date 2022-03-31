@@ -6,16 +6,13 @@ import { FormError } from "../../../components/form-error";
 import ToastAutoClose from "../../../components/toast";
 import { CHANGE_PASSWORD_USER } from "../../../graphql/query-mutation";
 import { IChangePasswordForm } from "../../../interfaces/user.interface";
+import { passwordRegex } from "../../../utils/regex";
 import {
   changePasswordUserMutationVariables,
   changePasswordUserMutation,
 } from "../../../__generated__/changePasswordUserMutation";
 
 export const SecurityTab = () => {
-  const strongRegex = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-  );
-
   const onCompleted = (data: changePasswordUserMutation) => {
     const {
       changePasswordUser: { ok, message },
@@ -89,7 +86,7 @@ export const SecurityTab = () => {
                 required: "Old Password is required",
                 validate: (value) => value !== "",
                 pattern: {
-                  value: strongRegex,
+                  value: passwordRegex,
                   message:
                     "Must contain at least one lowercase, uppercase or numeric character",
                 },
@@ -108,7 +105,7 @@ export const SecurityTab = () => {
                 required: "New Password is required",
                 validate: (value) => value !== "",
                 pattern: {
-                  value: strongRegex,
+                  value: passwordRegex,
                   message:
                     "Must contain at least one lowercase, uppercase or numeric character",
                 },

@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
   return (
     <>
       {!data?.me.verified && (
-        <div className="bg-red-500 p-2 text-center text-xs text-white">
+        <div className="bg-teal-600 p-2 text-center text-xs text-white">
           <span>Please verify your email.</span>
         </div>
       )}
@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
               />
               <HiSearch
                 onClick={handleSubmit(onSearchSubmit)}
-                className=" animate-pulse md:mx-2 h-8 w-8 bg-gray-700 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
+                className=" animate-pulse md:mx-2 h-8 w-8 bg-teal-700 hidden md:inline-flex text-white rounded-full p-2 cursor-pointer  hover:shadow-2xl active:scale-90 transition duration-150"
               />
             </form>
           )}

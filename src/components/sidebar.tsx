@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MdDeliveryDining, MdOutlineFavorite } from "react-icons/md";
-import { SiSnapcraft } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
+import { FaHamburger } from "react-icons/fa";
 
 const Sidebar = () => {
   const [isShowing, setIsShowing] = useState(true);
@@ -21,7 +21,7 @@ const Sidebar = () => {
         leave="transition-all transform duration-300 ease-in-out"
         leaveFrom="translate-x-0 opacity-100"
         leaveTo="-translate-x-full opacity-0"
-        className="w-64"
+        className="w-56"
         aria-label="Sidebar"
       >
         <div className="px-3 py-4 overflow-y-auto rounded h-screen bg-white">
@@ -29,11 +29,12 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/"
-                className="flex flex-row items-center h-12 transform  transition-transform ease-in duration-200  hover:text-gray-700  p-2 text-gray-900 rounded-lg dark:text-gray-500"
+                className="flex flex-row items-center h-12 transform  transition-transform ease-in duration-200  hover:text-teal-800  p-2 text-gray-900 rounded-lg dark:text-teal-600"
               >
-                <SiSnapcraft className="w-10 h-10 " />
-                <span className="flex-1 ml-3 italic font-extrabold text-4xl">
-                  crave
+                <span className="flex ml-1 italic font-extrabold text-4xl">
+                  cr
+                  <FaHamburger className="w-5 h-5 mt-4 mx-0.5" />
+                  ve
                 </span>
               </Link>
             </li>
@@ -41,14 +42,14 @@ const Sidebar = () => {
               <li key={label}>
                 <Link
                   to={to}
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200  hover:text-white  p-2 text-base font-normal text-gray-900 rounded-lg dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-300  hover:text-white  p-2 text-base font-normal text-gray-900 rounded-lg dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-teal-700"
                 >
                   {icon}
                   <span className="flex-1 ml-3 whitespace-nowrap font-semibold">
                     {label}
                   </span>
                   {notification !== 0 && (
-                    <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                    <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-yellow-600 bg-blue-200 rounded-full dark:bg-yellow-800 dark:text-yellow-200">
                       {notification}
                     </span>
                   )}
@@ -90,9 +91,9 @@ const linksArray = [
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         ></path>
       </svg>
     ),

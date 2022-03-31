@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Dish } from "../../components/dish";
@@ -7,7 +7,6 @@ import {
   myRestaurantQueryVariables,
 } from "../../__generated__/myRestaurantQuery";
 import {
-  VictoryBar,
   VictoryChart,
   VictoryAxis,
   VictoryVoronoiContainer,
@@ -15,46 +14,7 @@ import {
   VictoryTheme,
   VictoryLabel,
 } from "victory";
-import { Footer } from "../../components/footer";
-
-export const MY_RESTAURANT_QUERY = gql`
-  query myRestaurantQuery($myRestaurantInput: MyRestaurantInput!) {
-    myRestaurant(myRestaurantInput: $myRestaurantInput) {
-      ok
-      message
-      restaurant {
-        id
-        name
-        coverImage
-        category {
-          name
-        }
-        address
-        isPromoted
-        menu {
-          id
-          name
-          price
-          photo
-          description
-          options {
-            name
-            extra
-            choices {
-              name
-              extra
-            }
-          }
-        }
-        orders {
-          id
-          createdAt
-          total
-        }
-      }
-    }
-  }
-`;
+import { MY_RESTAURANT_QUERY } from "../../graphql/query-mutation";
 
 export const MyRestaurant = () => {
   const { restaurantId } = useParams() as { restaurantId: string };
@@ -115,6 +75,7 @@ export const MyRestaurant = () => {
               ({ id, name, price, description, photo }) => (
                 <Dish
                   key={id}
+                  dishId={id}
                   name={name}
                   description={description}
                   price={price}

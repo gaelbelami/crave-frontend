@@ -14,11 +14,11 @@ import {
 } from "../../../__generated__/editProfileMutation";
 import "react-toastify/dist/ReactToastify.css";
 import { FormError } from "../../../components/form-error";
+import { hideEmail } from "../../../utils/utils";
+import { emailRegex } from "../../../utils/regex";
 
 export const Emailtab = () => {
   const { data: userData } = useMe();
-  const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const client = useApolloClient();
 
@@ -105,18 +105,6 @@ export const Emailtab = () => {
         });
       }
     } catch (error) {}
-  };
-
-  const hideEmail = (email: string) => {
-    var hiddenEmail = "";
-    for (let i = 0; i < email.length; i++) {
-      if (i > 4 && i < email.indexOf("@")) {
-        hiddenEmail += "*";
-      } else {
-        hiddenEmail += email[i];
-      }
-    }
-    return hiddenEmail;
   };
 
   const slicedEmail = hideEmail(userData?.me.email!);

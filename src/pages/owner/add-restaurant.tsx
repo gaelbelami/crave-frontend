@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ButtonForm } from "../../components/form-button";
 import { FormError } from "../../components/form-error";
+import { MY_RESTAURANTS_QUERY } from "../../graphql/query-mutation";
+import { IAddRestaurantFormProps } from "../../interfaces/add-restaurant.interface";
+import { nameRegex } from "../../utils/regex";
 import { allCategoriesQuery } from "../../__generated__/allCategoriesQuery";
 import {
   createRestaurantMutation,
   createRestaurantMutationVariables,
 } from "../../__generated__/createRestaurantMutation";
-import { MY_RESTAURANTS_QUERY } from "./home-owner";
 
 const CREATE_RESTAURANT_MUTATION = gql`
   mutation createRestaurantMutation(
@@ -40,15 +42,6 @@ const CATEGORIES_QUERY = gql`
   }
 `;
 
-interface IFormProps {
-  name: string;
-  address: string;
-  categoryName: string;
-  file: FileList;
-}
-
-const nameRegex = /^([^0-9]*)$/;
-
 export const Addrestaurant = () => {
   const history = useNavigate();
   const [uploading, setUploading] = useState(false);
@@ -61,7 +54,7 @@ export const Addrestaurant = () => {
     getValues,
     handleSubmit,
     formState: { isValid },
-  } = useForm<IFormProps>({
+  } = useForm<IAddRestaurantFormProps>({
     mode: "onChange",
   });
 
@@ -71,7 +64,7 @@ export const Addrestaurant = () => {
     } = data;
     if (ok) {
       setUploading(false);
-      history("/")
+      history("/");
     }
   };
   const [createRestaurantMutation, { data }] = useMutation<
@@ -79,9 +72,11 @@ export const Addrestaurant = () => {
     createRestaurantMutationVariables
   >(CREATE_RESTAURANT_MUTATION, {
     onCompleted,
-    refetchQueries: [{
-      query: MY_RESTAURANTS_QUERY
-    }]
+    refetchQueries: [
+      {
+        query: MY_RESTAURANTS_QUERY,
+      },
+    ],
   });
 
   const onSubmit = async () => {
@@ -159,7 +154,7 @@ export const Addrestaurant = () => {
         </select>
         <div>
           <input
-          className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
+            className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
             type="file"
             accept="image/*"
             {...register("file", { required: true })}
@@ -170,7 +165,9 @@ export const Addrestaurant = () => {
           canClick={isValid}
           actionText="Create Restaurant"
         />
-        {data?.createRestaurant.message && <FormError errorMessage={data.createRestaurant.message} /> }
+        {data?.createRestaurant.message && (
+          <FormError errorMessage={data.createRestaurant.message} />
+        )}
       </form>
     </div>
   );

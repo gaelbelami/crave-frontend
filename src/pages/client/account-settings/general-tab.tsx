@@ -17,12 +17,10 @@ import { FormError } from "../../../components/form-error";
 import { BsImageFill } from "react-icons/bs";
 import { EDIT_PROFILE_MUTATION } from "../../../graphql/query-mutation";
 import ToastAutoClose from "../../../components/toast";
+import { nameRegex, usernameRegex } from "../../../utils/regex";
 
 export const GeneralTab = () => {
   const [uploading, setUploading] = useState(false);
-  const nameRegex = /^([^0-9]*)$/;
-
-  const usernameRegex = /^[a-z0-9_-]{3,15}$/;
 
   const { data: userData } = useMe();
 
