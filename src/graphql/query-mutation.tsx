@@ -240,3 +240,67 @@ export const CREATE_ORDER_MUTATION = gql`
     }
   }
 `;
+
+export const GET_ORDER_QUERY = gql`
+  query getOrderQuery($getOrderInput: GetOrderInput!) {
+    getOrder(getOrderInput: $getOrderInput) {
+      ok
+      message
+      order {
+        id
+        status
+        total
+        createdAt
+        updateAt
+        driver {
+          email
+          firstName
+          username
+          avatar
+          phoneNumber
+        }
+        customer {
+          email
+          firstName
+          username
+          avatar
+          phoneNumber
+        }
+        restaurant {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const ORDER_SUBSCRIPTION = gql`
+  subscription orderUpdatesSubscription(
+    $orderUpdatesInput: OrderUpdatesInput!
+  ) {
+    orderUpdates(orderUpdatesInput: $orderUpdatesInput) {
+      id
+      status
+      total
+      createdAt
+      updateAt
+      driver {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+      }
+      customer {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+      }
+      restaurant {
+        name
+      }
+    }
+  }
+`;

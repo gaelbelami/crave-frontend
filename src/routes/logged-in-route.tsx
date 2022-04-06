@@ -20,6 +20,7 @@ import { Notification } from "../pages/client/notification";
 import Sidebar from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { Cart } from "../pages/client/cart";
+import Order from "../pages/order";
 
 export const ClientRoutes = [
   {
@@ -84,6 +85,10 @@ export const CommonRoutes = [
     path: "/account-settings",
     component: <AccountSettings />,
   },
+  {
+    path: "/orders/:id",
+    component: <Order />,
+  },
 ];
 
 export const LoggedInRouter = () => {
@@ -131,9 +136,9 @@ export const LoggedInRouter = () => {
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className="relative bg-red-400">
+          {/* <div className="relative bg-red-400">
             <Footer />
-          </div>
+          </div> */}
         </div>
       </div>
     </Router>
