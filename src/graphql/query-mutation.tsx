@@ -236,6 +236,7 @@ export const CREATE_ORDER_MUTATION = gql`
     createOrder(createOrderInput: $createOrderInput) {
       ok
       message
+      orderId
     }
   }
 `;

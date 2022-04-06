@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { ImLocation } from "react-icons/im";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { Dish } from "../../components/dish";
 import {
   CREATE_ORDER_MUTATION,
@@ -112,12 +113,12 @@ export const Restaurant = () => {
 
   const history = useNavigate();
   const onCompleted = (data: createOrderMutation) => {
-    // const {
-    //   createOrder: { ok, orderId },
-    // } = data;
-    // if (data.createOrder.ok) {
-    //   history(`/orders/${orderId}`);
-    // }
+    const {
+      createOrder: { ok, orderId },
+    } = data;
+    if (ok) {
+      history(`/orders/${orderId}`);
+    }
   };
 
   const [createOrderMutation, { loading: placingOrder }] = useMutation<
@@ -139,7 +140,7 @@ export const Restaurant = () => {
       return;
     }
     if (orderItems.length === 0) {
-      alert("Can't place empty order");
+      Swal.fire("Warning", "You can't place an empty order", "warning");
       return;
     }
     const ok = window.confirm("You are about to place an order");
