@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiSearch } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -7,6 +7,12 @@ import { useMe } from "../hooks/useMe";
 import AccountDropdown from "./accountDropdown";
 import { UserRole } from "../__generated__/globalTypes";
 import NotificationDropdown from "./notificationDropdown";
+import { useSubscription } from "@apollo/client";
+import {
+  pendingOrdersSubscription,
+  pendingOrdersSubscription_pendingOrders_restaurant,
+} from "../__generated__/pendingOrdersSubscription";
+import { PENDING_ORDERS_SUBSCRIPTION } from "../graphql/query-mutation";
 // import logo from "../images/logo.svg";
 
 interface ISearchFormProps {
@@ -38,6 +44,19 @@ export const Header: React.FC = () => {
       reset({ searchTerm: "" });
     }
   }, [isSubmitSuccessful, reset]);
+
+  const [notification, setNotification] = useState(0);
+
+  const { data: subscriptionData } = useSubscription<pendingOrdersSubscription>(
+    PENDING_ORDERS_SUBSCRIPTION,
+    {}
+  );
+
+  useEffect(() => {
+    if (subscriptionData?.pendingOrders) {
+      setNotification((notification) => (notification += 1));
+    }
+  }, [subscriptionData]);
   return (
     <>
       {!data?.me.verified && (
@@ -91,9 +110,27 @@ export const Header: React.FC = () => {
           <div className=" flex  items-center justify-end">
             <div className="flex">
               <Link to="/cart">
-                <FaShoppingCart className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
+                <FaShoppingCart className=" md:h-6 md:w-6 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
               </Link>
-              <NotificationDropdown />
+              <div className="relative">
+                <NotificationDropdown
+                  notification={notification}
+                  subscriptionData={subscriptionData}
+                />
+                {notification > 0 && (
+                  <span className="-top-2 left-3 absolute w-4 h-4 bg-teal-500  rounded-full">
+                    <span className="absolute -top-0.5 left-1 text-sm font-semibold text-gray-100">
+                      {notification}
+                    </span>
+                  </span>
+                )}
+              </div>
+              {/* <div className="relative">
+                <div className=" absolute bg-green-300 rounded-full top-0 right-0">
+                  1
+                </div>
+                <NotificationDropdown />
+              </div> */}
             </div>
             <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
               <AccountDropdown />

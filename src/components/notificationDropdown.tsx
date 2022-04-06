@@ -4,15 +4,24 @@ import { FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import { Menu, Transition } from "@headlessui/react";
+import { MdNotInterested } from "react-icons/md";
+import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
 
-const NotificationDropdown = () => {
+interface INotification {
+  notification: number;
+  subscriptionData?: pendingOrdersSubscription;
+}
+const NotificationDropdown = ({
+  notification,
+  subscriptionData,
+}: INotification) => {
   const { data } = useMe();
   return (
     <Menu as="div" className="relative inline-block text-left">
       {({ open }) => (
         <Fragment>
           <Menu.Button className="outline-none" type="button">
-            <FaBell className=" md:h-5 md:w-5 h-4 w-4 text-gray-700 hover:cursor-pointer" />
+            <FaBell className=" md:h-6 md:w-6 h-4 w-4 text-gray-700 hover:cursor-pointer" />
           </Menu.Button>
 
           <Transition
@@ -36,27 +45,45 @@ const NotificationDropdown = () => {
                   role="menuitem"
                 >
                   <div className="font-bold ">Notifications</div>
-                  <span className=" justify-self-end text-xs font-semibold bg-orange-300 bg-opacity-50 rounded-xl px-2">
-                    1 new
-                  </span>
+                  {notification > 0 && (
+                    <span className=" justify-self-end text-xs font-semibold bg-orange-300 bg-opacity-50 rounded-xl px-2">
+                      {notification} new
+                    </span>
+                  )}
                 </div>
                 <Menu.Item>
-                  {({ active }) => (
-                    <Link
-                      to="/edit-profile"
-                      className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
+                  {({ active }) =>
+                    notification > 0 ? (
+                      <Link
+                        to={`/orders/${subscriptionData?.pendingOrders.id}`}
+                        className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
                   
                   ${active && "bg-gray-200"}
                   
                   `}
-                      role="menuitem"
-                    >
-                      <div className=" mr-2 p-1 justify-center items-center inline-flex bg-green-200 rounded-full">
-                        <BsCheck2 className="justify-start items-start md:h-4 md:w-4 h-4 w-4 text-green-500" />
+                        role="menuitem"
+                      >
+                        <div className=" mr-2 p-1 justify-center items-center inline-flex bg-green-200 rounded-full">
+                          <BsCheck2 className="justify-start items-start md:h-4 md:w-4 h-4 w-4 text-green-500" />
+                        </div>
+                        Your have a new Order
+                      </Link>
+                    ) : (
+                      <div
+                        className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
+                  
+                  
+                  
+                  `}
+                        role="menuitem"
+                      >
+                        <div className=" mr-2 p-1 justify-center items-center inline-flex bg-green-200 rounded-full">
+                          <MdNotInterested className="justify-start items-start md:h-4 md:w-4 h-4 w-4 text-green-500" />
+                        </div>
+                        You have no new notification
                       </div>
-                      Your order has been successfull
-                    </Link>
-                  )}
+                    )
+                  }
                 </Menu.Item>
               </div>
             </Menu.Items>

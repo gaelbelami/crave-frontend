@@ -304,3 +304,41 @@ export const ORDER_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const PENDING_ORDERS_SUBSCRIPTION = gql`
+  subscription pendingOrdersSubscription {
+    pendingOrders {
+      id
+      status
+      total
+      createdAt
+      updateAt
+      driver {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+      }
+      customer {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+      }
+      restaurant {
+        name
+      }
+    }
+  }
+`;
+
+export const EDIT_ORDER_MUTATION = gql`
+  mutation editOrderMutation($editOrderInput: EditOrderInput!) {
+    editOrder(editOrderInput: $editOrderInput) {
+      ok
+      message
+    }
+  }
+`;

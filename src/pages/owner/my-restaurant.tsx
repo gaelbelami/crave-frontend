@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/client";
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useQuery, useSubscription } from "@apollo/client";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Dish } from "../../components/dish";
 import {
   myRestaurantQuery,
@@ -14,7 +14,11 @@ import {
   VictoryTheme,
   VictoryLabel,
 } from "victory";
-import { MY_RESTAURANT_QUERY } from "../../graphql/query-mutation";
+import {
+  MY_RESTAURANT_QUERY,
+  PENDING_ORDERS_SUBSCRIPTION,
+} from "../../graphql/query-mutation";
+import { pendingOrdersSubscription } from "../../__generated__/pendingOrdersSubscription";
 
 export const MyRestaurant = () => {
   const { restaurantId } = useParams() as { restaurantId: string };
@@ -53,13 +57,13 @@ export const MyRestaurant = () => {
         </h2>
         <Link
           to={`/restaurant/${restaurantId}/add-dish`}
-          className=" text-white bg-gray-800 py-3 px-10 mr-8 rounded-lg"
+          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
         >
           Add a dish &rarr;
         </Link>
         <Link
           to={``}
-          className=" text-white bg-orange-700 py-3 px-10 rounded-lg"
+          className=" text-white bg-teal-700 hover:bg-teal-800 focus:outline-none  focus:ring-teal-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
         >
           Buy Promotion &rarr;
         </Link>
