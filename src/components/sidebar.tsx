@@ -3,6 +3,8 @@ import { MdDeliveryDining, MdOutlineFavorite } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 import { FaHamburger } from "react-icons/fa";
+import { BiChat } from "react-icons/bi";
+import { BsFillChatDotsFill } from "react-icons/bs";
 
 const Sidebar = () => {
   const [isShowing, setIsShowing] = useState(true);
@@ -49,7 +51,7 @@ const Sidebar = () => {
                     {label}
                   </span>
                   {notification !== 0 && (
-                    <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-yellow-600 bg-blue-200 rounded-full dark:bg-yellow-800 dark:text-yellow-200">
+                    <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-yellow-600 bg-blue-200 rounded-full dark:bg-teal-800 dark:text-yellow-200">
                       {notification}
                     </span>
                   )}
@@ -81,6 +83,7 @@ const linksArray = [
     to: "/favorites",
     notification: 3,
   },
+
   {
     label: "History",
     icon: (
@@ -99,6 +102,15 @@ const linksArray = [
     ),
     to: "/history",
     notification: 0,
+  },
+  {
+    label: "Chat",
+    icon: (
+      <BsFillChatDotsFill className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+    ),
+
+    to: "/chats",
+    notification: 7,
   },
 ];
 

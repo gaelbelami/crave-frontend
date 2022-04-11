@@ -42,6 +42,12 @@ export interface CreateDishInput {
   restaurantId: number;
 }
 
+export interface CreateMessageInput {
+  content: string;
+  see?: boolean | null;
+  chatId: number;
+}
+
 export interface CreateOrderInput {
   restaurantId: number;
   items: CreateOrderItemInput[];
@@ -103,6 +109,15 @@ export interface GetOrderInput {
 export interface LoginUserInput {
   email: string;
   password: string;
+}
+
+export interface MyChatsInput {
+  page?: number | null;
+}
+
+export interface MyMessagesInput {
+  page?: number | null;
+  chatId: number;
 }
 
 export interface MyRestaurantInput {

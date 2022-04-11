@@ -21,6 +21,8 @@ import Sidebar from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { Cart } from "../pages/client/cart";
 import Order from "../pages/order";
+import Dashboard from "../pages/driver/dashboard";
+import { Chat } from "../pages/chat";
 
 export const ClientRoutes = [
   {
@@ -70,6 +72,10 @@ export const OwnerRoutes = [
     path: "/restaurant/:restaurantId/add-dish",
     component: <AddDish />,
   },
+  {
+    path: "/chats",
+    component: <Chat />,
+  },
 ];
 
 export const CommonRoutes = [
@@ -88,6 +94,17 @@ export const CommonRoutes = [
   {
     path: "/orders/:id",
     component: <Order />,
+  },
+];
+
+export const DriverRoutes = [
+  {
+    path: "/",
+    component: <Dashboard />,
+  },
+  {
+    path: "/chats",
+    component: <Chat />,
   },
 ];
 
@@ -127,6 +144,14 @@ export const LoggedInRouter = () => {
                   element={ownerRoute.component}
                 />
               ))}
+            {data?.me.role === UserRole.delivery &&
+              DriverRoutes.map((driverRoute) => (
+                <Route
+                  key={driverRoute.path}
+                  path={driverRoute.path}
+                  element={driverRoute.component}
+                />
+              ))}
             {CommonRoutes.map((ownerRoute) => (
               <Route
                 key={ownerRoute.path}
@@ -136,9 +161,9 @@ export const LoggedInRouter = () => {
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {/* <div className="relative bg-red-400">
+          <div className="relative bg-red-400">
             <Footer />
-          </div> */}
+          </div>
         </div>
       </div>
     </Router>

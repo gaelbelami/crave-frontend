@@ -106,107 +106,113 @@ export const AddDish = () => {
 
   const nameRegex = /^([^0-9]*)$/;
   return (
-    <div className="mt-20 flex flex-col justify-center items-center">
-      <Helmet>
-        <title>Create Dish | Crave ~ Food</title>
-      </Helmet>
-      <h2 className=" font-extrabold text-slate-700 text-2xl mb-2">Add Dish</h2>
-      <h2 className=" justify-start items-start text-left">
-        Add a dish to your restaurant
-      </h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        action=""
-        className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
-      >
-        <input
-          {...register("name", {
-            required: "Dish name is required",
-            pattern: {
-              value: nameRegex,
-              message: "Numbers and Special characters are not allowed",
-            },
-            minLength: 3,
-            maxLength: 30,
-            validate: (value) => value !== "",
-          })}
-          name="name"
-          type="text"
-          placeholder="Dish Name"
-          className="input"
-          required
-        />
-        <input
-          type="number"
-          className="input"
-          min={0}
-          placeholder="Price Name"
-          {...register("price", { required: "Price is required" })}
-        />
-        <input
-          type="text"
-          className="input"
-          placeholder="Description"
-          {...register("description", { required: "Description is required" })}
-        />
-        <div>
+    <div className=" min-h-screen">
+      <div className="mt-20 flex flex-col justify-center items-center">
+        <Helmet>
+          <title>Create Dish | Crave ~ Food</title>
+        </Helmet>
+        <h2 className=" font-extrabold text-slate-700 text-2xl mb-2">
+          Add Dish
+        </h2>
+        <h2 className=" justify-start items-start text-left">
+          Add a dish to your restaurant
+        </h2>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          action=""
+          className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
+        >
           <input
-            className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
-            type="file"
-            accept="image/*"
-            {...register("file", { required: true })}
+            {...register("name", {
+              required: "Dish name is required",
+              pattern: {
+                value: nameRegex,
+                message: "Numbers and Special characters are not allowed",
+              },
+              minLength: 3,
+              maxLength: 30,
+              validate: (value) => value !== "",
+            })}
+            name="name"
+            type="text"
+            placeholder="Dish Name"
+            className="input"
+            required
           />
-        </div>
-        <div className=" my-5">
-          <div className=" mb-5 inline-flex justify-between w-full">
-            <span className=" inline-flex items-center font-medium text-lg">
-              Dish Options
-            </span>
-            <span
-              onClick={onAddOptionClick}
-              className="inline-flex items-center cursor-pointer text-sm font-semibold text-gray-700 bg-orange-300 shadow-md px-3  py-1 rounded-xl"
-            >
-              <MdAddCircle className="mr-2" />
-              Add Dish Option
-            </span>
+          <input
+            type="number"
+            className="input"
+            min={0}
+            placeholder="Price Name"
+            {...register("price", { required: "Price is required" })}
+          />
+          <input
+            type="text"
+            className="input"
+            placeholder="Description"
+            {...register("description", {
+              required: "Description is required",
+            })}
+          />
+          <div>
+            <input
+              className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
+              type="file"
+              accept="image/*"
+              {...register("file", { required: true })}
+            />
           </div>
-          {fields.map((field, index) => (
-            <div key={field.id} className=" mt-5 flex-wrap flex">
-              <input
-                {...register(`options.choices.${index}.name` as const)}
-                className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg mr-3 focus:outline-none "
-                type="text"
-                placeholder="Option Name"
-              />
-              <input
-                {...register(`options.choices.${index}.extra` as const)}
-                className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg focus:outline-none "
-                type="number"
-                min={0}
-                placeholder="Option Extra price"
-              />
-              <span
-                onClick={() => onDeleteClick(index)}
-                className="cursor-pointer shadow-md items-center inline-flex justify-self-center text-white rounded-xl font-semibold bg-red-500 py-2 px-2 ml-4"
-              >
-                <AiFillDelete className="mx-2" />
+          <div className=" my-5">
+            <div className=" mb-5 inline-flex justify-between w-full">
+              <span className=" inline-flex items-center font-medium text-lg">
+                Dish Options
               </span>
-              <span className="cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-orange-500 py-2 px-4 ml-4">
+              <span
+                onClick={onAddOptionClick}
+                className="inline-flex items-center cursor-pointer text-sm font-semibold text-gray-700 bg-orange-300 shadow-md px-3  py-1 rounded-xl"
+              >
                 <MdAddCircle className="mr-2" />
-                Choice
+                Add Dish Option
               </span>
             </div>
-          ))}
-        </div>
-        <ButtonForm
-          canClick={isValid}
-          loading={uploading}
-          actionText="Create Dish"
-        />
-        {data?.createDish.message && (
-          <FormError errorMessage={data.createDish.message} />
-        )}
-      </form>
+            {fields.map((field, index) => (
+              <div key={field.id} className=" mt-5 flex-wrap flex">
+                <input
+                  {...register(`options.choices.${index}.name` as const)}
+                  className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg mr-3 focus:outline-none "
+                  type="text"
+                  placeholder="Option Name"
+                />
+                <input
+                  {...register(`options.choices.${index}.extra` as const)}
+                  className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg focus:outline-none "
+                  type="number"
+                  min={0}
+                  placeholder="Option Extra price"
+                />
+                <span
+                  onClick={() => onDeleteClick(index)}
+                  className="cursor-pointer shadow-md items-center inline-flex justify-self-center text-white rounded-xl font-semibold bg-red-500 py-2 px-2 ml-4"
+                >
+                  <AiFillDelete className="mx-2" />
+                </span>
+                <span className="cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-orange-500 py-2 px-4 ml-4">
+                  <MdAddCircle className="mr-2" />
+                  Choice
+                </span>
+              </div>
+            ))}
+          </div>
+          <ButtonForm
+            canClick={isValid}
+            loading={uploading}
+            actionText="Create Dish"
+          />
+          {data?.createDish.message && (
+            <FormError errorMessage={data.createDish.message} />
+          )}
+        </form>
+      </div>
     </div>
   );
 };

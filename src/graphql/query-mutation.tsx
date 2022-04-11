@@ -342,3 +342,52 @@ export const EDIT_ORDER_MUTATION = gql`
     }
   }
 `;
+
+export const MY_CHATS_QUERY = gql`
+  query myChatsQuery($myChatsInput: MyChatsInput!) {
+    myChats(myChatsInput: $myChatsInput) {
+      ok
+      message
+      results {
+        id
+        user1 {
+          id
+          firstName
+          avatar
+        }
+        user2 {
+          id
+          firstName
+          avatar
+        }
+      }
+    }
+  }
+`;
+
+export const MY_MESSAGES_QUERY = gql`
+  query myMessagesQuery($myMessagesInput: MyMessagesInput!) {
+    myMessages(myMessagesInput: $myMessagesInput) {
+      ok
+      message
+      results {
+        content
+        see
+        sender {
+          id
+          lastName
+          username
+          avatar
+        }
+      }
+    }
+  }
+`;
+
+export const SEND_MESSAGE_MUTATION = gql`
+  mutation sendMessage($createMessageInput: CreateMessageInput!) {
+    sendMessage(createMessageInput: $createMessageInput) {
+      ok
+    }
+  }
+`;
