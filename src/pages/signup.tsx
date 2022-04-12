@@ -86,9 +86,7 @@ export default function Signup() {
       </Helmet>
       <div className="w-full max-w-screen-sm flex px-5 flex-col items-center">
         {/* <img src={logo} alt="" className=" w-52 mb-10"/> */}
-        <h2 className="  font-extrabold mb-10 text-7xl text-orange-500 font-sans">
-          crave
-        </h2>
+        <h2 className="  font-extrabold mb-10 text-7xl text-teal-500">crave</h2>
         <h4 className="w-full text-left text-3xl mb-5 font-semibold text-black">
           Let's get started
         </h4>

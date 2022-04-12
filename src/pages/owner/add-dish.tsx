@@ -156,7 +156,7 @@ export const AddDish = () => {
           />
           <div>
             <input
-              className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
+              className=" file:bg-gradient-to-b file:from-teal-400 file:to-teal-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
               type="file"
               accept="image/*"
               {...register("file", { required: true })}
@@ -169,7 +169,7 @@ export const AddDish = () => {
               </span>
               <span
                 onClick={onAddOptionClick}
-                className="inline-flex items-center cursor-pointer text-sm font-semibold text-gray-700 bg-orange-300 shadow-md px-3  py-1 rounded-xl"
+                className="inline-flex items-center cursor-pointer text-sm font-semibold text-gray-700 bg-teal-300 shadow-md px-3  py-1 rounded-xl"
               >
                 <MdAddCircle className="mr-2" />
                 Add Dish Option
@@ -179,13 +179,13 @@ export const AddDish = () => {
               <div key={field.id} className=" mt-5 flex-wrap flex">
                 <input
                   {...register(`options.choices.${index}.name` as const)}
-                  className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg mr-3 focus:outline-none "
+                  className=" py-2 px-4 focus:border-teal-500 border-2 rounded-lg mr-3 focus:outline-none "
                   type="text"
                   placeholder="Option Name"
                 />
                 <input
                   {...register(`options.choices.${index}.extra` as const)}
-                  className=" py-2 px-4 focus:border-orange-500 border-2 rounded-lg focus:outline-none "
+                  className=" py-2 px-4 focus:border-teal-500 border-2 rounded-lg focus:outline-none "
                   type="number"
                   min={0}
                   placeholder="Option Extra price"
@@ -196,7 +196,7 @@ export const AddDish = () => {
                 >
                   <AiFillDelete className="mx-2" />
                 </span>
-                <span className="cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-orange-500 py-2 px-4 ml-4">
+                <span className="cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-teal-500 py-2 px-4 ml-4">
                   <MdAddCircle className="mr-2" />
                   Choice
                 </span>

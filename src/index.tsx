@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
 import { client } from "./apollo";
-
+import "emoji-mart/css/emoji-mart.css";
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>

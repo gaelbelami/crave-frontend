@@ -369,8 +369,9 @@ export const MY_MESSAGES_QUERY = gql`
   query myMessagesQuery($myMessagesInput: MyMessagesInput!) {
     myMessages(myMessagesInput: $myMessagesInput) {
       ok
-      message
+      # message
       results {
+        id
         content
         see
         sender {
@@ -379,6 +380,7 @@ export const MY_MESSAGES_QUERY = gql`
           username
           avatar
         }
+        chatId
       }
     }
   }
@@ -388,6 +390,27 @@ export const SEND_MESSAGE_MUTATION = gql`
   mutation sendMessage($createMessageInput: CreateMessageInput!) {
     sendMessage(createMessageInput: $createMessageInput) {
       ok
+    }
+  }
+`;
+
+export const WATCH_MESSAGES_SUBSCRIPTION = gql`
+  subscription watchMessagesSubscription {
+    watchMessages {
+      message {
+        id
+        createdAt
+        updateAt
+        content
+        see
+        sender {
+          id
+          lastName
+          username
+          avatar
+        }
+        chatId
+      }
     }
   }
 `;

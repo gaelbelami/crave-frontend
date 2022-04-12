@@ -33,15 +33,6 @@ export const MyRestaurant = () => {
     }
   );
   console.log(data);
-  const chartData = [
-    { x: 1, y: 3000 },
-    { x: 2, y: 1500 },
-    { x: 3, y: 4250 },
-    { x: 4, y: 2460 },
-    { x: 5, y: 7490 },
-    { x: 6, y: 5800 },
-    { x: 7, y: 6530 },
-  ];
 
   return (
     <div className="">
@@ -90,22 +81,18 @@ export const MyRestaurant = () => {
           </div>
         )}
       </div>
-      <div className=" mt-20 mb-20">
-        <h4 className=" text-center text-2xl font-medium">Sales</h4>
-        <div className="mt-10 shadow-md bg-gray-100 rounded-lg items-center justify-center">
+      <div className="  mt-10 mb-5">
+        <h4 className="mb-8 text-center text-2xl font-medium">Sales</h4>
+        <div className="mt-1 mb-28 shadow-md bg-gray-200 rounded-lg items-center justify-center">
           <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
             <VictoryLine
               labels={({ datum }) => `$${datum.y}`}
               labelComponent={
-                <VictoryLabel
-                  style={{ fontSize: 10 }}
-                  renderInPortal
-                  dy={-20}
-                />
+                <VictoryLabel style={{ fontSize: 4 }} renderInPortal dy={-5} />
               }
               height={500}
               width={window.innerWidth}
-              domainPadding={50}
+              domainPadding={30}
               theme={VictoryTheme.material}
               data={data?.myRestaurant.restaurant?.orders.map((order) => ({
                 x: order.createdAt,
@@ -114,14 +101,14 @@ export const MyRestaurant = () => {
               interpolation="natural"
               style={{
                 data: {
-                  stroke: "orange",
-                  strokeWidth: "5",
+                  stroke: "teal",
+                  strokeWidth: "2",
                 },
               }}
             />
 
             <VictoryAxis
-              style={{ tickLabels: { fontSize: 10 } }}
+              style={{ tickLabels: { fontSize: 3 } }}
               tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
             />
           </VictoryChart>

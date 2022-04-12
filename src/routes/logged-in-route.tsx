@@ -53,6 +53,10 @@ export const ClientRoutes = [
     path: "/test",
     component: <Test />,
   },
+  {
+    path: "/chats",
+    component: <Chat />,
+  },
 ];
 
 export const OwnerRoutes = [

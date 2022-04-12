@@ -19,15 +19,16 @@ export interface myMessagesQuery_myMessages_results_sender {
 
 export interface myMessagesQuery_myMessages_results {
   __typename: "Message";
+  id: number;
   content: string;
   see: boolean;
   sender: myMessagesQuery_myMessages_results_sender;
+  chatId: number;
 }
 
 export interface myMessagesQuery_myMessages {
   __typename: "MyMessagesOutput";
   ok: boolean;
-  message: string | null;
   results: myMessagesQuery_myMessages_results[] | null;
 }
 
