@@ -1,9 +1,9 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { BsImageFill } from "react-icons/bs";
 import { RiEdit2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useMe } from "../../hooks/useMe";
-import profile from "../../images/profile.jpg";
 
 export const EditProfile: React.FC = () => {
   const { data: userData } = useMe();
@@ -29,14 +29,20 @@ export const EditProfile: React.FC = () => {
               </div>
             </div>
           </Link>
-          <span>
-            <img
-              className="w-28 h-28 rounded-lg shadow-md bg-gray-500 bg-center object-cover"
-              src={profile}
-              alt="profile"
-              width="384"
-              height="512"
-            />
+          <span className="inline-flex items-center mb-4">
+            {!userData?.me.avatar ? (
+              <div className="w-28 h-28 rounded-lg shadow-md bg-gray-200 bg-center object-cover mr-2">
+                <BsImageFill className=" h-16 w-auto mx-auto my-auto mt-5  object-cover object-center text-gray-500 animate-pulse" />
+              </div>
+            ) : (
+              <img
+                className="w-28 h-28 rounded-lg shadow-md bg-center object-cover mr-2"
+                src={userData?.me.avatar}
+                alt="profile"
+                width="384"
+                height="512"
+              />
+            )}
           </span>
 
           <span className=" mt-5 mb-1 font-semibold text-sm text-gray-700">

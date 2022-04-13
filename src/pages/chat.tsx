@@ -1,9 +1,4 @@
-import {
-  useLazyQuery,
-  useMutation,
-  useQuery,
-  useSubscription,
-} from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSmile, FaUser } from "react-icons/fa";

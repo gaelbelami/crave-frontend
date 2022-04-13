@@ -14,7 +14,7 @@
 }
 
 .link {
-  @apply text-orange-500 hover:underline
+  @apply text-teal-600 hover:underline
 }
 
 .page-container {
@@ -22,6 +22,14 @@
 }
 
 
+@layer utilities{
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
 
 
 
