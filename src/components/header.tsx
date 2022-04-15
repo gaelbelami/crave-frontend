@@ -8,10 +8,7 @@ import AccountDropdown from "./accountDropdown";
 import { UserRole } from "../__generated__/globalTypes";
 import NotificationDropdown from "./notificationDropdown";
 import { useSubscription } from "@apollo/client";
-import {
-  pendingOrdersSubscription,
-  pendingOrdersSubscription_pendingOrders_restaurant,
-} from "../__generated__/pendingOrdersSubscription";
+import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
 import { PENDING_ORDERS_SUBSCRIPTION } from "../graphql/query-mutation";
 // import logo from "../images/logo.svg";
 

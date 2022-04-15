@@ -43,6 +43,9 @@ export const RESTAURANT_QUERY = gql`
         id
         name
         coverImage
+        owner {
+          id
+        }
         category {
           name
           slug
@@ -350,6 +353,10 @@ export const MY_CHATS_QUERY = gql`
       message
       results {
         id
+        restaurant {
+          id
+          name
+        }
         user1 {
           id
           firstName
@@ -390,6 +397,18 @@ export const SEND_MESSAGE_MUTATION = gql`
   mutation sendMessage($createMessageInput: CreateMessageInput!) {
     sendMessage(createMessageInput: $createMessageInput) {
       ok
+      realTimeMessage {
+        id
+        content
+        see
+        sender {
+          id
+          lastName
+          username
+          avatar
+        }
+        chatId
+      }
     }
   }
 `;
@@ -397,7 +416,7 @@ export const SEND_MESSAGE_MUTATION = gql`
 export const WATCH_MESSAGES_SUBSCRIPTION = gql`
   subscription watchMessagesSubscription {
     watchMessages {
-      message {
+      realTimeMessage {
         id
         createdAt
         updateAt
@@ -410,6 +429,22 @@ export const WATCH_MESSAGES_SUBSCRIPTION = gql`
           avatar
         }
         chatId
+      }
+    }
+  }
+`;
+
+export const CREATE_CHAT_MUTATION = gql`
+  mutation createChatMutation($createChatInput: CreateChatInput!) {
+    findOrCreateChat(createChatInput: $createChatInput) {
+      message
+      ok
+      chat {
+        id
+        user2 {
+          lastName
+          avatar
+        }
       }
     }
   }

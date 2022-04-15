@@ -9,6 +9,12 @@ import { MyChatsInput } from "./globalTypes";
 // GraphQL query operation: myChatsQuery
 // ====================================================
 
+export interface myChatsQuery_myChats_results_restaurant {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+}
+
 export interface myChatsQuery_myChats_results_user1 {
   __typename: "User";
   id: number;
@@ -26,6 +32,7 @@ export interface myChatsQuery_myChats_results_user2 {
 export interface myChatsQuery_myChats_results {
   __typename: "Chat";
   id: number;
+  restaurant: myChatsQuery_myChats_results_restaurant;
   user1: myChatsQuery_myChats_results_user1;
   user2: myChatsQuery_myChats_results_user2;
 }

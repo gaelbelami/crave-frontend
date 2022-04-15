@@ -1,13 +1,20 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { ImLocation } from "react-icons/im";
+import { IoIosChatbubbles } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Dish } from "../../components/dish";
 import {
+  CREATE_CHAT_MUTATION,
   CREATE_ORDER_MUTATION,
   RESTAURANT_QUERY,
 } from "../../graphql/query-mutation";
+import { useMe } from "../../hooks/useMe";
+import {
+  createChatMutation,
+  createChatMutationVariables,
+} from "../../__generated__/createChatMutation";
 import {
   createOrderMutation,
   createOrderMutationVariables,
@@ -20,9 +27,10 @@ import {
 } from "../../__generated__/restaurantQuery";
 
 export const Restaurant = () => {
+  const { data: userData } = useMe();
   const location = useLocation();
   const restaurantId: any = location.state;
-
+  const history = useNavigate();
   const { data, loading } = useQuery<restaurantQuery, restaurantQueryVariables>(
     RESTAURANT_QUERY,
     {
@@ -33,6 +41,17 @@ export const Restaurant = () => {
       },
     }
   );
+
+  const [createChatMutation] = useMutation<
+    createChatMutation,
+    createChatMutationVariables
+  >(CREATE_CHAT_MUTATION, {
+    onCompleted: (data: createChatMutation) => {
+      if (data.findOrCreateChat.ok) {
+        history(`/chats`);
+      }
+    },
+  });
 
   const [orderItems, setOrderItems] = useState<CreateOrderItemInput[]>([]);
 
@@ -111,7 +130,6 @@ export const Restaurant = () => {
     setOrderItems([]);
   };
 
-  const history = useNavigate();
   const onCompleted = (data: createOrderMutation) => {
     const {
       createOrder: { ok, orderId },
@@ -156,7 +174,20 @@ export const Restaurant = () => {
     }
   };
 
-  console.log(orderItems);
+  const onStartChat = () => {
+    try {
+      createChatMutation({
+        variables: {
+          createChatInput: {
+            friendId: data?.restaurant.restaurant?.owner.id!,
+            restaurantId,
+          },
+        },
+      });
+      console.log(data?.restaurant.restaurant?.owner.id!);
+    } catch (error) {}
+  };
+
   return (
     <div className="min-h-screen">
       {!data || loading ? (
@@ -199,10 +230,19 @@ export const Restaurant = () => {
                 <div className="flex-grow"></div>
               </div>
             </Link>
-            <span className="lowercase  text-gray-500 inline-flex items-center text-xs font-semibold ml-4">
-              <ImLocation />
-              &nbsp; {data?.restaurant.restaurant?.address}
-            </span>
+            <div className="flex justify-between">
+              <span className="lowercase  text-gray-500 inline-flex items-center text-xs font-semibold ml-4">
+                <ImLocation />
+                &nbsp; {data?.restaurant.restaurant?.address}
+              </span>
+              <span
+                onClick={onStartChat}
+                className="cursor-pointer text-white inline-flex items-center text-sm font-semibold px-4 py-2 bg-teal-600 mr-4 rounded-md  "
+              >
+                <IoIosChatbubbles className="mr-1" />
+                Message
+              </span>
+            </div>
           </div>
         </div>
       )}

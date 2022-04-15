@@ -7,7 +7,7 @@
 // GraphQL subscription operation: watchMessagesSubscription
 // ====================================================
 
-export interface watchMessagesSubscription_watchMessages_message_sender {
+export interface watchMessagesSubscription_watchMessages_realTimeMessage_sender {
   __typename: "User";
   id: number;
   lastName: string;
@@ -15,20 +15,20 @@ export interface watchMessagesSubscription_watchMessages_message_sender {
   avatar: string | null;
 }
 
-export interface watchMessagesSubscription_watchMessages_message {
+export interface watchMessagesSubscription_watchMessages_realTimeMessage {
   __typename: "Message";
   id: number;
   createdAt: any;
   updateAt: any;
   content: string;
   see: boolean;
-  sender: watchMessagesSubscription_watchMessages_message_sender;
+  sender: watchMessagesSubscription_watchMessages_realTimeMessage_sender;
   chatId: number;
 }
 
 export interface watchMessagesSubscription_watchMessages {
   __typename: "CreateMessageOutput";
-  message: watchMessagesSubscription_watchMessages_message;
+  realTimeMessage: watchMessagesSubscription_watchMessages_realTimeMessage;
 }
 
 export interface watchMessagesSubscription {

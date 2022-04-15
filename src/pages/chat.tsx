@@ -1,4 +1,9 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import {
+  useApolloClient,
+  useLazyQuery,
+  useMutation,
+  useQuery,
+} from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSmile, FaUser } from "react-icons/fa";
@@ -17,6 +22,7 @@ import { useMe } from "../hooks/useMe";
 import {
   myChatsQuery,
   myChatsQueryVariables,
+  myChatsQuery_myChats_results_restaurant,
 } from "../__generated__/myChatsQuery";
 import {
   myMessagesQuery,
@@ -27,6 +33,7 @@ import {
   sendMessageVariables,
 } from "../__generated__/sendMessage";
 import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
+import { Helmet } from "react-helmet-async";
 
 interface IUser {
   id: number;
@@ -34,10 +41,12 @@ interface IUser {
   avatar: string | null;
 }
 export const Chat = () => {
+  const client = useApolloClient();
   const page = 1;
   const { data: me } = useMe();
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [restaurantName, setRestaurantName] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedChat, setSelectedChat] = useState(0);
   const [emojis, setEmojis] = useState<any[]>([]);
@@ -75,7 +84,7 @@ export const Chat = () => {
           }: { subscriptionData: { data: watchMessagesSubscription } }
         ) => {
           if (!data) return prev;
-          const newFeedItem = data.watchMessages.message;
+          const newFeedItem = data.watchMessages.realTimeMessage;
           return Object.assign({}, prev, {
             myMessages: {
               results: [newFeedItem, ...prev.myMessages.results!],
@@ -86,7 +95,12 @@ export const Chat = () => {
     }
   }, [messages]);
 
-  const onClick = (chatId: number, user1Name: IUser, user2Name: IUser) => {
+  const onClick = (
+    chatId: number,
+    user1Name: IUser,
+    user2Name: IUser,
+    restaurant: myChatsQuery_myChats_results_restaurant
+  ) => {
     myMessagesQuery({
       variables: {
         myMessagesInput: {
@@ -98,9 +112,11 @@ export const Chat = () => {
 
     if (user1Name.id !== me?.me.id) {
       setName(user1Name.firstName);
+      setRestaurantName(restaurant.name);
       setAvatar(user1Name.avatar!);
     } else {
       setName(user2Name.firstName);
+      setRestaurantName(restaurant.name);
       setAvatar(user2Name.avatar!);
     }
 
@@ -111,11 +127,61 @@ export const Chat = () => {
       setSelectedChat(chatId);
     }
   };
+  const onCompleted = (data: sendMessage) => {
+    const {
+      sendMessage: { ok, realTimeMessage },
+    } = data;
+    if (ok) {
+      const queryResult = client.readQuery({
+        query: MY_MESSAGES_QUERY,
+        variables: {
+          myMessagesInput: {
+            page,
+            chatId,
+          },
+        },
+      });
+      client.writeQuery({
+        query: MY_MESSAGES_QUERY,
+        variables: {
+          myMessagesInput: {
+            page,
+            chatId,
+          },
+        },
+        data: {
+          myMessages: {
+            ...queryResult.myMessages,
+            results: [
+              {
+                chatId: realTimeMessage.chatId,
+                content: realTimeMessage.content,
+                id: realTimeMessage.id,
+                see: realTimeMessage.see,
+                sender: {
+                  avatar: realTimeMessage.sender.avatar,
+                  id: realTimeMessage.sender.id,
+                  lastName: realTimeMessage.sender.lastName,
+                  username: realTimeMessage.sender.username,
+                  __typename: "User",
+                },
+                __typename: "Message",
+              },
+              ...queryResult.myMessages.results,
+            ],
+          },
+        },
+      });
+      console.log(queryResult);
+    }
+  };
 
-  const [sendMessage] = useMutation<sendMessage, sendMessageVariables>(
-    SEND_MESSAGE_MUTATION,
-    {}
-  );
+  const [sendMessage, { data: sendMessageData }] = useMutation<
+    sendMessage,
+    sendMessageVariables
+  >(SEND_MESSAGE_MUTATION, {
+    onCompleted,
+  });
 
   const onSend = () => {
     const { content } = getValues();
@@ -173,6 +239,9 @@ export const Chat = () => {
 
   return (
     <div className=" bg-gray-100 ">
+      <Helmet>
+        <title>Chat | Crave ~ Eat</title>
+      </Helmet>
       <div className="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
         <div className="pr-10 lg:pr-10 w-full mb-60">
           <Breadcrumb step1="Home" step2="Chat" />
@@ -196,7 +265,14 @@ export const Chat = () => {
                     {data?.myChats!.results?.map((chat) => (
                       <div
                         key={chat.id}
-                        onClick={() => onClick(chat.id, chat.user1, chat.user2)}
+                        onClick={() =>
+                          onClick(
+                            chat.id,
+                            chat.user1,
+                            chat.user2,
+                            chat.restaurant
+                          )
+                        }
                         className={`cursor-pointer flex px-10 hover:bg-teal-50 py-4 ${
                           selectedChat === chat.id &&
                           "bg-gray-200 hover:bg-gray-200"
@@ -233,9 +309,10 @@ export const Chat = () => {
                         <div className="flex flex-col flex-1">
                           <div className="flex justify-between items-center">
                             <div className="text-gray-800 text-base font-semibold">
-                              {chat.user1.id === me?.me.id
+                              {/* {chat.user1.id === me?.me.id
                                 ? chat.user2.firstName
-                                : chat.user1.firstName}
+                                : chat.user1.firstName} */}
+                              {chat.restaurant.name}
                             </div>
                             <div className="text-gray-700 text-xs"> 17:31</div>
                           </div>
@@ -287,7 +364,7 @@ export const Chat = () => {
                       <div className=" flex flex-col flex-1">
                         <div className="flex">
                           <div className="text-gray-800 text-base font-semibold">
-                            {name}
+                            {restaurantName}
                           </div>
                         </div>
                         <h5 className=" text-xs text-gray-800">Online</h5>

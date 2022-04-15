@@ -33,6 +33,11 @@ export interface ChangePasswordUserInput {
   confirmPassword: string;
 }
 
+export interface CreateChatInput {
+  friendId: number;
+  restaurantId: number;
+}
+
 export interface CreateDishInput {
   name: string;
   price: number;

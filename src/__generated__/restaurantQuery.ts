@@ -9,6 +9,11 @@ import { RestaurantInput } from "./globalTypes";
 // GraphQL query operation: restaurantQuery
 // ====================================================
 
+export interface restaurantQuery_restaurant_restaurant_owner {
+  __typename: "User";
+  id: number;
+}
+
 export interface restaurantQuery_restaurant_restaurant_category {
   __typename: "Category";
   name: string;
@@ -43,6 +48,7 @@ export interface restaurantQuery_restaurant_restaurant {
   id: number;
   name: string;
   coverImage: string;
+  owner: restaurantQuery_restaurant_restaurant_owner;
   category: restaurantQuery_restaurant_restaurant_category | null;
   address: string;
   isPromoted: boolean;
