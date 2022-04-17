@@ -40,17 +40,21 @@ interface IUser {
   firstName: string;
   avatar: string | null;
 }
+
 export const Chat = () => {
   const client = useApolloClient();
-  const page = 1;
   const { data: me } = useMe();
+
+  const page = 1;
+
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [restaurantName, setRestaurantName] = useState("");
-  const [open, setOpen] = useState(false);
-  const [selectedChat, setSelectedChat] = useState(0);
-  const [emojis, setEmojis] = useState<any[]>([]);
+
   const [chatId, setChatId] = useState(0);
+  const [selectedChat, setSelectedChat] = useState(0);
+
+  const [open, setOpen] = useState(false);
+  const [emojis, setEmojis] = useState<any[]>([]);
   const [emojiPickerVisible, setShowEmojiPicker] = useState(false);
 
   const { register, handleSubmit, getValues, setValue } = useForm({
@@ -71,7 +75,7 @@ export const Chat = () => {
   const [myMessagesQuery, { data: messages, subscribeToMore }] = useLazyQuery<
     myMessagesQuery,
     myMessagesQueryVariables
-  >(MY_MESSAGES_QUERY, {});
+  >(MY_MESSAGES_QUERY);
 
   useEffect(() => {
     if (messages?.myMessages.ok) {
@@ -97,8 +101,8 @@ export const Chat = () => {
 
   const onClick = (
     chatId: number,
-    user1Name: IUser,
-    user2Name: IUser,
+    sender: IUser,
+    receiver: IUser,
     restaurant: myChatsQuery_myChats_results_restaurant
   ) => {
     myMessagesQuery({
@@ -110,14 +114,12 @@ export const Chat = () => {
       },
     });
 
-    if (user1Name.id !== me?.me.id) {
-      setName(user1Name.firstName);
-      setRestaurantName(restaurant.name);
-      setAvatar(user1Name.avatar!);
+    if (sender.id !== me?.me.id) {
+      setName(sender.firstName);
+      setAvatar(sender.avatar!);
     } else {
-      setName(user2Name.firstName);
-      setRestaurantName(restaurant.name);
-      setAvatar(user2Name.avatar!);
+      setName(restaurant.name);
+      setAvatar(receiver.avatar!);
     }
 
     setChatId(chatId);
@@ -153,6 +155,7 @@ export const Chat = () => {
           myMessages: {
             ...queryResult.myMessages,
             results: [
+              ...queryResult.myMessages.results,
               {
                 chatId: realTimeMessage.chatId,
                 content: realTimeMessage.content,
@@ -167,21 +170,19 @@ export const Chat = () => {
                 },
                 __typename: "Message",
               },
-              ...queryResult.myMessages.results,
             ],
           },
         },
       });
-      console.log(queryResult);
     }
   };
 
-  const [sendMessage, { data: sendMessageData }] = useMutation<
-    sendMessage,
-    sendMessageVariables
-  >(SEND_MESSAGE_MUTATION, {
-    onCompleted,
-  });
+  const [sendMessage] = useMutation<sendMessage, sendMessageVariables>(
+    SEND_MESSAGE_MUTATION,
+    {
+      onCompleted,
+    }
+  );
 
   const onSend = () => {
     const { content } = getValues();
@@ -200,9 +201,8 @@ export const Chat = () => {
     setShowEmojiPicker(!emojiPickerVisible);
   };
 
-  const { content } = getValues();
-
   const addEmoji = ({ colons }: any) => {
+    const { content } = getValues();
     setEmojis(colons);
     setValue("content", (content + " " + emojis).trim());
   };
@@ -218,7 +218,7 @@ export const Chat = () => {
             isEmojiClassFound = true;
           }
         }
-      }); // end
+      });
     if (isEmojiClassFound === false && event.target.id !== "emojis-btn")
       setShowEmojiPicker(false);
   };
@@ -309,10 +309,9 @@ export const Chat = () => {
                         <div className="flex flex-col flex-1">
                           <div className="flex justify-between items-center">
                             <div className="text-gray-800 text-base font-semibold">
-                              {/* {chat.user1.id === me?.me.id
-                                ? chat.user2.firstName
-                                : chat.user1.firstName} */}
-                              {chat.restaurant.name}
+                              {chat.user1.id === me?.me.id
+                                ? chat.restaurant.name
+                                : chat.user1.firstName}
                             </div>
                             <div className="text-gray-700 text-xs"> 17:31</div>
                           </div>
@@ -335,7 +334,7 @@ export const Chat = () => {
 
             {/* Right section star */}
             {open ? (
-              <section className=" relative max-h-full h-full bg-white shadow-md rounded-lg w-full flex flex-col lg:flex hidden">
+              <section className=" relative max-h-full h-full bg-white shadow-md rounded-lg w-full flex flex-col lg:flex">
                 {/* All message start */}
 
                 {/* Header message Start */}
@@ -364,7 +363,7 @@ export const Chat = () => {
                       <div className=" flex flex-col flex-1">
                         <div className="flex">
                           <div className="text-gray-800 text-base font-semibold">
-                            {restaurantName}
+                            {name}
                           </div>
                         </div>
                         <h5 className=" text-xs text-gray-800">Online</h5>
@@ -478,8 +477,9 @@ export const Chat = () => {
                           type="text"
                           placeholder="Type here ..."
                           {...register("content", {
-                            minLength: 1,
+                            minLength: 2,
                             maxLength: 150,
+                            validate: (value) => value !== "",
                           })}
                           className="w-full  focus:placeholder-gray-400 text-gray-600 placeholder-gray-400 pl-12 bg-gray-100 rounded-full py-3 pr-5 hover:ring-1 hover:ring-teal-600 focus:outline-teal-600 focus:outline-1"
                         />
