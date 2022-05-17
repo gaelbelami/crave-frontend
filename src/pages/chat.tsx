@@ -35,9 +35,7 @@ import {
 import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
 import { Helmet } from "react-helmet-async";
 import { RiChatSmile2Fill } from "react-icons/ri";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ToastAutoClose from "../components/toast";
 
 interface IUser {
   id: number;

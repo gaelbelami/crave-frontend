@@ -1,21 +1,15 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { BsFillCheckCircleFill } from "react-icons/bs";
 import { GiHotMeal } from "react-icons/gi";
 import { MdWatchLater } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import {
-  EDIT_ORDER_MUTATION,
   GET_ORDERS_QUERY,
   GET_ORDER_QUERY,
   ORDER_SUBSCRIPTION,
 } from "../graphql/query-mutation";
 import { useMe } from "../hooks/useMe";
-import {
-  editOrderMutation,
-  editOrderMutationVariables,
-} from "../__generated__/editOrderMutation";
 import {
   getOrderQuery,
   getOrderQueryVariables,
@@ -24,7 +18,6 @@ import {
   getOrdersMutation,
   getOrdersMutationVariables,
 } from "../__generated__/getOrdersMutation";
-import { OrderStatus } from "../__generated__/globalTypes";
 import { orderUpdatesSubscription } from "../__generated__/orderUpdatesSubscription";
 
 const Orders = () => {

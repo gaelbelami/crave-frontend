@@ -25,8 +25,7 @@ import {
   takeOrderMutationVariables,
 } from "../../__generated__/takeOrderMutation";
 import { useNavigate } from "react-router-dom";
-import { RiMapFill } from "react-icons/ri";
-import { FaMap, FaMapMarkedAlt } from "react-icons/fa";
+import { FaMapMarkedAlt } from "react-icons/fa";
 
 interface ICoords {
   lat: number;
