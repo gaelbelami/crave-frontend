@@ -11,6 +11,7 @@ import { LOCALSTORAGE_TOKEN } from "../constants/constants";
 import { LOGIN_MUTATION } from "../graphql/query-mutation";
 import { ILoginForm } from "../interfaces/user.interface";
 import { emailRegex } from "../utils/regex";
+//@ts-ignore
 import {
   loginMutation,
   loginMutationVariables,
