@@ -43,7 +43,7 @@
   },
   "scripts": {    
     "start": "npm run apollo:codegen  & react-scripts start",
-    "apollo:codegen": "rimraf src/__generated__ && npx apollo client:codegen src/__generated__ --target=typescript --outputFlat",
+    "apollo:codegen": "rimraf src/generated && npx apollo client:codegen src/generated --target=typescript --outputFlat",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
