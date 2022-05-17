@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -107,11 +107,11 @@ export const AddDish = () => {
   const nameRegex = /^([^0-9]*)$/;
   return (
     <div className=" min-h-screen">
-      <div className="mt-20 flex flex-col justify-center items-center">
-        <Helmet>
-          <title>Create Dish | Crave ~ Food</title>
-        </Helmet>
-        <h2 className=" font-extrabold text-slate-700 text-2xl mb-2">
+      <Helmet>
+        <title>Create Dish | Crave ~ Food</title>
+      </Helmet>
+      <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 rounded-lg shadow-md pt-8 pb-5">
+        <h2 className=" text-xl font-extrabold text-slate-700 md:text-2xl mb-2">
           Add Dish
         </h2>
         <h2 className=" justify-start items-start text-left">
@@ -120,7 +120,7 @@ export const AddDish = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           action=""
-          className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
+          className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5 px-3"
         >
           <input
             {...register("name", {
@@ -169,7 +169,7 @@ export const AddDish = () => {
               </span>
               <span
                 onClick={onAddOptionClick}
-                className="inline-flex items-center cursor-pointer text-sm font-semibold text-gray-700 bg-teal-300 shadow-md px-3  py-1 rounded-xl"
+                className="inline-flex items-center cursor-pointer text-sm font-semibold text-white bg-teal-600 shadow-md px-3  py-1 rounded-xl"
               >
                 <MdAddCircle className="mr-2" />
                 Add Dish Option

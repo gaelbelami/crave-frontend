@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { MdRestaurantMenu } from "react-icons/md";
@@ -24,22 +24,22 @@ export const HomeOwner = () => {
     }
   );
   return (
-    <div className="h-screen relative mt-5">
+    <div className=" min-h-screen relative mt-5">
       <Helmet>
         <title>My restaurants | Crave ~ Food</title>
       </Helmet>
-      <div>
+      <div className="mb-20">
         <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
-          <h1 className="text-xl font-bold font-sans mt-3 inline-flex items-center opacity-80 py-5  ">
-            <MdRestaurantMenu className=" text-2xl mr-2" />
-            My restaurants{" "}
-          </h1>
+          <div className="ml-3 mt-5 md:text-2xl font-bold font-sans inline-flex items-center mb-4 md:my-8 text-gray-700">
+            <MdRestaurantMenu />
+            <span className="ml-3">Restaurants</span>
+          </div>
 
           {data?.myRestaurants.ok && data.myRestaurants.results.length === 0 ? (
             <div>
               <h4 className=" text-xl mb-5"> You Have no restaurant.</h4>
               <Link
-                className=" text-lime-600 hover:underline"
+                className=" text-teal-600 hover:underline"
                 to="add-restaurant"
               >
                 CreateOne &rarr;
@@ -47,7 +47,7 @@ export const HomeOwner = () => {
             </div>
           ) : (
             <div>
-              <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+              <div className="grid md:grid-cols-3 gap-x-5 gap-y-6 mx-3">
                 {data?.myRestaurants.results.map((restaurant) => (
                   <RestaurantItem
                     key={restaurant.id}

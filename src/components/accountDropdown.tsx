@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { HiUser } from "react-icons/hi";
 import { IoLogOut } from "react-icons/io5";
 import { MdSettings } from "react-icons/md";
@@ -21,14 +21,14 @@ const AccountDropdown = () => {
               <span>
                 {data?.me.avatar ? (
                   <img
-                    className="w-10 h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                    className="w-8 h-8  md:w-10 md:h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
                     src={`${data?.me.avatar}`}
                     alt="profile"
                     width="384"
                     height="512"
                   />
                 ) : (
-                  <div className="  flex items-center w-10 h-10 rounded-full shadow-md bg-gray-300 bg-center object-cover">
+                  <div className="  flex items-center w-8 h-8 md:w-10 md:h-10  rounded-full shadow-md bg-gray-300 bg-center object-cover">
                     <FaUser className=" mx-auto text-gray-500" />
                   </div>
                 )}

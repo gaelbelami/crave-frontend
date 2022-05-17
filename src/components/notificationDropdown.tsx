@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { BsCheck2 } from "react-icons/bs";
 import { FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useMe } from "../hooks/useMe";
 import { Menu, Transition } from "@headlessui/react";
 import { MdNotInterested } from "react-icons/md";
 import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
@@ -15,13 +14,12 @@ const NotificationDropdown = ({
   notification,
   subscriptionData,
 }: INotification) => {
-  const { data } = useMe();
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left mt-1">
       {({ open }) => (
         <Fragment>
           <Menu.Button className="outline-none" type="button">
-            <FaBell className=" md:h-6 md:w-6 h-4 w-4 text-gray-700 hover:cursor-pointer" />
+            <FaBell className=" hover:text-teal-600 md:h-6 md:w-6 h-4 w-4 text-gray-700 hover:cursor-pointer" />
           </Menu.Button>
 
           <Transition

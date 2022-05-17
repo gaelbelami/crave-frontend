@@ -39,7 +39,7 @@ export const GeneralTab = () => {
       });
     } else if (message) {
       ToastAutoClose({
-        typeState: 1,
+        typeState: 2,
         message,
         title: "Error",
       });
@@ -85,7 +85,7 @@ export const GeneralTab = () => {
             avatar,
           },
         });
-        Swal.fire("Success?", "Profile updated successfully", "success");
+        // Swal.fire("Success?", "Profile updated successfully", "success");
       } catch (error) {
         throw new Error("Could not update cash");
       }
@@ -143,7 +143,6 @@ export const GeneralTab = () => {
         })
       ).json();
       const avatar = request.secure_url;
-      console.log(avatar);
       editProfileMutation({
         variables: {
           editUserProfileInput: {

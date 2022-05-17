@@ -28,6 +28,7 @@ export interface watchMessagesSubscription_watchMessages_realTimeMessage {
 
 export interface watchMessagesSubscription_watchMessages {
   __typename: "CreateMessageOutput";
+  ok: boolean;
   realTimeMessage: watchMessagesSubscription_watchMessages_realTimeMessage;
 }
 

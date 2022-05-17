@@ -6,7 +6,7 @@ function Spinner({ loading }: any) {
     <div className=" h-screen flex flex-col justify-center items-center">
       <div className=" flex items-center justify-center space-x-3 ">
         {/* <FaHamburger className=" text-5xl text-orange-500" /> */}
-        <h2 className=" italic  font-extrabold  text-5xl my-5 text-orange-500 font-sans">
+        <h2 className=" italic  font-extrabold  text-5xl my-5 text-teal-500 font-sans">
           crave.
         </h2>
       </div>

@@ -48,15 +48,15 @@ export const Dish: React.FC<IDishProp> = ({
     <div>
       <figure
         onClick={onClick}
-        className={` bg-white shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out ${
+        className={` bg-white shadow-md rounded-md  flex cursor-pointer border transition duration-500 ease-in-out mb-3 ${
           isSelected ? "border-gray-500" : ""
         }`}
       >
         <div className=" flex flex-col flex-auto overflow-y-auto p-4 md:space-y-4 ">
-          <div className="text-xl leading-6 font-medium text-gray-900">
+          <div className="font-sans font-bold text-sm md:text-xl leading-6 text-gray-600">
             {name}
           </div>
-          <div className="truncate text-sm text-gray-500 flex-grow">
+          <div className="truncate text-sm text-gray-500 flex-grow hidden md:block">
             {description}
           </div>
 
@@ -65,13 +65,17 @@ export const Dish: React.FC<IDishProp> = ({
               {/* <h5 className="my-3 font-medium">Dish Options</h5> */}
               {options?.slice(0, 2).map((option, index) => (
                 <span
-                  className="md:flex items-center px-2 md:bg-gray-200 shadow rounded-xl "
+                  className="inline-grid grid-cols-1 my-1 md:flex items-center px-2 border  md:bg-gray-200 md:shadow rounded-xl "
                   key={index}
                 >
-                  <h6 className="mr-2 text-sm ">{option.name}</h6>
-                  <h6 className=" text-sm opacity-75 font-semibold hidden lg:block">
-                    ( $ {option.extra})
-                  </h6>
+                  <div className="flex">
+                    <h6 className="mr-2 text-sm text-gray-500 md:text-slate-900">
+                      {option.name} |{" "}
+                    </h6>
+                    <h6 className=" text-sm opacity-75 font-semibold text-teal-800">
+                      $ {option.extra}
+                    </h6>
+                  </div>
                 </span>
               ))}
             </div>
@@ -82,7 +86,7 @@ export const Dish: React.FC<IDishProp> = ({
         </div>
 
         <img
-          className="w-auto h-24 xl:h-48 xl:w-auto px-4  mx-auto "
+          className="w-auto h-24 xl:h-48 xl:w-auto px-4  mx-auto my-auto "
           src={photo}
           alt=""
           width="384"

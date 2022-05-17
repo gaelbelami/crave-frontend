@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ImLocation } from "react-icons/im";
 import { IoIosChatbubbles } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { Dish } from "../../components/dish";
 import {
@@ -70,7 +71,6 @@ export const Restaurant = () => {
       { dishId, quantity: 0, options: [] },
       ...current,
     ]);
-    console.log("Add item to chart");
   };
 
   const removeFromOrder = (dishId: number) => {
@@ -150,7 +150,6 @@ export const Restaurant = () => {
 
   const triggerStartOrder = () => {
     setOrderStarted(true);
-    console.log("start order");
   };
 
   const triggerConfirmOrder = () => {
@@ -210,51 +209,53 @@ export const Restaurant = () => {
         </div>
       ) : (
         <div
-          className=" page-container mt-5 bg-center bg-cover py-28 shadow-md"
+          className="mt-5 bg-center bg-cover py-12 md:py-28 shadow-md rounded-lg"
           style={{
             backgroundImage: `url(${data?.restaurant.restaurant?.coverImage})`,
           }}
         >
-          <div className=" ml-8 bg-white md:w-2/5   py-6 rounded-md shadow-md">
-            <h4 className="uppercase ml-4 text-4xl mb-4 text-gray-700 font-extrabold">
+          <div className="md:ml-8 bg-white md:w-2/5 py-3  md:py-6 rounded-md shadow-md mx-3">
+            <h4 className="uppercase ml-4 text-xl md:text-4xl mb-4 text-gray-700 font-extrabold">
               {data?.restaurant.restaurant?.name}
             </h4>
             <Link
               to={`/category/${data?.restaurant.restaurant?.category?.slug}`}
               state={data?.restaurant.restaurant?.category}
             >
-              <div className="flex  mb-5">
-                <h4 className="capitalize flex-none text-xs font-bold shadow-md bg-gray-200 py-1 px-2 rounded-2xl ml-4 ">
+              <div className="flex  mb-3">
+                <h4 className="capitalize flex-none text-xs font-bold shadow-md bg-gray-200 py-1 px-2 rounded-2xl ml-3 ">
                   {data?.restaurant.restaurant?.category?.name}
                 </h4>
                 <div className="flex-grow"></div>
               </div>
             </Link>
             <div className="flex justify-between">
-              <span className="lowercase  text-gray-500 inline-flex items-center text-xs font-semibold ml-4">
+              <span className="lowercase  text-gray-500 ml-3 inline-flex items-center  text-xs font-sans font-medium md:font-bold dark:text-slate-600">
                 <ImLocation />
                 &nbsp; {data?.restaurant.restaurant?.address}
               </span>
-              <span
-                onClick={onStartChat}
-                className="cursor-pointer text-white inline-flex items-center text-sm font-semibold px-4 py-2 bg-teal-600 mr-4 rounded-md  "
-              >
-                <IoIosChatbubbles className="mr-1" />
-                Message
-              </span>
+              {data.restaurant.restaurant?.owner !== userData?.me.id && (
+                <span
+                  onClick={onStartChat}
+                  className="cursor-pointer text-white inline-flex items-center text-sm font-semibold px-4 py-2 bg-teal-600 mr-4 rounded-md  "
+                >
+                  <IoIosChatbubbles className="mr-1" />
+                  Message
+                </span>
+              )}
             </div>
           </div>
         </div>
       )}
       {data?.restaurant.restaurant?.menu.length !== 0 ? (
-        <div className="page-container">
-          <div className="mt-10 flex flex-col  items-end">
+        <div className="md:mx-3 ">
+          <div className="flex flex-col  items-end my-8 md:my-10">
             <div className="flex">
               {!orderStarted && (
                 <button
                   onClick={triggerStartOrder}
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-600 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="inline-flex justify-center rounded-md border border-transparent shadow-sm md:px-4 md:py-2 px-3 py-1 bg-teal-600 text-sm md:text-base mr-2 font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Start Order
                 </button>
@@ -264,14 +265,14 @@ export const Restaurant = () => {
                   <button
                     onClick={triggerConfirmOrder}
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-600 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="inline-flex justify-center rounded-md border border-transparent shadow-sm md:px-4 md:py-2 px-3 py-1 bg-teal-600 text-sm md:text-base mr-2 font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     Confirm Order
                   </button>
                   <button
                     onClick={triggerCancelOrder}
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="inline-flex justify-center rounded-md border border-transparent shadow-sm md:px-4 md:py-2 px-3 py-1 bg-red-500 text-sm md:text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     Cancel Order
                   </button>
@@ -279,7 +280,7 @@ export const Restaurant = () => {
               )}
             </div>
           </div>
-          <div className="md:grid md:grid-cols-2 gap-x-6 gap-y-10 mt-10">
+          <div className="md:grid md:grid-cols-2 gap-x-6 gap-y-10 ">
             {data?.restaurant.restaurant?.menu.map(
               ({ id, name, price, description, photo, options }) => (
                 <div key={id}>
@@ -303,9 +304,14 @@ export const Restaurant = () => {
               )
             )}
           </div>
+          <ToastContainer
+            toastClassName={() =>
+              "shadow-md text-gray-200 rounded-lg px-2 py-1 flex bg-slate-600 mx-5 mb-3"
+            }
+          />
         </div>
       ) : (
-        <div className="mx-auto text-center mt-20 text-3xl font-sans font-bold items-center justify-items-center text-gray-700">
+        <div className="mx-auto text-center mt-20 md:text-3xl font-sans font-bold items-center justify-items-center text-gray-700">
           No dish for this restaurant yet 😥.
         </div>
       )}

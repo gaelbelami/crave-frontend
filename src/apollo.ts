@@ -67,6 +67,11 @@ export const client = new ApolloClient({
                         read(){
                             return authTokenVar();
                         }
+                    },
+                    myMessages: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        }
                     }
                 }
             }

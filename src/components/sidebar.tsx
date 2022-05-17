@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { MdDeliveryDining, MdOutlineFavorite } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 import { FaHamburger } from "react-icons/fa";
@@ -7,6 +6,9 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
 import { WATCH_MESSAGES_SUBSCRIPTION } from "../graphql/query-mutation";
 import { useSubscription } from "@apollo/client";
+import { HiChatAlt2 } from "react-icons/hi";
+import { BiCart } from "react-icons/bi";
+import { RiShoppingCart2Fill } from "react-icons/ri";
 
 interface ISidebar {
   countMessage: number;
@@ -37,7 +39,7 @@ const Sidebar = () => {
     <div
       // onMouseEnter={() => setIsShowing(true)}
       // onMouseLeave={() => setIsShowing(false)}
-      className="max-w-2xl h-screen sticky mx-auto top-0 z-30 rounded-lg py-3 pl-3 "
+      className="h-screen sticky mx-auto top-0 z-30 rounded-lg py-3 md:pl-3  hidden md:block"
     >
       <Transition
         show={isShowing}
@@ -47,19 +49,19 @@ const Sidebar = () => {
         leave="transition-all transform duration-300 ease-in-out"
         leaveFrom="translate-x-0 opacity-100"
         leaveTo="-translate-x-full opacity-0"
-        className="w-56"
+        className="md:w-56"
         aria-label="Sidebar"
       >
-        <div className="px-3 py-4 overflow-y-auto rounded h-screen bg-white">
+        <div className="md:px-3 py-4 overflow-y-auto rounded h-screen bg-white">
           <ul className="space-y-2">
             <li>
               <Link
                 to="/"
-                className="flex flex-row items-center h-12 transform  transition-transform ease-in duration-200  hover:text-teal-800  p-2 text-gray-900 rounded-lg dark:text-teal-600"
+                className="md:flex flex-row items-center h-12 transform  transition-transform ease-in duration-200  hover:text-teal-800  p-2 text-gray-900 rounded-lg dark:text-teal-600"
               >
-                <span className="flex ml-1 italic font-extrabold text-4xl">
+                <span className="md:flex md:ml-1 italic font-extrabold md:text-4xl">
                   cr
-                  <FaHamburger className="w-5 h-5 mt-4 mx-0.5" />
+                  <FaHamburger className="md:w-5 h-5 mt-4 mx-0.5" />
                   ve
                 </span>
               </Link>
@@ -69,14 +71,14 @@ const Sidebar = () => {
                 <Link
                   onClick={onClick}
                   to={to}
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-300  hover:text-white  p-2 text-base font-normal text-gray-900 rounded-lg dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-teal-700"
+                  className="md:flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-300  hover:text-white  p-2 text-base font-normal text-gray-900 rounded-lg dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-teal-700"
                 >
                   {icon}
-                  <span className="flex-1 ml-3 whitespace-nowrap font-semibold">
+                  <span className="flex-1 md:ml-3 whitespace-nowrap font-semibold">
                     {label}
                   </span>
                   {notification !== 0 && label === "Chat" && (
-                    <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-yellow-600 bg-blue-200 rounded-full dark:bg-teal-800 dark:text-yellow-200">
+                    <span className="md:inline-flex items-center justify-center md:w-3 h-3 md:p-3 md:ml-3 md:text-sm font-medium text-yellow-600 bg-blue-200 rounded-full dark:bg-teal-800 dark:text-yellow-200">
                       {notification}
                     </span>
                   )}
@@ -131,10 +133,19 @@ const linksArray = [
   {
     label: "Chat",
     icon: (
-      <BsFillChatDotsFill className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+      <HiChatAlt2 className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
     ),
 
     to: "/chats",
+    // notification: 7,
+  },
+  {
+    label: "Orders",
+    icon: (
+      <RiShoppingCart2Fill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+    ),
+
+    to: "/orders",
     // notification: 7,
   },
 ];

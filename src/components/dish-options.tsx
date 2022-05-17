@@ -34,7 +34,7 @@ export const DishOption: React.FC<IDishOptionProps> = ({
             : "hover:border-gray-800 hover:text-gray-800"
         }`}
       >
-        {name} ${extra}
+        {name} | <span className=" text-teal-700">${extra}</span>
       </span>
     </div>
   );

@@ -1,6 +1,6 @@
-import { useQuery, useSubscription } from "@apollo/client";
-import React, { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { Dish } from "../../components/dish";
 import {
   myRestaurantQuery,
@@ -14,11 +14,9 @@ import {
   VictoryTheme,
   VictoryLabel,
 } from "victory";
-import {
-  MY_RESTAURANT_QUERY,
-  PENDING_ORDERS_SUBSCRIPTION,
-} from "../../graphql/query-mutation";
-import { pendingOrdersSubscription } from "../../__generated__/pendingOrdersSubscription";
+import { MY_RESTAURANT_QUERY } from "../../graphql/query-mutation";
+import { AiOutlineDotChart } from "react-icons/ai";
+import { BsBarChartLineFill, BsFillPieChartFill } from "react-icons/bs";
 
 export const MyRestaurant = () => {
   const { restaurantId } = useParams() as { restaurantId: string };
@@ -37,35 +35,35 @@ export const MyRestaurant = () => {
   return (
     <div className="">
       <div
-        className=" bg-gray-700 py-28 bg-center bg-cover rounded-lg mt-5"
+        className=" bg-gray-700 py-20 md:py-28 bg-center bg-cover rounded-lg mt-5"
         style={{
           backgroundImage: `url(${data?.myRestaurant.restaurant?.coverImage})`,
         }}
       ></div>
-      <div className=" mt-10">
-        <h2 className="text-4xl font-medium mb-10">
+      <div className="mt-5">
+        <h2 className="md:text-2xl font-bold font-sans mb-4 md:my-8 text-gray-700">
           {data?.myRestaurant?.restaurant?.name || "Loading ..."}
         </h2>
         <Link
           to={`/restaurant/${restaurantId}/add-dish`}
-          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm md:px-5 md:py-2.5 px-3 py-2 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
         >
           Add a dish &rarr;
         </Link>
         <Link
           to={``}
-          className=" text-white bg-teal-700 hover:bg-teal-800 focus:outline-none  focus:ring-teal-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
+          className=" text-white bg-teal-700 hover:bg-teal-800 focus:outline-none  focus:ring-teal-300 font-medium rounded-full text-sm md:px-5 md:py-2.5 px-3 py-2 text-center mr-2 mb-2 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
         >
           Buy Promotion &rarr;
         </Link>
       </div>
       <div className=" mt-5">
         {data?.myRestaurant.restaurant?.menu.length === 0 ? (
-          <h4 className=" text-2xl mb-5 font-bold text-teal-700 rounded-lg px-5 py-3 flex-wrap text-center">
+          <h4 className=" md:text-2xl font-bold font-sans mb-4 md:my-8 text-gray-700 mt-10">
             Get started by adding a new dish to your restaurant.
           </h4>
         ) : (
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 mt-10">
+          <div className="md:grid md:grid-cols-2 gap-x-6 gap-y-10 ">
             {data?.myRestaurant.restaurant?.menu.map(
               ({ id, name, price, description, photo }) => (
                 <Dish
@@ -82,7 +80,11 @@ export const MyRestaurant = () => {
         )}
       </div>
       <div className="  mt-10 mb-5">
-        <h4 className="mb-8 text-center text-2xl font-medium">Sales</h4>
+        <div className=" md:text-2xl font-bold font-sans mb-4 md:my-8 text-gray-700 text-center">
+          <div className="inline-flex items-center ">
+            <BsBarChartLineFill className="mr-2" /> Sales
+          </div>
+        </div>
         <div className="mt-1 mb-28 shadow-md bg-gray-200 rounded-lg items-center justify-center">
           <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
             <VictoryLine

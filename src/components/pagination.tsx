@@ -31,31 +31,35 @@ export const Pagination: React.FC<IPagination> = ({
   onNextPageClick,
 }) => {
   return (
-    <div>
-      <div className="grid grid-cols-3 max-w-md justify-center items-center mx-auto  mt-10 pb-5">
-        {page > 1 ? (
-          <button
-            onClick={onPreviousPageClick}
-            className=" basis-1/3 focus:outline-none font-medium text-2xl"
-          >
-            <BsArrowLeftSquareFill />
-          </button>
-        ) : (
-          <div></div>
-        )}
+    <div className=" text-center">
+      <div className="inline-grid grid-cols-3 md:w-6/12  justify-center items-center mx-auto  mt-10 pb-5">
+        <div>
+          {page > 1 ? (
+            <button
+              onClick={onPreviousPageClick}
+              className=" basis-1/3 focus:outline-none font-medium text-2xl"
+            >
+              <BsArrowLeftSquareFill />
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
         <span className="basis-1/3">
           Page {page} of {totalPages}
         </span>
-        {page !== totalPages ? (
-          <button
-            onClick={onNextPageClick}
-            className=" basis-1/3 focus:outline-none font-medium text-2xl"
-          >
-            <BsArrowRightSquareFill />
-          </button>
-        ) : (
-          <div></div>
-        )}
+        <div>
+          {page !== totalPages ? (
+            <button
+              onClick={onNextPageClick}
+              className=" basis-1/3 focus:outline-none font-medium text-2xl"
+            >
+              <BsArrowRightSquareFill />
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     </div>
   );

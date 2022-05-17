@@ -10,10 +10,10 @@ export const Footer = () => {
           Crave.
         </h5>
       </div>
-      <div className=" flex flex-grow text-xs text-gray-800">
+      <div className=" md:flex flex-grow text-xs text-gray-800  hidden ">
         <h5>All Rights Reserved.</h5>
       </div>
-      <div className=" flex  text-xs text-gray-800">
+      <div className=" md:flex  text-xs text-gray-800  hidden ">
         <h5 className=" inline-flex items-center">
           Made with passion &nbsp;{" "}
           <BiHeart className=" text-red-500 animate-ping text-md" />

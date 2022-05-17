@@ -29,7 +29,7 @@ const Restaurants = () => {
   });
 
   return (
-    <div className="mb-24">
+    <div className="mb-24 overflow-hidden">
       <Helmet>
         <title>Home | Crave ~ Food</title>
       </Helmet>
@@ -50,20 +50,26 @@ const Restaurants = () => {
         <div className="flex flex-row ">
           <div className="flex-auto ">
             <Banner />
-            <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
-              <div className="flex space-x-6 overflow-scroll scrollbar-hide items-center text-center mx-auto">
-                {data?.allCategories.categories?.map((category) => (
-                  <CategoryItem key={category.id} {...category} />
-                ))}
+            <main className=" bg-white md:max-w-8xl w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
+              <div className="not-prose relative bg-white">
+                <div className="relative  overflow-auto ">
+                  <div className="max-w-sm md:max-w-full mx-auto min-w-0">
+                    <div className=" overflow-x-auto xs:scrollbar-hide  flex">
+                      {data?.allCategories.categories?.map((category) => (
+                        <CategoryItem key={category.id} {...category} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div>
-                <div className="text-2xl font-bold font-sans inline-flex items-center my-8 text-gray-700">
+                <div className="ml-3 md:text-2xl font-bold font-sans inline-flex items-center mb-4 md:my-8 text-gray-700">
                   <MdRestaurantMenu />
                   <span className="ml-3">Restaurants</span>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-x-5 gap-y-12">
+                <div className="grid md:grid-cols-3 gap-x-5 gap-y-6 mx-3">
                   {data?.getAllRestaurnants.results?.map((restaurant) => (
                     <RestaurantItem
                       key={restaurant.id}

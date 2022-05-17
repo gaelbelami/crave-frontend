@@ -23,6 +23,7 @@ import { Cart } from "../pages/client/cart";
 import Order from "../pages/order";
 import Dashboard from "../pages/driver/dashboard";
 import { Chat } from "../pages/chat";
+import Orders from "../pages/orders";
 
 export const ClientRoutes = [
   {
@@ -98,6 +99,10 @@ export const CommonRoutes = [
   {
     path: "/orders/:id",
     component: <Order />,
+  },
+  {
+    path: "/orders",
+    component: <Orders />,
   },
 ];
 

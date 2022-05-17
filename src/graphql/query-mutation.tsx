@@ -346,6 +346,76 @@ export const EDIT_ORDER_MUTATION = gql`
   }
 `;
 
+export const COOKED_ORDERS_SUBSCRIPTION = gql`
+  subscription cookedOrdersSubscription {
+    cookedOrders {
+      id
+      status
+      total
+      createdAt
+      updateAt
+      driver {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+      }
+      customer {
+        email
+        firstName
+        username
+        avatar
+        phoneNumber
+        address
+      }
+      restaurant {
+        name
+        address
+      }
+    }
+  }
+`;
+
+export const TAKE_ORDER_MUTATION = gql`
+  mutation takeOrderMutation($takeOrderInput: TakeOrderInput!) {
+    takeOrder(takeOrderInput: $takeOrderInput) {
+      ok
+      message
+    }
+  }
+`;
+
+export const GET_ORDERS_QUERY = gql`
+  query getOrdersMutation($getOrdersInput: GetOrdersInput!) {
+    getOrders(getOrdersInput: $getOrdersInput) {
+      message
+      ok
+      totalPages
+      totalResults
+      orders {
+        id
+        status
+        total
+        createdAt
+        updateAt
+        customer {
+          email
+          firstName
+          username
+          avatar
+          phoneNumber
+          address
+        }
+        restaurant {
+          name
+          address
+        }
+      }
+    }
+  }
+`;
+
 export const MY_CHATS_QUERY = gql`
   query myChatsQuery($myChatsInput: MyChatsInput!) {
     myChats(myChatsInput: $myChatsInput) {
@@ -416,6 +486,7 @@ export const SEND_MESSAGE_MUTATION = gql`
 export const WATCH_MESSAGES_SUBSCRIPTION = gql`
   subscription watchMessagesSubscription {
     watchMessages {
+      ok
       realTimeMessage {
         id
         createdAt

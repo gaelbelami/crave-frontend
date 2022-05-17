@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { HiSearch } from "react-icons/hi";
-import { FaShoppingCart } from "react-icons/fa";
+import { HiChatAlt2, HiSearch } from "react-icons/hi";
+import { FaHamburger } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import AccountDropdown from "./accountDropdown";
@@ -9,7 +9,13 @@ import { UserRole } from "../__generated__/globalTypes";
 import NotificationDropdown from "./notificationDropdown";
 import { useSubscription } from "@apollo/client";
 import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
-import { PENDING_ORDERS_SUBSCRIPTION } from "../graphql/query-mutation";
+import {
+  PENDING_ORDERS_SUBSCRIPTION,
+  WATCH_MESSAGES_SUBSCRIPTION,
+} from "../graphql/query-mutation";
+import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
+import ToastAutoClose from "./toast";
+import { ToastContainer } from "react-toastify";
 // import logo from "../images/logo.svg";
 
 interface ISearchFormProps {
@@ -43,6 +49,7 @@ export const Header: React.FC = () => {
   }, [isSubmitSuccessful, reset]);
 
   const [notification, setNotification] = useState(0);
+  const [messages, setMessages] = useState(0);
 
   const { data: subscriptionData } = useSubscription<pendingOrdersSubscription>(
     PENDING_ORDERS_SUBSCRIPTION,
@@ -54,6 +61,33 @@ export const Header: React.FC = () => {
       setNotification((notification) => (notification += 1));
     }
   }, [subscriptionData]);
+
+  const [selected, setSelected] = useState(false);
+
+  const { data: subscriptionMessages } =
+    useSubscription<watchMessagesSubscription>(WATCH_MESSAGES_SUBSCRIPTION, {});
+
+  const onClick = () => {
+    setSelected(true);
+    setMessages(0);
+  };
+
+  useEffect(() => {
+    if (subscriptionMessages?.watchMessages) {
+      setMessages((message) => (message += 1));
+      if (
+        subscriptionMessages.watchMessages.realTimeMessage.sender.id !==
+        data?.me.id
+      ) {
+        ToastAutoClose({
+          typeState: 3,
+          message: "New Message",
+          title: "Success",
+        });
+      }
+    }
+  }, [subscriptionMessages]);
+
   return (
     <>
       {!data?.me.verified && (
@@ -64,27 +98,25 @@ export const Header: React.FC = () => {
       <header className=" sticky top-0 z-30 bg-gray-100 rounded-b-lg pt-3 ">
         <div
           className={
-            " grid  p-2 bg-white shadow-md  md:pl-10 md:pr-5 rounded-lg " +
-            (data?.me.role === UserRole.client ? "grid-cols-3" : "grid-cols-2")
+            "flex items-center md:grid p-2 bg-white shadow-md  md:pl-10 md:pr-5 rounded-lg " +
+            (data?.me.role === UserRole.client
+              ? "grid-cols-3"
+              : "grid grid-cols-2")
           }
         >
           {/* left */}
-          <div className="relative h-10 cursor-pointer my-auto">
-            <Link className="inline-flex text-center items-center gap-1" to="/">
-              {/* <img src={logo} alt="crave" className=" w-28" /> */}
-              {/* <SiSnapcraft className=" text-3xl text-orange-500 mt-1" /> */}
-              {/* <h2 className=" italic font-black my-auto text-4xl text-orange-500 font-sans">
-              crave.
-            </h2> */}
+          <span className="my-auto  md:invisible visible">
+            <Link className="text-teal-600" to="/">
+              <FaHamburger className="w-5 h-5 my-3 mx-2" />
             </Link>
-          </div>
+          </span>
 
           {/* Middle */}
 
           {data?.me.role === UserRole.client && (
             <form
               onSubmit={handleSubmit(onSearchSubmit)}
-              className=" md:shadow-sm rounded-full flex items-center md:border-2  py-2"
+              className=" md:shadow-sm rounded-full flex items-center justify-around md:border-2  py-2"
             >
               <input
                 {...register("searchTerm", {
@@ -104,18 +136,28 @@ export const Header: React.FC = () => {
           )}
 
           {/* Right */}
-          <div className=" flex  items-center justify-end">
-            <div className="flex">
-              <Link to="/cart">
-                <FaShoppingCart className=" md:h-6 md:w-6 h-4 w-4 text-gray-700 hover:cursor-pointer mx-3" />
-              </Link>
+          <div className=" flex  justify-end">
+            <div className="flex  items-center my-auto ">
+              <div className="relative">
+                <Link onClick={onClick} to="/chats">
+                  <HiChatAlt2 className=" hover:text-teal-600 md:h-7 md:w-7 h-6 w-6 text-gray-700 hover:cursor-pointer mx-3" />
+
+                  {messages > 0 && (
+                    <span className="md:-top-1.5 -top-1.5 right-2 absolute p-2 bg-teal-600  rounded-full shadow-lg">
+                      <span className="absolute md:-top-0.5 md:-my-0.5 -top-1 py-0.5 -ml-1 text-xs text-gray-100 my-0.5">
+                        {messages}
+                      </span>
+                    </span>
+                  )}
+                </Link>
+              </div>
               <div className="relative">
                 <NotificationDropdown
                   notification={notification}
                   subscriptionData={subscriptionData}
                 />
                 {notification > 0 && (
-                  <span className="-top-2 left-3 absolute w-4 h-4 bg-teal-500  rounded-full">
+                  <span className="-top-0.5 left-3 absolute w-4 h-4 bg-teal-500  rounded-full">
                     <span className="absolute -top-0.5 left-1 text-sm font-semibold text-gray-100">
                       {notification}
                     </span>
@@ -129,7 +171,7 @@ export const Header: React.FC = () => {
                 <NotificationDropdown />
               </div> */}
             </div>
-            <div className="ml-2 inline-flex gap-2 items-center justify-center px-2">
+            <div className="ml-2 inline-flex my-auto gap-2 items-center justify-center px-2">
               <AccountDropdown />
             </div>
           </div>
@@ -140,6 +182,11 @@ export const Header: React.FC = () => {
             </div>
           )}
         </div>
+        <ToastContainer
+          toastClassName={() =>
+            "shadow-md text-gray-200 rounded-lg px-2 py-1 flex bg-slate-600 mx-5 mb-3"
+          }
+        />
       </header>
     </>
   );

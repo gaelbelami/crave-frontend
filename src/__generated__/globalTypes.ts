@@ -111,6 +111,11 @@ export interface GetOrderInput {
   id: number;
 }
 
+export interface GetOrdersInput {
+  page?: number | null;
+  status?: OrderStatus | null;
+}
+
 export interface LoginUserInput {
   email: string;
   password: string;
@@ -153,6 +158,10 @@ export interface RestaurantsInput {
 export interface SearchRestaurantInput {
   page?: number | null;
   query: string;
+}
+
+export interface TakeOrderInput {
+  id: number;
 }
 
 export interface VerifyEmailInput {

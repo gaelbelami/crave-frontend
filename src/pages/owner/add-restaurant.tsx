@@ -107,68 +107,72 @@ export const Addrestaurant = () => {
     } catch (error) {}
   };
   return (
-    <div className="mt-20 flex flex-col justify-center items-center">
+    <div className=" min-h-screen">
       <Helmet>
         <title>Create Restaurant | Crave ~ Food</title>
       </Helmet>
-      <h2 className="font-semibold text-2xl mb-2">Add Restaurant</h2>
-      <form
-        className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input
-          {...register("name", {
-            required: "Restaurant name is required",
-            pattern: {
-              value: nameRegex,
-              message: "Numbers and Special characters are not allowed",
-            },
-            minLength: 3,
-            maxLength: 30,
-            validate: (value) => value !== "",
-          })}
-          name="name"
-          type="text"
-          placeholder="Restaurant Name"
-          className="input"
-          required
-        />
-        <input
-          {...register("address")}
-          name="address"
-          type="text"
-          placeholder="Address"
-          className="input"
-        />
-        <select
-          {...register("categoryName", {
-            required: "Category name is required",
-          })}
-          placeholder="Category name"
-          className="input appearance-none"
-          name="categoryName"
+      <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 pt-8 pb-5 rounded-lg">
+        <h2 className="text-xl font-bold text-slate-700 md:text-2xl mb-2">
+          Add Restaurant
+        </h2>
+        <form
+          className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5 px-3"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {allCategories?.allCategories.categories?.map((category) => (
-            <option key={category.id}>{category.name}</option>
-          ))}
-        </select>
-        <div>
           <input
-            className=" file:bg-gradient-to-b file:from-orange-400 file:to-orange-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
-            type="file"
-            accept="image/*"
-            {...register("file", { required: true })}
+            {...register("name", {
+              required: "Restaurant name is required",
+              pattern: {
+                value: nameRegex,
+                message: "Numbers and Special characters are not allowed",
+              },
+              minLength: 3,
+              maxLength: 30,
+              validate: (value) => value !== "",
+            })}
+            name="name"
+            type="text"
+            placeholder="Restaurant Name"
+            className="input"
+            required
           />
-        </div>
-        <ButtonForm
-          loading={uploading}
-          canClick={isValid}
-          actionText="Create Restaurant"
-        />
-        {data?.createRestaurant.message && (
-          <FormError errorMessage={data.createRestaurant.message} />
-        )}
-      </form>
+          <input
+            {...register("address")}
+            name="address"
+            type="text"
+            placeholder="Address"
+            className="input"
+          />
+          <select
+            {...register("categoryName", {
+              required: "Category name is required",
+            })}
+            placeholder="Category name"
+            className="input appearance-none"
+            name="categoryName"
+          >
+            {allCategories?.allCategories.categories?.map((category) => (
+              <option key={category.id}>{category.name}</option>
+            ))}
+          </select>
+          <div>
+            <input
+              className=" text-gray-500 file:bg-gradient-to-b file:from-teal-400 file:to-teal-500 file:px-6 file:py-3 file:border-none file:rounded-lg  file:cursor-pointer file:shadow-lg file:shadow-blue-600/50 bg-gradient-to-br from-gray-200 to-gray-300 file:mr-5 rounded-lg cursor-pointer"
+              type="file"
+              accept="image/*"
+              {...register("file", { required: true })}
+            />
+          </div>
+          <ButtonForm
+            loading={uploading}
+            canClick={isValid}
+            actionText="Create Restaurant"
+          />
+          {data?.createRestaurant.message && (
+            <FormError errorMessage={data.createRestaurant.message} />
+          )}
+        </form>
+      </div>
     </div>
   );
 };

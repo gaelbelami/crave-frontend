@@ -79,20 +79,14 @@ const WarningToast = ({ title, message }: IToastr) => (
 );
 
 export const InfoToast = ({ title, message }: IToastr) => (
-  <Fragment>
-    <Fragment>
-      <div className=" m-1">
-        <div>
-          <div className="">
-            <h6 className=" font-semibold font-sans text-blue-500">Info</h6>
-          </div>
-        </div>
-        <div className="toastify-body">
-          <span className=" text-xs font-semibold font-sans">{message}</span>
-        </div>
-      </div>
-    </Fragment>
-  </Fragment>
+  <div className="">
+    <h6 className=" font-semibold font-sans text-sky-500">Info</h6>
+    <div className="">
+      <span className=" text-xs font-semibold font-sans text-gray-200">
+        {message}
+      </span>
+    </div>
+  </div>
 );
 
 const ToastAutoClose = ({ typeState, message, title }: IToastAutoClose) => {
@@ -117,7 +111,7 @@ const ToastAutoClose = ({ typeState, message, title }: IToastAutoClose) => {
     });
   const notifyInfo = () =>
     toast.info(<InfoToast title={title} message={message} />, {
-      position: toast.POSITION.BOTTOM_RIGHT,
+      position: toast.POSITION.BOTTOM_LEFT,
       transition: Slide,
       hideProgressBar: true,
     });
