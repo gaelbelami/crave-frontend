@@ -11,10 +11,7 @@ import { LOCALSTORAGE_TOKEN } from "../constants/constants";
 import { LOGIN_MUTATION } from "../graphql/query-mutation";
 import { ILoginForm } from "../interfaces/user.interface";
 import { emailRegex } from "../utils/regex";
-import {
-  loginMutation,
-  loginMutationVariables,
-} from "../__generated__/loginMutation";
+import { loginMutation, loginMutationVariables } from "../__generated__/loginMutation";
 import { RiLoginBoxFill, RiShoppingCartFill } from "react-icons/ri";
 import { GiHotMeal } from "react-icons/gi";
 import { MdDeliveryDining } from "react-icons/md";
