@@ -42,11 +42,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run apollo:codegen &  react-scripts start",
-    "apollo:codegen": " rimraf src/__generated__ && apollo client:codegen src/__generated__ --target=typescript --outputFlat",
-    "build": "CI=false react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-scripts start",
+		"tailwind:build": "cross-env NODE_ENV=production tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+		"build": "CI=false react-scripts build",
+		"prebuild": "npm run tailwind:build",
+		"test": "react-scripts test --verbose",
+		"test:cov": "npm test -- --coverage --watchAll=false",
+		"eject": "react-scripts eject",
+		"apollo": "rimraf src/__generated__ && apollo client:codegen src/__generated__ --target=typescript --outputFlat"
   },
   "eslintConfig": {
     "extends": [
