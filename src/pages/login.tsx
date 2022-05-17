@@ -11,7 +11,10 @@ import { LOCALSTORAGE_TOKEN } from "../constants/constants";
 import { LOGIN_MUTATION } from "../graphql/query-mutation";
 import { ILoginForm } from "../interfaces/user.interface";
 import { emailRegex } from "../utils/regex";
-
+import {
+  loginMutation,
+  loginMutationVariables,
+} from "../__generated__/loginMutation";
 import { RiLoginBoxFill, RiShoppingCartFill } from "react-icons/ri";
 import { GiHotMeal } from "react-icons/gi";
 import { MdDeliveryDining } from "react-icons/md";
@@ -26,38 +29,38 @@ export default function Login() {
     mode: "onChange",
   });
 
-  // const onCompleted = (data: loginMutation) => {
-  //   const {
-  //     loginUser: { ok, token },
-  //   } = data;
-  //   if (ok && token) {
-  //     localStorage.setItem(LOCALSTORAGE_TOKEN, token);
-  //     authTokenVar(token);
-  //     isLoggedInVar(true);
-  //   }
-  // };
-  // //   const onError = (error: ApolloError) => {}
-  // const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
-  //   loginMutation,
-  //   loginMutationVariables
-  // >(LOGIN_MUTATION, {
-  //   onCompleted,
-  //   //   onError,
-  // });
+  const onCompleted = (data: loginMutation) => {
+    const {
+      loginUser: { ok, token },
+    } = data;
+    if (ok && token) {
+      localStorage.setItem(LOCALSTORAGE_TOKEN, token);
+      authTokenVar(token);
+      isLoggedInVar(true);
+    }
+  };
+  //   const onError = (error: ApolloError) => {}
+  const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
+    loginMutation,
+    loginMutationVariables
+  >(LOGIN_MUTATION, {
+    onCompleted,
+    //   onError,
+  });
 
-  // const onSubmit = () => {
-  //   if (!loading) {
-  //     const { email, password } = getValues();
-  //     loginMutation({
-  //       variables: {
-  //         loginUserInput: {
-  //           email,
-  //           password,
-  //         },
-  //       },
-  //     });
-  //   }
-  // };
+  const onSubmit = () => {
+    if (!loading) {
+      const { email, password } = getValues();
+      loginMutation({
+        variables: {
+          loginUserInput: {
+            email,
+            password,
+          },
+        },
+      });
+    }
+  };
 
   return (
     <div className=" h-screen flex items-center flex-col  justify-center  bg-cyan-50">
@@ -118,7 +121,7 @@ export default function Login() {
             Sign in with your email address and password
           </div>
           <form
-            // onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="grid gap-3 mt-5 w-full mb-3"
           >
             <input
@@ -156,16 +159,16 @@ export default function Login() {
             {errors.password?.type === "minLength" && (
               <FormError errorMessage="Password must  be more than 10 chars." />
             )}
-            {/* <ButtonForm
+            <ButtonForm
               canClick={isValid}
-              // loading={loading}
+              loading={loading}
               actionText={"Login"}
-            /> */}
-            {/* {loginMutationResult?.loginUser.message && (
+            />
+            {loginMutationResult?.loginUser.message && (
               <FormError
                 errorMessage={loginMutationResult?.loginUser.message}
               />
-            )} */}
+            )}
           </form>
           <div className="text-black">
             New to Crave?{" "}
