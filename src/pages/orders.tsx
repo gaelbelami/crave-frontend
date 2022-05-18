@@ -13,12 +13,12 @@ import { useMe } from "../hooks/useMe";
 import {
   getOrderQuery,
   getOrderQueryVariables,
-} from "../__generated__/getOrderQuery";
+} from "../generated/getOrderQuery";
 import {
   getOrdersMutation,
   getOrdersMutationVariables,
-} from "../__generated__/getOrdersMutation";
-import { orderUpdatesSubscription } from "../__generated__/orderUpdatesSubscription";
+} from "../generated/getOrdersMutation";
+import { orderUpdatesSubscription } from "../generated/orderUpdatesSubscription";
 
 const Orders = () => {
   const { id } = useParams() as { id: string };
@@ -81,9 +81,8 @@ const Orders = () => {
   return (
     <div className="min-h-screen">
       <div className="md:page-container ">
-        <Helmet>
+        
           <title>Orders Details | Crave Eats</title>
-        </Helmet>
         <div className="mt-10 flex items-center justify-center flex-col gap-10">
           {getOrdersData?.getOrders.ok && userData?.me.role === "client" && (
             <div className="mb-20 mt-10 flex flex-col w-full items-center">

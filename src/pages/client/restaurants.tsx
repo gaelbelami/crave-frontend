@@ -4,7 +4,7 @@ import { CategoryItem } from "../../components/categoryItem";
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
-} from "../../__generated__/restaurantsPageQuery";
+} from "../../generated/restaurantsPageQuery";
 import { RestaurantItem } from "../../components/restaurantItem";
 import Banner from "../../components/banner";
 import { RestaurantSkeleton } from "../../components/skeletons/restaurant-skeleton";
@@ -30,9 +30,9 @@ const Restaurants = () => {
 
   return (
     <div className="mb-24 overflow-hidden">
-      <Helmet>
+
         <title>Home | Crave ~ Food</title>
-      </Helmet>
+
       {!data || loading ? (
         <div>
           <BannerSkeleton />

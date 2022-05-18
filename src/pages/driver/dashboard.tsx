@@ -18,12 +18,12 @@ import {
   COOKED_ORDERS_SUBSCRIPTION,
   TAKE_ORDER_MUTATION,
 } from "../../graphql/query-mutation";
-import { cookedOrdersSubscription } from "../../__generated__/cookedOrdersSubscription";
+import { cookedOrdersSubscription } from "../../generated/cookedOrdersSubscription";
 import { MdNoFood } from "react-icons/md";
 import {
   takeOrderMutation,
   takeOrderMutationVariables,
-} from "../../__generated__/takeOrderMutation";
+} from "../../generated/takeOrderMutation";
 import { useNavigate } from "react-router-dom";
 import { FaMapMarkedAlt } from "react-icons/fa";
 

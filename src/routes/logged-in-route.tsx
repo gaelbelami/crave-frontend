@@ -9,7 +9,7 @@ import Restauraunts from "../pages/client/restaurants";
 import { Search } from "../pages/client/search";
 import { Test } from "../pages/client/test";
 import { ConfirmEmail } from "../pages/user/confirm-email";
-import { UserRole } from "../__generated__/globalTypes";
+import { UserRole } from "../generated/globalTypes";
 import Spinner from "../components/spinner";
 import { Restaurant } from "../pages/client/restaurant";
 import { HomeOwner } from "../pages/owner/home-owner";

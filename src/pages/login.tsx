@@ -11,7 +11,7 @@ import { LOCALSTORAGE_TOKEN } from "../constants/constants";
 import { LOGIN_MUTATION } from "../graphql/query-mutation";
 import { ILoginForm } from "../interfaces/user.interface";
 import { emailRegex } from "../utils/regex";
-import { loginMutation, loginMutationVariables } from "../__generated__/loginMutation";
+import { loginMutation, loginMutationVariables } from "../generated/loginMutation";
 import { RiLoginBoxFill, RiShoppingCartFill } from "react-icons/ri";
 import { GiHotMeal } from "react-icons/gi";
 import { MdDeliveryDining } from "react-icons/md";
@@ -61,9 +61,9 @@ export default function Login() {
 
   return (
     <div className=" h-screen flex items-center flex-col  justify-center  bg-cyan-50">
-      <Helmet>
+
         <title>Login | Crave ~ Food</title>
-      </Helmet>
+
 
       <div className="w-full  grid grid-cols-2">
         <div className="flex justify-center my-auto pb-80">

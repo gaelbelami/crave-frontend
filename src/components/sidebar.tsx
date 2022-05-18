@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 import { FaHamburger } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
-import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
+import { watchMessagesSubscription } from "../generated/watchMessagesSubscription";
 import { WATCH_MESSAGES_SUBSCRIPTION } from "../graphql/query-mutation";
 import { useSubscription } from "@apollo/client";
 import { HiChatAlt2 } from "react-icons/hi";

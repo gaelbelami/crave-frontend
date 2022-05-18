@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { meQuery } from "../__generated__/meQuery";
+import { meQuery } from "../generated/meQuery";
 
 export const ME_QUERY = gql`
   query meQuery {

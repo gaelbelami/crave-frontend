@@ -8,7 +8,7 @@ import { ButtonForm } from "../../components/form-button";
 import {
   createDishMutation,
   createDishMutationVariables,
-} from "../../__generated__/createDishMutation";
+} from "../../generated/createDishMutation";
 import { MdAddCircle } from "react-icons/md";
 import { FormError } from "../../components/form-error";
 import { IAddDishForm } from "../../interfaces/add-dish.interface";
@@ -107,9 +107,9 @@ export const AddDish = () => {
   const nameRegex = /^([^0-9]*)$/;
   return (
     <div className=" min-h-screen">
-      <Helmet>
+  
         <title>Create Dish | Crave ~ Food</title>
-      </Helmet>
+   
       <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 rounded-lg shadow-md pt-8 pb-5">
         <h2 className=" text-xl font-extrabold text-slate-700 md:text-2xl mb-2">
           Add Dish

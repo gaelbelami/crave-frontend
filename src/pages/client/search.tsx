@@ -6,7 +6,7 @@ import { SEARCH_RESTAURANT } from "../../graphql/query-mutation";
 import {
   searchRestaurantQuery,
   searchRestaurantQueryVariables,
-} from "../../__generated__/searchRestaurantQuery";
+} from "../../generated/searchRestaurantQuery";
 import preview from "../../images/preview.gif";
 
 export const Search = () => {

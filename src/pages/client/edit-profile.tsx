@@ -11,9 +11,9 @@ export const EditProfile: React.FC = () => {
   return (
     <div className="page-container min-h-screen mb-20">
       <div className="flex flex-col mt-10 items-center ">
-        <Helmet>
+        
           <title>Profile Details | Crave ~ Food</title>
-        </Helmet>
+        
         <div className=" inline-flex items-center mb-2">
           <div className=" text-xl font-bold md:font-extrabold text-gray-600 md:text-2xl mb-2">
             My Account

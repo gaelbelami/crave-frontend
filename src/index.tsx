@@ -9,10 +9,9 @@ import { client } from "./apollo";
 import "emoji-mart/css/emoji-mart.css";
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <HelmetProvider>
+    <ApolloProvider client={client}>      
+
         <App />
-      </HelmetProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

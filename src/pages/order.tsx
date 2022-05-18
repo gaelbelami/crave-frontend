@@ -15,17 +15,17 @@ import { useMe } from "../hooks/useMe";
 import {
   editOrderMutation,
   editOrderMutationVariables,
-} from "../__generated__/editOrderMutation";
+} from "../generated/editOrderMutation";
 import {
   getOrderQuery,
   getOrderQueryVariables,
-} from "../__generated__/getOrderQuery";
+} from "../generated/getOrderQuery";
 import {
   getOrdersMutation,
   getOrdersMutationVariables,
-} from "../__generated__/getOrdersMutation";
-import { OrderStatus } from "../__generated__/globalTypes";
-import { orderUpdatesSubscription } from "../__generated__/orderUpdatesSubscription";
+} from "../generated/getOrdersMutation";
+import { OrderStatus } from "../generated/globalTypes";
+import { orderUpdatesSubscription } from "../generated/orderUpdatesSubscription";
 
 const Order = () => {
   const { id } = useParams() as { id: string };
@@ -100,9 +100,9 @@ const Order = () => {
   return (
     <div className="min-h-screen">
       <div className="md:page-container ">
-        <Helmet>
+      
           <title>Order Details | Crave Eats</title>
-        </Helmet>
+     
         <div className="mt-10 flex items-center justify-center flex-col gap-10">
           <p className=" font-bold text-2xl text-gray-600 justify-center items-center">
             Current Orders

@@ -11,8 +11,8 @@ import { emailRegex, nameRegex } from "../utils/regex";
 import {
   createAccountMutation,
   createAccountMutationVariables,
-} from "../__generated__/createAccountMutation";
-import { UserRole } from "../__generated__/globalTypes";
+} from "../generated/createAccountMutation";
+import { UserRole } from "../generated/globalTypes";
 
 export interface ICreateAccountForm {
   firstName: string;
@@ -81,9 +81,9 @@ export default function Signup() {
 
   return (
     <div className=" h-screen flex items-center bg-white flex-col pt-10 lg:pt-32">
-      <Helmet>
+     
         <title>Signup | Crave ~ Food</title>
-      </Helmet>
+ 
       <div className="w-full max-w-screen-sm flex px-5 flex-col items-center">
         {/* <img src={logo} alt="" className=" w-52 mb-10"/> */}
         <h2 className="  font-extrabold mb-10 text-7xl text-teal-500">crave</h2>

@@ -5,7 +5,7 @@ import { Dish } from "../../components/dish";
 import {
   myRestaurantQuery,
   myRestaurantQueryVariables,
-} from "../../__generated__/myRestaurantQuery";
+} from "../../generated/myRestaurantQuery";
 import {
   VictoryChart,
   VictoryAxis,
@@ -86,7 +86,7 @@ export const MyRestaurant = () => {
           </div>
         </div>
         <div className="mt-1 mb-28 shadow-md bg-gray-200 rounded-lg items-center justify-center">
-          <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
+          {/* <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
             <VictoryLine
               labels={({ datum }) => `$${datum.y}`}
               labelComponent={
@@ -113,7 +113,7 @@ export const MyRestaurant = () => {
               style={{ tickLabels: { fontSize: 3 } }}
               tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
             />
-          </VictoryChart>
+          </VictoryChart> */}
         </div>
       </div>
     </div>

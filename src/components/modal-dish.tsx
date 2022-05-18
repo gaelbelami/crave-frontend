@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { restaurantQuery_restaurant_restaurant_menu_options } from "../__generated__/restaurantQuery";
+import { restaurantQuery_restaurant_restaurant_menu_options } from "../generated/restaurantQuery";
 import ToastAutoClose from "./toast";
 import "react-toastify/dist/ReactToastify.css";
 

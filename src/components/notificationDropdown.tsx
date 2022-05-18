@@ -4,7 +4,7 @@ import { FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { MdNotInterested } from "react-icons/md";
-import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
+import { pendingOrdersSubscription } from "../generated/pendingOrdersSubscription";
 
 interface INotification {
   notification: number;

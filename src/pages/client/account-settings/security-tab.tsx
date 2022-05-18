@@ -10,7 +10,7 @@ import { passwordRegex } from "../../../utils/regex";
 import {
   changePasswordUserMutationVariables,
   changePasswordUserMutation,
-} from "../../../__generated__/changePasswordUserMutation";
+} from "../../../generated/changePasswordUserMutation";
 
 export const SecurityTab = () => {
   const onCompleted = (data: changePasswordUserMutation) => {

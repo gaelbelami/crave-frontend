@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IDishProp } from "../interfaces/dish.interface";
-import { CreateOrderItemInput } from "../__generated__/globalTypes";
+import { CreateOrderItemInput } from "../generated/globalTypes";
 import { DishOption } from "./dish-options";
 import { ModalDish } from "./modal-dish";
 

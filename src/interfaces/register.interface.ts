@@ -1,4 +1,4 @@
-import { UserRole } from "../__generated__/globalTypes";
+import { UserRole } from "../generated/globalTypes";
 
 export interface ICreateAccountForm {
   firstName: string;

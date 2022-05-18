@@ -1,5 +1,5 @@
-import { CreateOrderItemInput } from "../__generated__/globalTypes";
-import { restaurantQuery_restaurant_restaurant_menu_options } from "../__generated__/restaurantQuery";
+import { CreateOrderItemInput } from "../generated/globalTypes";
+import { restaurantQuery_restaurant_restaurant_menu_options } from "../generated/restaurantQuery";
 
 export interface IDishProp {
   dishId: number;

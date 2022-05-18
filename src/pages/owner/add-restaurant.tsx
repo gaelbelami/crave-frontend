@@ -8,11 +8,11 @@ import { FormError } from "../../components/form-error";
 import { MY_RESTAURANTS_QUERY } from "../../graphql/query-mutation";
 import { IAddRestaurantFormProps } from "../../interfaces/add-restaurant.interface";
 import { nameRegex } from "../../utils/regex";
-import { allCategoriesQuery } from "../../__generated__/allCategoriesQuery";
+import { allCategoriesQuery } from "../../generated/allCategoriesQuery";
 import {
   createRestaurantMutation,
   createRestaurantMutationVariables,
-} from "../../__generated__/createRestaurantMutation";
+} from "../../generated/createRestaurantMutation";
 
 const CREATE_RESTAURANT_MUTATION = gql`
   mutation createRestaurantMutation(
@@ -108,9 +108,9 @@ export const Addrestaurant = () => {
   };
   return (
     <div className=" min-h-screen">
-      <Helmet>
+
         <title>Create Restaurant | Crave ~ Food</title>
-      </Helmet>
+     
       <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 pt-8 pb-5 rounded-lg">
         <h2 className="text-xl font-bold text-slate-700 md:text-2xl mb-2">
           Add Restaurant

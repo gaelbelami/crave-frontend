@@ -6,7 +6,7 @@ import { CATEGORY_QUERY } from "../../graphql/query-mutation";
 import {
   categoryQuery,
   categoryQueryVariables,
-} from "../../__generated__/categoryQuery";
+} from "../../generated/categoryQuery";
 
 export const Category = () => {
   const { categorySlug } = useParams() as { categorySlug: string };

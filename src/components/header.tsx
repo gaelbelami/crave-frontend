@@ -5,15 +5,15 @@ import { FaHamburger } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import AccountDropdown from "./accountDropdown";
-import { UserRole } from "../__generated__/globalTypes";
+import { UserRole } from "../generated/globalTypes";
 import NotificationDropdown from "./notificationDropdown";
 import { useSubscription } from "@apollo/client";
-import { pendingOrdersSubscription } from "../__generated__/pendingOrdersSubscription";
+import { pendingOrdersSubscription } from "../generated/pendingOrdersSubscription";
 import {
   PENDING_ORDERS_SUBSCRIPTION,
   WATCH_MESSAGES_SUBSCRIPTION,
 } from "../graphql/query-mutation";
-import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
+import { watchMessagesSubscription } from "../generated/watchMessagesSubscription";
 import ToastAutoClose from "./toast";
 import { ToastContainer } from "react-toastify";
 // import logo from "../images/logo.svg";

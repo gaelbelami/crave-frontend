@@ -23,16 +23,16 @@ import {
   myChatsQuery,
   myChatsQueryVariables,
   myChatsQuery_myChats_results_restaurant,
-} from "../__generated__/myChatsQuery";
+} from "../generated/myChatsQuery";
 import {
   myMessagesQuery,
   myMessagesQueryVariables,
-} from "../__generated__/myMessagesQuery";
+} from "../generated/myMessagesQuery";
 import {
   sendMessage,
   sendMessageVariables,
-} from "../__generated__/sendMessage";
-import { watchMessagesSubscription } from "../__generated__/watchMessagesSubscription";
+} from "../generated/sendMessage";
+import { watchMessagesSubscription } from "../generated/watchMessagesSubscription";
 import { Helmet } from "react-helmet-async";
 import { RiChatSmile2Fill } from "react-icons/ri";
 import "react-toastify/dist/ReactToastify.css";
@@ -237,9 +237,9 @@ export const Chat = () => {
 
   return (
     <div className=" bg-gray-100 ">
-      <Helmet>
+      
         <title>Chat | Crave ~ Eat</title>
-      </Helmet>
+    
       <div className="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
         <div className="w-full mb-48">
           <Breadcrumb step1="Home" step2="Chat" />

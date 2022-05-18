@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import {
   editProfileMutation,
   editProfileMutationVariables,
-} from "../../../__generated__/editProfileMutation";
+} from "../../../generated/editProfileMutation";
 import { IEditProfileForm } from "../../../interfaces/user.interface";
 import { useForm } from "react-hook-form";
 import { ButtonForm } from "../../../components/form-button";
@@ -161,9 +161,9 @@ export const GeneralTab = () => {
 
   return (
     <div>
-      <Helmet>
+      
         <title>Profile Details</title>
-      </Helmet>
+      
       <div className="border-b border-gray-300">
         <h2 className=" font-extrabold text-lg mb-5 text-gray-700 ">
           Profile Details

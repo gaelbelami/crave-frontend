@@ -11,7 +11,7 @@ import { IEditProfileForm } from "../../../interfaces/user.interface";
 import {
   editProfileMutation,
   editProfileMutationVariables,
-} from "../../../__generated__/editProfileMutation";
+} from "../../../generated/editProfileMutation";
 import "react-toastify/dist/ReactToastify.css";
 import { FormError } from "../../../components/form-error";
 import { hideEmail } from "../../../utils/utils";

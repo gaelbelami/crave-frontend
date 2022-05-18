@@ -15,17 +15,17 @@ import { useMe } from "../../hooks/useMe";
 import {
   createChatMutation,
   createChatMutationVariables,
-} from "../../__generated__/createChatMutation";
+} from "../../generated/createChatMutation";
 import {
   createOrderMutation,
   createOrderMutationVariables,
-} from "../../__generated__/createOrderMutation";
-import { CreateOrderItemInput } from "../../__generated__/globalTypes";
+} from "../../generated/createOrderMutation";
+import { CreateOrderItemInput } from "../../generated/globalTypes";
 
 import {
   restaurantQuery,
   restaurantQueryVariables,
-} from "../../__generated__/restaurantQuery";
+} from "../../generated/restaurantQuery";
 
 export const Restaurant = () => {
   const { data: userData } = useMe();

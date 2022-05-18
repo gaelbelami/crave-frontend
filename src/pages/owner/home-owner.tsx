@@ -9,7 +9,7 @@ import { MY_RESTAURANTS_QUERY } from "../../graphql/query-mutation";
 import {
   myRestaurantsQuery,
   myRestaurantsQueryVariables,
-} from "../../__generated__/myRestaurantsQuery";
+} from "../../generated/myRestaurantsQuery";
 
 export const HomeOwner = () => {
   const { page, ...restaurantPager } = usePagination(1);
@@ -25,9 +25,9 @@ export const HomeOwner = () => {
   );
   return (
     <div className=" min-h-screen relative mt-5">
-      <Helmet>
+   
         <title>My restaurants | Crave ~ Food</title>
-      </Helmet>
+  
       <div className="mb-20">
         <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">
           <div className="ml-3 mt-5 md:text-2xl font-bold font-sans inline-flex items-center mb-4 md:my-8 text-gray-700">
