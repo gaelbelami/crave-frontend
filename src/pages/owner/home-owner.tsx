@@ -25,8 +25,10 @@ export const HomeOwner = () => {
   );
   return (
     <div className=" min-h-screen relative mt-5">
-   
+      
+
         <title>My restaurants | Crave ~ Food</title>
+       
   
       <div className="mb-20">
         <main className=" bg-white md:max-w-8xl max-w-full mx-auto md:px-8 sm:px-16 shadow-md rounded-lg">

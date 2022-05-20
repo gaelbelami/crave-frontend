@@ -12,7 +12,7 @@ import { LOGIN_MUTATION } from "../graphql/query-mutation";
 import { ILoginForm } from "../interfaces/user.interface";
 import { emailRegex } from "../utils/regex";
 import { loginMutation, loginMutationVariables } from "../generated/loginMutation";
-import { RiLoginBoxFill, RiShoppingCartFill } from "react-icons/ri";
+import { RiShoppingCartFill } from "react-icons/ri";
 import { GiHotMeal } from "react-icons/gi";
 import { MdDeliveryDining } from "react-icons/md";
 
@@ -61,19 +61,19 @@ export default function Login() {
 
   return (
     <div className=" h-screen flex items-center flex-col  justify-center  bg-cyan-50">
-
+        
         <title>Login | Crave ~ Food</title>
 
 
-      <div className="w-full  grid grid-cols-2">
-        <div className="flex justify-center my-auto pb-80">
-          <div className="relative flex flex-col items-center w-full ">
-            <div className="relative w-full max-w-lg mt-14">
+      <div className="w-full  md:grid grid-cols-2">
+        <div className="md:flex justify-center my-auto pb-80 hidden">
+          <div className="relative md:flex flex-col items-center w-full  ">
+            <div className="relative w-full max-w-lg mt-14 ">
               <div className=" absolute top-0 -left-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur opacity-70 animate-blob "></div>
               <div className=" absolute top-0 -right-4 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur opacity-70 animate-blob animation-delay-2000"></div>
               <div className=" absolute top-0 bottom-4 left-20 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur opacity-70 animate-blob animation-delay-4000"></div>
             </div>
-            <div className="absolute top-0 bg-gray-100  rounded-lg opacity-70 pt-20 pb-16 px-14  max-w-2xl">
+            <div className="absolute top-0 bg-gray-100  rounded-lg opacity-70 pt-20 pb-16 px-14  max-w-2xl ">
               <p className=" font-sans font-semibold text-3xl ">
                 It’s all here. All in one place.
               </p>
@@ -105,18 +105,22 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-screen-sm flex px-5 flex-col items-center  justify-center mx-auto">
-          <span className="italic font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
+        <div className="w-full max-w-screen-sm flex px-5 flex-col items-center   justify-center mx-auto">
+        
+            
+            <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
             cr
             <FaHamburger className="w-11 h-11 mt-5 mx-1" />
             ve
           </span>
+         
           <h4 className="w-full text-left text-3xl mb-5 font-semibold font-sans">
             Welcome Back
           </h4>
           <div className="w-full text-left text-black">
             Sign in with your email address and password
-          </div>
+          
+         </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid gap-3 mt-5 w-full mb-3"
@@ -177,15 +181,18 @@ export default function Login() {
       </div>
       <div className="mt-28 items-center flex flex-col">
         <div className="font-sans font-semibold text-gray-500 text-lg">
-          Business Partners Authentication
+          Business Partners Registration
         </div>
         <div className="flex space-x-5 mt-3">
-          <div className="cursor-pointer flex py-2 px-4 rounded-lg border font-semibold shadow-md border-teal-600 text-teal-600">
+          {/* <div className="cursor-pointer flex py-2 px-4 rounded-lg border font-semibold shadow-md border-teal-600 text-teal-600">
             <RiLoginBoxFill className=" text-2xl mr-2" />
             Login
-          </div>
+          </div> */}
           <div className="cursor-pointer flex py-2 px-4 rounded-lg border font-semibold shadow-md border-teal-600 text-teal-600">
-            <FaPenSquare className=" text-2xl mr-2" /> Register
+            <FaPenSquare className=" text-2xl mr-2" /> 
+            <Link to="/signup-business">
+            Register
+            </Link>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export interface ICreateAccountForm {
   role: UserRole;
 }
 
-export default function Signup() {
+export default function BusinessSignup() {
   const {
     register,
     handleSubmit,
@@ -31,9 +31,6 @@ export default function Signup() {
     formState: { errors, isValid },
   } = useForm<ICreateAccountForm>({
     mode: "onChange",
-    defaultValues: {
-      role: UserRole.client,
-    },
   });
   const history = useNavigate();
   const onCompleted = (data: createAccountMutation) => {
@@ -54,12 +51,12 @@ export default function Signup() {
   //   const onError = (error: ApolloError) => {}
   const [
     createAccountMutation,
-    { loading, data: createAccountMutationResult },
+    { loading, data: createAccountMutationResult, error },
   ] = useMutation<createAccountMutation, createAccountMutationVariables>(
     CREATE_ACCOUNT_MUTATION,
     {
       onCompleted,
-      //   onError,
+      // onError,
     }
   );
 
@@ -80,22 +77,25 @@ export default function Signup() {
     }
   };
 
+  const newRoles = Object.keys(UserRole).splice(1, 3);
+
   return (
     <div className=" h-screen flex items-center flex-col pt-28 lg:pt-32 bg-cyan-50">
-     
-        <title>Signup | Crave ~ Food</title>
- 
+      <title>Signup | Crave ~ Food</title>
+
       <div className="w-full max-w-screen-sm flex px-5 flex-col items-center">
         {/* <img src={logo} alt="" className=" w-52 mb-10"/> */}
-         <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
-            cr
-            <FaHamburger className="w-11 h-11 mt-5 mx-1" />
-            ve
-          </span>
+        <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
+          cr
+          <FaHamburger className="w-11 h-11 mt-5 mx-1" />
+          ve
+        </span>
         <h4 className="w-full text-left text-3xl mb-5 font-semibold text-black font-sans">
           Let's get started
         </h4>
-        
+        <div className="w-full text-left text-black">
+          Be a partner with Crave by opening a restaurant or by doing delivery.
+        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid gap-3 mt-5 w-full mb-3"
@@ -189,11 +189,17 @@ export default function Signup() {
             <FormError errorMessage="Password must  be more than 10 chars." />
           )}
 
-          {/* <select  {...register("role", {required: true})} className="input ">
-                {Object.keys(UserRole).map((role, index) => (
-                    <option key={index}>{role}</option>
-                ))}
-            </select> */}
+          <select
+            {...register("role", { required: true })}
+            className="input appearance-none px-5 "
+          >
+            <option value="" disabled selected>
+              Select your role
+            </option>
+            {newRoles.map((role, index) => (
+              <option key={index}>{role}</option>
+            ))}
+          </select>
           <ButtonForm
             canClick={isValid}
             loading={loading}
