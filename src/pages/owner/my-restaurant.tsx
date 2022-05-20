@@ -85,36 +85,47 @@ export const MyRestaurant = () => {
           </div>
         </div>
         <div className="mt-1 mb-28 shadow-md bg-gray-200 rounded-lg items-center justify-center">
-         <>
-          <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
-            <VictoryLine
-              labels={({ datum }) => `$${datum.y}`}
-              labelComponent={
-                <VictoryLabel style={{ fontSize: 4 }} renderInPortal dy={-5} />
-              }
-              height={500}
-              width={window.innerWidth}
-              domainPadding={30}
-              theme={VictoryTheme.material}
-              data={data?.myRestaurant.restaurant?.orders.map((order) => ({
-                x: order.createdAt,
-                y: order.total,
-              }))}
-              interpolation="natural"
-              style={{
-                data: {
-                  stroke: "teal",
-                  strokeWidth: "2",
-                },
-              }}
-            />
+          <>
+            <VictoryChart containerComponent={<VictoryVoronoiContainer />}>
+              <VictoryLine
+                labels={({ datum }) => `$${datum.y}`}
+                labelComponent={
+                  <VictoryLabel
+                    style={{ fontSize: 4 }}
+                    renderInPortal
+                    dy={-2}
+                  />
+                }
+                height={500}
+                width={window.innerWidth}
+                domainPadding={30}
+                theme={VictoryTheme.material}
+                data={data?.myRestaurant.restaurant?.orders
+                  .slice(
+                    Math.max(
+                      data.myRestaurant.restaurant?.orders.length - 15,
+                      0
+                    )
+                  )
+                  .map((order) => ({
+                    x: order.createdAt,
+                    y: order.total,
+                  }))}
+                interpolation="natural"
+                style={{
+                  data: {
+                    stroke: "teal",
+                    strokeWidth: "2",
+                  },
+                }}
+              />
 
-            <VictoryAxis
-              style={{ tickLabels: { fontSize: 3 } }}
-              tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
-            />
-          </VictoryChart>
-         </>
+              <VictoryAxis
+                style={{ tickLabels: { fontSize: 3 } }}
+                tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
+              />
+            </VictoryChart>
+          </>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ const AccountDropdown = () => {
               <span>
                 {data?.me.avatar ? (
                   <img
-                    className="w-8 h-8  md:w-10 md:h-10 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                    className="w-8 h-8  md:w-10 md:h-10 rounded-full shadow-md bg-gray-100 bg-center object-cover"
                     src={`${data?.me.avatar}`}
                     alt="profile"
                     width="384"
