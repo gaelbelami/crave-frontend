@@ -6,9 +6,16 @@ import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import { Menu, Transition } from "@headlessui/react";
 import { FaUser } from "react-icons/fa";
+import { LOCALSTORAGE_TOKEN } from "../constants/constants";
 
 const AccountDropdown = () => {
   const { data } = useMe();
+  const logout = () => {
+    localStorage.clear();
+    localStorage.removeItem(LOCALSTORAGE_TOKEN);
+    window.location.reload();
+  };
+
   return (
     <div>
       <Menu as="div" className="relative inline-block text-left">
@@ -92,8 +99,8 @@ const AccountDropdown = () => {
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <Link
-                        to="/signout"
+                      <div
+                        onClick={logout}
                         className={`inline-flex px-4 py-2 mt-1 text-sm text-gray-700
                   
                   ${active && "bg-gray-200"}
@@ -103,7 +110,7 @@ const AccountDropdown = () => {
                       >
                         <IoLogOut className=" md:h-4 md:w-4 h-4 w-4 mr-2 justify-start items-start" />
                         Sign out
-                      </Link>
+                      </div>
                     )}
                   </Menu.Item>
                 </div>

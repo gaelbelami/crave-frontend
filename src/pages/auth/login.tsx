@@ -4,14 +4,17 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaHamburger, FaPenSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { authTokenVar, isLoggedInVar } from "../apollo";
-import { ButtonForm } from "../components/form-button";
-import { FormError } from "../components/form-error";
-import { LOCALSTORAGE_TOKEN } from "../constants/constants";
-import { LOGIN_MUTATION } from "../graphql/query-mutation";
-import { ILoginForm } from "../interfaces/user.interface";
-import { emailRegex } from "../utils/regex";
-import { loginMutation, loginMutationVariables } from "../generated/loginMutation";
+import { authTokenVar, isLoggedInVar } from "../../apollo";
+import { ButtonForm } from "../../components/form-button";
+import { FormError } from "../../components/form-error";
+import { LOCALSTORAGE_TOKEN } from "../../constants/constants";
+import { LOGIN_MUTATION } from "../../graphql/query-mutation";
+import { ILoginForm } from "../../interfaces/user.interface";
+import { emailRegex } from "../../utils/regex";
+import {
+  loginMutation,
+  loginMutationVariables,
+} from "../../generated/loginMutation";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { GiHotMeal } from "react-icons/gi";
 import { MdDeliveryDining } from "react-icons/md";
@@ -61,9 +64,7 @@ export default function Login() {
 
   return (
     <div className=" h-screen flex items-center flex-col  justify-center  bg-cyan-50">
-        
-        <title>Login | Crave ~ Food</title>
-
+      <title>Login | Crave ~ Food</title>
 
       <div className="w-full  md:grid grid-cols-2">
         <div className="md:flex justify-center my-auto pb-80 hidden">
@@ -106,21 +107,18 @@ export default function Login() {
           </div>
         </div>
         <div className="w-full max-w-screen-sm flex px-5 flex-col items-center   justify-center mx-auto">
-        
-            
-            <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
+          <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
             cr
             <FaHamburger className="w-11 h-11 mt-5 mx-1" />
             ve
           </span>
-         
+
           <h4 className="w-full text-left text-3xl mb-5 font-semibold font-sans">
             Welcome Back
           </h4>
           <div className="w-full text-left text-black">
             Sign in with your email address and password
-          
-         </div>
+          </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid gap-3 mt-5 w-full mb-3"
@@ -189,10 +187,8 @@ export default function Login() {
             Login
           </div> */}
           <div className="cursor-pointer flex py-2 px-4 rounded-lg border font-semibold shadow-md border-teal-600 text-teal-600">
-            <FaPenSquare className=" text-2xl mr-2" /> 
-            <Link to="/signup-business">
-            Register
-            </Link>
+            <FaPenSquare className=" text-2xl mr-2" />
+            <Link to="/signup-business">Register</Link>
           </div>
         </div>
       </div>

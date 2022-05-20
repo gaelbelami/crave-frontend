@@ -4,15 +4,15 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { ButtonForm } from "../components/form-button";
-import { FormError } from "../components/form-error";
-import { CREATE_ACCOUNT_MUTATION } from "../graphql/query-mutation";
-import { emailRegex, nameRegex } from "../utils/regex";
+import { ButtonForm } from "../../components/form-button";
+import { FormError } from "../../components/form-error";
+import { CREATE_ACCOUNT_MUTATION } from "../../graphql/query-mutation";
+import { emailRegex, nameRegex } from "../../utils/regex";
 import {
   createAccountMutation,
   createAccountMutationVariables,
-} from "../generated/createAccountMutation";
-import { UserRole } from "../generated/globalTypes";
+} from "../../generated/createAccountMutation";
+import { UserRole } from "../../generated/globalTypes";
 import { FaHamburger } from "react-icons/fa";
 
 export interface ICreateAccountForm {

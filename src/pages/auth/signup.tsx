@@ -4,15 +4,15 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { ButtonForm } from "../components/form-button";
-import { FormError } from "../components/form-error";
-import { CREATE_ACCOUNT_MUTATION } from "../graphql/query-mutation";
-import { emailRegex, nameRegex } from "../utils/regex";
+import { ButtonForm } from "../../components/form-button";
+import { FormError } from "../../components/form-error";
+import { CREATE_ACCOUNT_MUTATION } from "../../graphql/query-mutation";
+import { emailRegex, nameRegex } from "../../utils/regex";
 import {
   createAccountMutation,
   createAccountMutationVariables,
-} from "../generated/createAccountMutation";
-import { UserRole } from "../generated/globalTypes";
+} from "../../generated/createAccountMutation";
+import { UserRole } from "../../generated/globalTypes";
 import { FaHamburger } from "react-icons/fa";
 
 export interface ICreateAccountForm {
@@ -82,20 +82,19 @@ export default function Signup() {
 
   return (
     <div className=" h-screen flex items-center flex-col pt-28 lg:pt-32 bg-cyan-50">
-     
-        <title>Signup | Crave ~ Food</title>
- 
+      <title>Signup | Crave ~ Food</title>
+
       <div className="w-full max-w-screen-sm flex px-5 flex-col items-center">
         {/* <img src={logo} alt="" className=" w-52 mb-10"/> */}
-         <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
-            cr
-            <FaHamburger className="w-11 h-11 mt-5 mx-1" />
-            ve
-          </span>
+        <span className="italic  font-extrabold text-7xl inline-flex items-center text-teal-600 mb-10">
+          cr
+          <FaHamburger className="w-11 h-11 mt-5 mx-1" />
+          ve
+        </span>
         <h4 className="w-full text-left text-3xl mb-5 font-semibold text-black font-sans">
           Let's get started
         </h4>
-        
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid gap-3 mt-5 w-full mb-3"

@@ -1,5 +1,5 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ME_QUERY, useMe } from "../../../hooks/useMe";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,18 +9,25 @@ import {
   editProfileMutationVariables,
 } from "../../../generated/editProfileMutation";
 import { IEditProfileForm } from "../../../interfaces/user.interface";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { ButtonForm } from "../../../components/form-button";
 import { IoMdCloudUpload } from "react-icons/io";
-import { BiReset } from "react-icons/bi";
+import { BiCalendar, BiReset } from "react-icons/bi";
 import { FormError } from "../../../components/form-error";
 import { BsImageFill } from "react-icons/bs";
 import { EDIT_PROFILE_MUTATION } from "../../../graphql/query-mutation";
 import ToastAutoClose from "../../../components/toast";
 import { nameRegex, usernameRegex } from "../../../utils/regex";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { IoCalendarNumber } from "react-icons/io5";
 
 export const GeneralTab = () => {
   const [uploading, setUploading] = useState(false);
+
+  const [calendar, setCalendar] = useState(false);
+
+  const [calendarValue, onChange] = useState(new Date());
 
   const { data: userData } = useMe();
 
@@ -104,9 +111,11 @@ export const GeneralTab = () => {
   });
 
   const {
+    control,
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors, isValid },
   } = useForm<IEditProfileForm>({
     mode: "onChange",
@@ -152,18 +161,21 @@ export const GeneralTab = () => {
             phoneNumber,
             address,
             avatar,
-            birthdate,
+            birthdate: calendarValue.toLocaleDateString(),
           },
         },
       });
     } catch (error) {}
   };
 
+  const showCalendar = () => {
+    setCalendar(!calendar);
+  };
+
   return (
     <div>
-      
-        <title>Profile Details</title>
-      
+      <title>Profile Details</title>
+
       <div className="border-b border-gray-300">
         <h2 className=" font-extrabold text-lg mb-5 text-gray-700 ">
           Profile Details
@@ -278,13 +290,56 @@ export const GeneralTab = () => {
             placeholder="Address"
             className="input"
           />
-          <input
-            {...register("birthdate")}
-            name="birthdate"
-            type="text"
-            placeholder="Birthdate"
-            className="input"
-          />
+          {/* <div className=" inline-flex items-center">
+            <input
+              {...register("birthdate")}
+              name="birthdate"
+              type="text"
+              placeholder="Birthdate"
+              className="input"
+            />
+            <IoCalendarNumber
+              onClick={showCalendar}
+              className=" ml-4 text-3xl text-gray-600"
+            />
+          </div> */}
+
+          <div className="relative">
+            <div className=" flex">
+              <span className=" border border-gray-300 px-5 py-3  rounded-lg shadow-inner font-semibold text-gray-500 grow">
+                {getValues().birthdate}
+              </span>
+              <IoCalendarNumber
+                onClick={showCalendar}
+                className=" ml-4 text-3xl text-gray-600"
+              />
+            </div>
+            {calendar && (
+              <Fragment>
+                <div className="absolute right-0">
+                  <Controller
+                    control={control}
+                    name="birthdate"
+                    render={({ field: { value } }) => (
+                      <Calendar
+                        className={`rounded-md`}
+                        onChange={onChange}
+                        // value={calendarValue}
+                        onClickDay={() =>
+                          setValue(
+                            "birthdate",
+                            calendarValue.toLocaleDateString()
+                          )
+                        }
+                      />
+                    )}
+                  />
+                </div>
+              </Fragment>
+            )}
+          </div>
+
+          {/* {calendar && <Calendar onChange={onChange} value={calendarValue} />} */}
 
           <ButtonForm
             loading={uploading}

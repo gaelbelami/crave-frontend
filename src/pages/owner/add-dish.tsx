@@ -107,9 +107,8 @@ export const AddDish = () => {
   const nameRegex = /^([^0-9]*)$/;
   return (
     <div className=" min-h-screen">
-  
-        <title>Create Dish | Crave ~ Food</title>
-   
+      <title>Create Dish | Crave ~ Food</title>
+
       <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 rounded-lg shadow-md pt-8 pb-5">
         <h2 className=" text-xl font-extrabold text-slate-700 md:text-2xl mb-2">
           Add Dish
@@ -176,30 +175,30 @@ export const AddDish = () => {
               </span>
             </div>
             {fields.map((field, index) => (
-              <div key={field.id} className=" mt-5 flex-wrap flex">
+              <div key={field.id} className=" mt-5  flex flex-wrap">
                 <input
                   {...register(`options.choices.${index}.name` as const)}
-                  className=" py-2 px-4 focus:border-teal-500 border-2 rounded-lg mr-3 focus:outline-none "
+                  className=" py-1 px-2 md:py-2 md:px-4 text-sm md:text-base focus:border-teal-500 border-2 rounded-lg md:mr-3 focus:outline-none "
                   type="text"
                   placeholder="Option Name"
                 />
                 <input
                   {...register(`options.choices.${index}.extra` as const)}
-                  className=" py-2 px-4 focus:border-teal-500 border-2 rounded-lg focus:outline-none "
+                  className=" py-1 px-2 md:py-2 md:px-4 text-sm md:text-base focus:border-teal-500 border-2 rounded-lg focus:outline-none "
                   type="number"
                   min={0}
                   placeholder="Option Extra price"
                 />
                 <span
                   onClick={() => onDeleteClick(index)}
-                  className="cursor-pointer shadow-md items-center inline-flex justify-self-center text-white rounded-xl font-semibold bg-red-500 py-2 px-2 ml-4"
+                  className="cursor-pointer shadow-md items-center inline-flex justify-self-center text-white rounded-xl font-semibold bg-red-500 py-2 px-2 ml-2"
                 >
                   <AiFillDelete className="mx-2" />
                 </span>
-                <span className="cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-teal-500 py-2 px-4 ml-4">
+                {/* <span className="py-1 px-2 md:py-2 md:px-4 cursor-pointer shadow-md items-center justify-center inline-flex text-white rounded-xl font-semibold bg-teal-500 ml-2">
                   <MdAddCircle className="mr-2" />
                   Choice
-                </span>
+                </span> */}
               </div>
             ))}
           </div>
