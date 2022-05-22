@@ -305,7 +305,7 @@ export const GeneralTab = () => {
           </div> */}
 
           <div className="relative">
-            <div className=" flex">
+            <div className=" flex items-center">
               <span className=" border border-gray-300 px-5 py-3  rounded-lg shadow-inner font-semibold text-gray-500 grow">
                 {getValues().birthdate}
               </span>
@@ -325,6 +325,7 @@ export const GeneralTab = () => {
                         className={`rounded-md`}
                         onChange={onChange}
                         // value={calendarValue}
+                        maxDate={new Date()}
                         onClickDay={() =>
                           setValue(
                             "birthdate",

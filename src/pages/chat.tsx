@@ -28,10 +28,7 @@ import {
   myMessagesQuery,
   myMessagesQueryVariables,
 } from "../generated/myMessagesQuery";
-import {
-  sendMessage,
-  sendMessageVariables,
-} from "../generated/sendMessage";
+import { sendMessage, sendMessageVariables } from "../generated/sendMessage";
 import { watchMessagesSubscription } from "../generated/watchMessagesSubscription";
 import { Helmet } from "react-helmet-async";
 import { RiChatSmile2Fill } from "react-icons/ri";
@@ -237,9 +234,8 @@ export const Chat = () => {
 
   return (
     <div className=" bg-gray-100 ">
-      
-        <title>Chat | Crave ~ Eat</title>
-    
+      <title>Chat | Crave ~ Eat</title>
+
       <div className="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
         <div className="w-full mb-48">
           <Breadcrumb step1="Home" step2="Chat" />
@@ -288,7 +284,7 @@ export const Chat = () => {
                             {chat.user1.id === me?.me.id ? (
                               chat.user2.avatar ? (
                                 <img
-                                  className=" w-10 h-10 md:w-12 md:h-12 mr-4 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                                  className=" w-10 h-10 md:w-12 md:h-12 mr-4 rounded-full shadow-md bg-gray-100 bg-center object-cover"
                                   src={`${chat.user2.avatar}`}
                                   alt="profile"
                                   width="384"
@@ -362,7 +358,7 @@ export const Chat = () => {
                       {avatar ? (
                         <span className="relative">
                           <img
-                            className=" w-10 h-10 md:w-12 md:h-12 mr-2 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                            className=" w-10 h-10 md:w-12 md:h-12 mr-2 rounded-full shadow-md bg-gray-100 bg-center object-cover"
                             src={`${avatar}`}
                             alt="profile"
                             width="384"
@@ -400,7 +396,7 @@ export const Chat = () => {
                           {message.sender.id !== me?.me.id &&
                           message.sender.avatar ? (
                             <img
-                              className=" w-10 h-10 md:w-12 md:h-12 md:mr-2 rounded-full shadow-md bg-gray-500 bg-center object-cover"
+                              className=" w-10 h-10 md:w-12 md:h-12 md:mr-2 rounded-full shadow-md bg-gray-100 bg-center object-cover"
                               src={`${message.sender.avatar}`}
                               alt="profile"
                               width="384"
