@@ -147,7 +147,7 @@ export const GeneralTab = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch(BASE_URL, {
+        await fetch(`${BASE_URL}/upload`, {
           method: "POST",
           body: formBody,
         })
