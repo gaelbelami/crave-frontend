@@ -12,7 +12,7 @@ import { IEditProfileForm } from "../../../interfaces/user.interface";
 import { Controller, useForm } from "react-hook-form";
 import { ButtonForm } from "../../../components/form-button";
 import { IoMdCloudUpload } from "react-icons/io";
-import { BiCalendar, BiReset } from "react-icons/bi";
+import { BiReset } from "react-icons/bi";
 import { FormError } from "../../../components/form-error";
 import { BsImageFill } from "react-icons/bs";
 import { EDIT_PROFILE_MUTATION } from "../../../graphql/query-mutation";
@@ -21,6 +21,7 @@ import { nameRegex, usernameRegex } from "../../../utils/regex";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { IoCalendarNumber } from "react-icons/io5";
+import { BASE_URL } from "../../../constants/constants";
 
 export const GeneralTab = () => {
   const [uploading, setUploading] = useState(false);
@@ -94,7 +95,7 @@ export const GeneralTab = () => {
         });
         // Swal.fire("Success?", "Profile updated successfully", "success");
       } catch (error) {
-        throw new Error("Could not update cash");
+        throw new Error("Could not update profile");
       }
     }
   };
@@ -146,7 +147,7 @@ export const GeneralTab = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("http://localhost:4000/uploads/", {
+        await fetch(BASE_URL, {
           method: "POST",
           body: formBody,
         })

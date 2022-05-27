@@ -80,7 +80,6 @@ export const AddDish = () => {
         name: option.name,
         extra: +option.extra,
       }));
-      console.log(optionsObj);
       createDishMutation({
         variables: {
           createDishInput: {

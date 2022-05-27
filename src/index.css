@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url(./fonts/Poppins-Regular.ttf) format('ttf');
+}
+
+
 .input {
   @apply bg-gray-100 shadow-inner focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-90 py-3 px-5 rounded-lg text-black
 }

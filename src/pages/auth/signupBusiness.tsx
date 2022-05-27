@@ -188,6 +188,9 @@ export default function BusinessSignup() {
           {errors.password?.type === "minLength" && (
             <FormError errorMessage="Password must  be more than 10 chars." />
           )}
+          {errors.password?.type === "pattern" && (
+            <FormError errorMessage="Please enter a valid password. Should contain a capital letter, a number and a special character" />
+          )}
 
           <select
             {...register("role", { required: true })}

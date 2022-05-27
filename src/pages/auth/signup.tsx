@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { ButtonForm } from "../../components/form-button";
 import { FormError } from "../../components/form-error";
 import { CREATE_ACCOUNT_MUTATION } from "../../graphql/query-mutation";
-import { emailRegex, nameRegex } from "../../utils/regex";
+import { emailRegex, nameRegex, passwordRegex } from "../../utils/regex";
 import {
   createAccountMutation,
   createAccountMutationVariables,
@@ -172,6 +172,7 @@ export default function Signup() {
           <input
             {...register("password", {
               required: "Password is required",
+              pattern: passwordRegex,
               minLength: 8,
             })}
             name="password"
@@ -186,6 +187,9 @@ export default function Signup() {
           )}
           {errors.password?.type === "minLength" && (
             <FormError errorMessage="Password must  be more than 10 chars." />
+          )}
+          {errors.password?.type === "pattern" && (
+            <FormError errorMessage="Please enter a valid password. Should contain a capital letter, a number and a special character" />
           )}
 
           {/* <select  {...register("role", {required: true})} className="input ">
