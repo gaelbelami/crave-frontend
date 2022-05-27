@@ -44,7 +44,7 @@ export default function Signup() {
       // alert("Account Created! Log in now");
       Swal.fire({
         title: <h1 className=" font-semibold">Login now</h1>,
-        html: "<h1 className={font-sans}>Account Created Successfully</h1>",
+        html: "Account Created Successfully",
         icon: "success",
       });
       history("/");
