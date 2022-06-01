@@ -508,12 +508,12 @@ export const Chat = () => {
               </section>
             ) : (
               side === false && (
-                <div className=" bg-white rounded-lg shadow-md w-full  flex flex-col items-center justify-center">
+                <div
+                  onClick={toggleSide}
+                  className=" bg-white rounded-lg shadow-md w-full  flex flex-col items-center justify-center"
+                >
                   <HiChatAlt2 className=" text-8xl text-teal-600 text-opacity-50" />
-                  <h5
-                    onClick={toggleSide}
-                    className=" text-md font-semibold text-teal-600 text-opacity-50 cursor-pointer"
-                  >
+                  <h5 className=" text-md font-semibold text-teal-600 text-opacity-50 cursor-pointer">
                     Start a conversation
                   </h5>
                 </div>

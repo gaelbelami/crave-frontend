@@ -22,6 +22,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { IoCalendarNumber } from "react-icons/io5";
 import { BASE_URL } from "../../../constants/constants";
+import { TiWarning } from "react-icons/ti";
 
 export const GeneralTab = () => {
   const [uploading, setUploading] = useState(false);
@@ -276,6 +277,11 @@ export const GeneralTab = () => {
             placeholder="Username"
             className="input"
           />
+          <div className=" font-semibold text-sm flex items-center mt-1 bg-amber-200 rounded-lg p-1 opacity-75">
+            <TiWarning className="mr-2" />
+            If you just created an account, you have to change your username in
+            order to submit this form.
+          </div>
 
           <input
             {...register("phoneNumber")}
