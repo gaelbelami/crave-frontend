@@ -19,10 +19,6 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 <hr />
 <br />
 
-## Overview
-
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif)
-
 ## Screenshorts of the website
 
 ![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png)
