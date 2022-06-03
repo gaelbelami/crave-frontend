@@ -21,25 +21,25 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 
 ## Overview
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif)
 
 ## Screenshorts of the website
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img2.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img2.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img3.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img3.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img4.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img4.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img5.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img5.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img6.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img6.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img7.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img7.png)
 
-![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img8.png | width=100)
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img8.png)
 
 ## 💡 Main Users Roles
 
