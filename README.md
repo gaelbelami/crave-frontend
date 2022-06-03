@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# 🍔 Crave Eats Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📖 Overview
 
-## Available Scripts
+This is Crave Eats.<br />
+It is a delivery food service mainly composed of a restaurant, customers, and delivery personnel.<br />
 
-In the project directory, you can run:
+<hr />
+<br />
 
-### `npm start`
+## 🔗 Link to Repo Crave backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [crave-frontend](https://github.com/gaelbelami/crave-backend)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🔗 Link to Crave website
 
-### `npm test`
+- [Deployed version](https://celebrated-zabaione-7b950c.netlify.app/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<hr />
+<br />
 
-### `npm run build`
+## Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif "overview")
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Screenshorts of the website
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png "overview")
 
-### `npm run eject`
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png "img1")
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img2.png "img2")
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img3.png "img3")
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img4.png "img4")
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img5.png "img5")
 
-## Learn More
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img6.png "img6")
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img7.png "img7")
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img8.png "img8")
+
+## 💡 Main Users Roles
+
+- 🙍‍♂Client - orders food
+- 👨‍🍳Owner - shop owner who runs the restaurant
+- 🛵Driver - the delivery person
+  <br />
+
+## 📃 Features
+
+- Authentication for all the users based on their roles
+- Customer:
+
+  - [x] Ability to RUD his profile
+  - [x] Can order meal or cancel order
+
+- Restaurant Owner:
+
+  - [x] Ability to RUD his profile and the restaurant as well
+  - [x] Can manage the restaurant
+  - [x] Can CRUD dishes
+  - [x] Can accept orders
+  - [x] Can do much more ...
+
+- Delivery:
+
+  - [x] Ability to RUD his profile
+  - [x] Can pick up and deliver orders
+  - [x] Can do much more ...
+
+- The delivery process is realtime for all end users
+
+- Ability to communicate through chat(customer, restaurant, delivery)
+
+## 💻 Stack
+
+- [x] Typescript
+- [x] React.js
+- [x] GraphQL (Apollo Client)
+- [x] Victory chart
+- [x] Tailwind CSS
+- [x] Leaflet.js
+
+## 📝 To Do:
+
+- Customer : add favorite dishes
+- Order : add quantity
