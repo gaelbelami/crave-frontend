@@ -8,9 +8,9 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 <hr />
 <br />
 
-## 🔗 Link to Repo Crave backend
+## 🔗 Link to Crave backend Repo
 
-- [crave-frontend](https://github.com/gaelbelami/crave-backend)
+- [crave-frontend](https://github.com/gaelbelami/crave-server)
 
 ## 🔗 Link to Crave website
 
@@ -21,27 +21,25 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 
 ## Overview
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif "overview")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/overview.gif | width=100)
 
 ## Screenshorts of the website
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png "overview")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img1.png "img1")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img2.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img2.png "img2")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img3.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img3.png "img3")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img4.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img4.png "img4")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img5.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img5.png "img5")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img6.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img6.png "img6")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img7.png | width=100)
 
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img7.png "img7")
-
-![alt text](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img8.png "img8")
+![](https://github.com/gaelbelami/crave-frontend/tree/master/screenshots/img8.png | width=100)
 
 ## 💡 Main Users Roles
 
