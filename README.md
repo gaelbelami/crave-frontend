@@ -10,7 +10,7 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 
 ## 🔗 Link to Crave backend Repo
 
-- [crave-frontend](https://github.com/gaelbelami/crave-server)
+- [crave-server](https://github.com/gaelbelami/crave-server)
 
 ## 🔗 Link to Crave website
 
@@ -23,7 +23,7 @@ It is a delivery food service mainly composed of a restaurant, customers, and de
 
 ![Preview](screenshots/overview.gif)
 
-## Screenshorts of the website
+## Screenshots of the website
 
 ![Preview](screenshots/img1.png)
 
