@@ -148,7 +148,7 @@ export const GeneralTab = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("http://localhost:4000/uploads/", {
+        await fetch("https://crave-eat-backend.herokuapp.com/upload", {
           method: "POST",
           body: formBody,
         })

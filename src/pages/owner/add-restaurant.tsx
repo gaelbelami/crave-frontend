@@ -87,7 +87,7 @@ export const Addrestaurant = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("http://localhost:4000/uploads/", {
+        await fetch("https://crave-eat-backend.herokuapp.com/upload", {
           method: "POST",
           body: formBody,
         })
@@ -108,9 +108,8 @@ export const Addrestaurant = () => {
   };
   return (
     <div className=" min-h-screen">
+      <title>Create Restaurant | Crave ~ Food</title>
 
-        <title>Create Restaurant | Crave ~ Food</title>
-     
       <div className="mt-10 flex flex-col justify-center items-center border border-gray-400 pt-8 pb-5 rounded-lg">
         <h2 className="text-xl font-bold text-slate-700 md:text-2xl mb-2">
           Add Restaurant
