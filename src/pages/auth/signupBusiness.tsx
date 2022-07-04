@@ -40,8 +40,8 @@ export default function BusinessSignup() {
     if (ok) {
       // alert("Account Created! Log in now");
       Swal.fire({
-        title: <h1 className=" font-semibold">Login now</h1>,
-        html: "<h1 className={font-sans}>Account Created Successfully</h1>",
+        title: "Login now",
+        html: "Business Account Created Successfully",
         icon: "success",
       });
       history("/");
