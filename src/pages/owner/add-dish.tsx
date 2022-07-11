@@ -61,6 +61,11 @@ export const AddDish = () => {
     ],
   });
 
+  const uploadLink =
+    process.env.NODE_ENV === "production"
+      ? "https://crave-eat-backend.herokuapp.com/upload"
+      : "http://localhost:4000/upload";
+
   const onSubmit = async () => {
     try {
       setUploading(true);
@@ -69,7 +74,7 @@ export const AddDish = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("http://localhost:4000/uploads/", {
+        await fetch(uploadLink, {
           method: "POST",
           body: formBody,
         })
