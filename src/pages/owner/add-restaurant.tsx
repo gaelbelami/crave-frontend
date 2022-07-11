@@ -91,7 +91,7 @@ export const Addrestaurant = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("http://localhost:4000/upload", {
+        await fetch(uploadLink, {
           method: "POST",
           body: formBody,
         })
