@@ -74,7 +74,7 @@ export const AddDish = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch(uploadLink, {
+        await fetch("http://localhost:4000/upload", {
           method: "POST",
           body: formBody,
         })
