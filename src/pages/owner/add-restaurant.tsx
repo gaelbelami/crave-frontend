@@ -87,7 +87,7 @@ export const Addrestaurant = () => {
       const formBody = new FormData();
       formBody.append("file", actualFile);
       const request = await (
-        await fetch("https://crave-eat-backend.herokuapp.com/upload", {
+        await fetch("http://localhost:4000/uploads/", {
           method: "POST",
           body: formBody,
         })
